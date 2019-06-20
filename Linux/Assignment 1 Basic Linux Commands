@@ -1,0 +1,21 @@
+Commands Breakdown:
+Command											Function
+1.curl -s http://public-dns.info/nameserver/br.csv 		Download the csv file given in the url (-s)silently without showing progress and output it.
+2.cut -d, -f1							Select the first part from every line (-f1), where each part is seperated by a comma(-d ,)
+3.shuf								Generate random permutations of ip addresses list obtained from the previous command
+4.tail -n 50							Take the last (-n 50) 50 lines from the above command
+5.1 xargs -i timeout 1 ping -c1 -w 1 {}				Execute the ping command from stdin(terminal itself) by replacing the {} with the replace-string timeout
+5.2 ping -c1 w timeout						ping each ip address only with 1 ECHO_REQUEST packets and wait for 1 second before exiting.
+6.grep "time="							From each of the ping responses select the lines which matches the pattern "time="
+7.1. awk '{print substr($7, 6, length($7))			Select the pattern that matches the the result of the command stated in '{}' 
+	  " " substr($4, 1, length($4) -1)}' 
+7.2.print substr($7, 6, length($7))                             print the part of the string that starts with 7th word starting from 6th charecter therafter, taking
+    " "                            				upto the length of entire 7th word. (Basically select the time part without ms), followed by a space
+    substr($4, 1, length($4) -1)                                Also print the part of the string that starts with 4th word starting from 1st charecter until 
+								the length of entire 4th word excluding one character (ie. ':')(Basically select the ip address part 									without ":" character)
+
+8.sort -n 							Sort the strings as per their (-n) numeric value
+
+9.awk '{print $2 " " $1 "ms"}' 					From the sorted strings select the portion in such a way that first we print 2nd part followed by a 									white space then the first part followed by the characters "ms". (Basically reformats previous output 									into a desired format).
+10. head -n 10							Select the first (-n 10)10 lines from above output.
+
