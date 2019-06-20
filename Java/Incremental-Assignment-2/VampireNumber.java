@@ -1,4 +1,4 @@
-class Code
+class VampireNumber
 {
   public static int getDigits(int number)
   {
