@@ -8,10 +8,9 @@ public class MySingleton
    obj.refString = refString;
    return obj;
  }
-/*
- public static void printString()
+
+ public void printString()
  {
    System.out.println(refString);
  }
-  */
 }
