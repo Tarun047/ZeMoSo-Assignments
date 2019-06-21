@@ -1,3 +1,11 @@
+/*
+Question 1:
+1. A vampire number v is a number with an even number of digits n,
+that can be factored into two numbers x and y each with n/2 digits and not both with trailing zeroes,
+where v contains precisely all the digits from x and from y, in any order.
+Write a java program to print first 100 vampire numbers.
+Example: 2160 = 12*60 where 12 and 60 contain all the digits from 2160
+*/
 class VampireNumber
 {
   public static int getDigits(int number)

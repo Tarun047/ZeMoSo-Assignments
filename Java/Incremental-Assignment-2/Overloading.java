@@ -1,3 +1,8 @@
+/*
+Question 2
+2. Create a class with two (overloaded) constructors.
+ Using this, call the second constructor inside the first one.
+*/
 class Overloading
 {
   String message;
