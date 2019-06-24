@@ -1,7 +1,7 @@
 import java.util.regex.Pattern;
 /*
 
-String and Type Information
+Question:
 
 Using the documentation for java.util.regex.Pattern as a resource,
 write and test a regular expression that checks a sentence to see that it begins with a capital letter
