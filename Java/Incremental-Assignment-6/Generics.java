@@ -1,14 +1,14 @@
 /*
-Create a generic, singly linked list class called SList, which, to keep things simple, 
+Create a generic, singly linked list class called SList, which, to keep things simple,
 does not implement the List interface.
 
-Each Link object in the list should contain a reference to the next element in the list, 
+Each Link object in the list should contain a reference to the next element in the list,
 but not the previous one (LinkedList, in contrast, is a doubly linked list, which means it maintains links in both directions).
 
-Create your own SListIterator which, again for simplicity, does not implement ListIterator. 
+Create your own SListIterator which, again for simplicity, does not implement ListIterator.
 The only method in SList other than toString( ) should be iterator( ), which produces an SListIterator.
 
-The only way to insert and remove elements from an SList is through SListIterator. 
+The only way to insert and remove elements from an SList is through SListIterator.
 Write code to demonstrate SList.
 */
 class SList<T>
@@ -49,10 +49,16 @@ class SList<T>
       }
     }
 
-    void remove(T data)
+    void remove()
     {
-      if(head==null)
+      if(head==null||curr==null)
           return;
+      else if(curr==head)
+      {
+        head = head.next;
+        curr=head;
+        prev=head;
+      }
       else
         {
           prev.next=curr.next;
@@ -98,6 +104,12 @@ class Generics
     iter.add(20);
     iter.next();
     iter.add(30);
+    System.out.println(lis);
+    iter.next();
+    iter.remove();
+    System.out.println(lis);
+    iter = lis.iterator();
+    iter.remove();
     System.out.println(lis);
   }
 }
