@@ -19,6 +19,7 @@ class Ping
     String cmd[] = new String[]{
       "ping",
       host,
+      "-n",
       "-c",
       Integer.toString(NUM_PINGS),
     };
@@ -37,7 +38,7 @@ class Ping
     for(int i=0;i<NUM_PINGS;i++)
     {
       String info[]=br.readLine().split(" ");
-      pingTimes[i] = Double.parseDouble(info[7].substring(5));
+      pingTimes[i] = Double.parseDouble(info[6].substring(5));
     }
     Arrays.sort(pingTimes);
   }
