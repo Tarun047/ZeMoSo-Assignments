@@ -60,11 +60,13 @@ class MyCode
   public static void main(String args[])
   {
     Scanner sc = new Scanner(System.in);
+    System.out.println("Enter number of Tests: ");
     int t = sc.nextInt();
     sc.nextLine();
     Solution mySolution = new Solution();
     while(t-->0)
     {
+      System.out.println("Enter Y,A,B,W values: ");
       String test[] = sc.nextLine().split(" ");
       System.out.println("Number of Weeks are: "+mySolution.solution(Integer.parseInt(test[0]),test[1],test[2],test[3]));
     }
