@@ -18,8 +18,14 @@ class Guard implements Vault {
     {
 
        File f =  new File(".locker/"+filename);
-       if(!f.exists())
-           f.createNewFile();
+       if(!f.exists()) {
+           if (f.createNewFile()) {
+               System.out.println("Creation Successful");
+           }
+           else {
+               System.out.println("Can't create a file");
+           }
+       }
        else
            System.out.println("File already present");
     }

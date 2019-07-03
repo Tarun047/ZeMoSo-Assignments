@@ -7,12 +7,20 @@ import java.util.Arrays;
 
 
 public class Solution {
-
+    static void list(Vault myContainer)
+    {
+        System.out.println("The files in vault are: "+Arrays.toString(myContainer.listFiles()));
+    }
     public static void main(String[] args)throws IOException
     {
 
         Vault myContainer = new Container();
-        System.out.println("The files in vault are: "+Arrays.toString(myContainer.listFiles()));
+        list(myContainer);
+        Container.demoCreate(); // Limited access on create
+        list(myContainer);
+        Container.demoDelete(); //Limited access on delete
+        list(myContainer);
+
     }
 
 }
