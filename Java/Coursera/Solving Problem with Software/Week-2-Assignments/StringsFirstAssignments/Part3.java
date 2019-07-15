@@ -1,4 +1,4 @@
-package StringsFirstAssignments;
+
 
 import java.util.function.*;
 class Part3

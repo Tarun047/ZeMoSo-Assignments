@@ -1,5 +1,3 @@
-package StringsFirstAssignments;
-
 import java.util.List;
 import java.util.Arrays;
 class Part1
@@ -23,6 +21,7 @@ class Part1
      List<String> tests = Arrays.asList(
        "ATGTAA",
        "ATGGTATAA",
+       "AAATGCCCTAACTAGATTAAGAAACC",
        "AGTCAA",
        "ATGAGCCGTAATCGAC",
        "ATGGCTCCATAA",
