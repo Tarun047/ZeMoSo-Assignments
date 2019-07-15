@@ -1,3 +1,5 @@
+package StringsFirstAssignments;
+
 import java.util.List;
 import java.util.Arrays;
 class Part1
