@@ -130,8 +130,7 @@ class Part1C
   public static void processGenes(StorageResource sr)
   {
 
-
-    System.out.println("The number of Strings whose length is greater than 60 are: ");
+    System.out.println(sr.size()+"\n"+"The number of Strings whose length is greater than 60 are: ");
     getResult(sr,s->s.length()>60);
     System.out.println("The number of Strings whose length is cg ratio than 0.35 are: ");
     getResult(sr,s->cgRatio(s)>0.35);
