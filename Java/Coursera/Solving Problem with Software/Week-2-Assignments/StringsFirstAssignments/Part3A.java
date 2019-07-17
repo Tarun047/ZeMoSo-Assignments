@@ -1,7 +1,7 @@
 
 
 import java.util.function.*;
-class Part3
+class Part3A
 {
   public boolean twoOccourences(String a,String b)
   {
@@ -62,7 +62,7 @@ class Part3
   }
 
   public static void main(String[] args) {
-    new Part3().testing();
+    new Part3A().testing();
   }
 
 }

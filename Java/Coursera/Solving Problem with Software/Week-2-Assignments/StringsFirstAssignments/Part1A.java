@@ -1,6 +1,6 @@
 import java.util.List;
 import java.util.Arrays;
-class Part1
+class Part1A
 {
 
   public String findSimpleGene(String dna)
@@ -40,7 +40,7 @@ class Part1
 
   public static void main(String[] args)
   {
-    new Part1().testSimpleGene();
+    new Part1A().testSimpleGene();
   }
 
 }

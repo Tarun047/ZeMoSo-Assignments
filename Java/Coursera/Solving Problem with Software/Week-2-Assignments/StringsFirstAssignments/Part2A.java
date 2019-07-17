@@ -2,7 +2,7 @@
 
 import java.util.Arrays;
 import java.util.List;
-class Part2
+class Part2A
 {
   public String findSimpleGene(String dna,String startCodon,String stopCodon)
   {
@@ -47,7 +47,7 @@ class Part2
 
   }
   public static void main(String[] args) {
-    new Part2().testSimpleGene();
+    new Part2A().testSimpleGene();
   }
 
 }
