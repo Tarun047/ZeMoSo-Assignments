@@ -23,7 +23,7 @@ public class Temperature {
     {
         FileResource fr = new FileResource();
         CSVRecord record = coldestHourInFile(fr.getCSVParser());
-        System.out.format("The Coldest temperature is at: %s and is %s F\n",record.get("TimeEST"),record.get("TemperatureF"));
+        System.out.format("The Coldest temperature is at: %s and is %s F\n",record.get("DateUTC"),record.get("TemperatureF"));
     }
 
     static double extractMinPropFromFile(File f, Function<CSVParser,CSVRecord> function,String prop)
@@ -41,12 +41,14 @@ public class Temperature {
                 min(Comparator.
                         comparingDouble(file->extractMinPropFromFile(file,Temperature::coldestHourInFile,"TemperatureF"))).
                 get().
-                getName();
+                getAbsolutePath();
     }
 
     static void testFileWithColdestTemperature()
     {
-        System.out.println(fileWithColdestTemperature());
+        File f = new File(fileWithColdestTemperature());
+        System.out.println("File name: "+f.getName()+" Temperature value:"+
+                extractMinPropFromFile(f,Temperature::coldestHourInFile,"TemperatureF"));
     }
 
     static CSVRecord lowestHumidityInFile(CSVParser parser)
