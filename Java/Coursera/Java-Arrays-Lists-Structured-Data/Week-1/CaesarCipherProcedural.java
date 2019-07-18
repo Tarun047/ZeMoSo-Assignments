@@ -1,6 +1,6 @@
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class CaesarCipher {
+public class CaesarCipherProcedural {
 
      char getShifted(char ch,int key)
     {
@@ -34,13 +34,13 @@ public class CaesarCipher {
 
     static void runTests()
     {
-        CaesarCipher tester = new CaesarCipher();
+        CaesarCipherProcedural tester = new CaesarCipherProcedural();
         assert tester.encrypt("FIRST LEGION ATTACK EAST FLANK!",23).equals("CFOPQ IBDFLK XQQXZH BXPQ CIXKH!");
         assert tester.encryptTwoKeys("First Legion",23,17).equals("Czojq Ivdzle");
     }
     public static void main(String[] args) {
         runTests();
-        System.out.println(new CaesarCipher().encryptTwoKeys("At noon be in the conference " +
+        System.out.println(new CaesarCipherProcedural().encryptTwoKeys("At noon be in the conference " +
                 "room with your hat on for a surprise party. YELL LOUD!",8,21));
     }
 }
