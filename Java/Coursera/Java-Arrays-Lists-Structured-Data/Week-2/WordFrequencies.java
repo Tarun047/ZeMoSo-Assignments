@@ -1,8 +1,8 @@
+import edu.duke.DirectoryResource;
 import edu.duke.FileResource;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.io.File;
+import java.util.*;
 import java.util.stream.StreamSupport;
 
 public class WordFrequencies {
@@ -42,6 +42,7 @@ public class WordFrequencies {
         {
             System.out.println(myFreqs.get(i)+" "+myWords.get(i));
         }
+
     }
 
     void getMax()
