@@ -1,0 +1,31 @@
+1. List the customer number, the name (first and last), and the balance of customers.
+
+A: SELECT CustNo,CONCAT(CustFirstName," ",CustLastName) as Name,CustBal from Customer;
+
+2. List the customer number, the name (first and last), and the balance of customers who reside in Colorado (CustState is CO).
+
+A: SELECT CustNo,CONCAT(CustFirstName," ",CustLastName) as Name,CustBal from Customer WHERE CustState = 'CO';
+
+3. List all columns of the Product table for products costing more than $50.  Order the result by product manufacturer (ProdMfg) and product name
+
+A:SELECT * FROM Product where ProdPrice>50 ORDER BY ProdMfg,ProdName;
+
+4. List the customer number, the name (first and last), the city, and the balance of customers who reside in Denver with a balance greater than $150 or who reside in Seattle with a balance greater than $300.
+
+A: SELECT CustNo,CONCAT(CustFirstName," ",CustLastName) as Name,CustBal from Customer WHERE (CustCity='Denver' and CustBal>150) or (CustCity='Seattle' and CustBal>300);
+
+5. List the order number, order date, customer number, and customer name (first and last) of orders placed in January 2017 sent to Colorado recipients.
+
+A: Select ordNo,ordDate,Customer.CustNo,CONCAT(CustFirstName," ",CustLastName) FROM Customer INNER JOIN OrderTbl ON Customer.CustNo=OrderTbl.CustNo WHERE OrdDate BETWEEN '2017-01-01' AND '2017-01-31' AND CustState='CO';
+
+6. List the average balance of customers by city. Include only customers residing in Washington state (WA)
+
+A: SELECT CustCity,AVG(CustBal) as Average from Customer Where CustState='WA' GROUP BY CustCity;
+
+7. List the average balance and number of customers by city. Only include customers residing in Washington State (WA).  Eliminate cities in the result with less than two customers.
+
+A: SELECT CustCity,AVG(CustBal) as Average,COUNT(*) as numpeople from Customer Where CustState='WA' GROUP BY CustCity Having COUNT(*)>=2;
+
+
+
+
