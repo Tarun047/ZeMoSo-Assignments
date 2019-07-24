@@ -1,3 +1,4 @@
+These Queries use data.sql file
 1. List the customer number, the name, the phone number, and the city of customers.
 
 A: Select CustNo,CustName,Phone,City from Customer;

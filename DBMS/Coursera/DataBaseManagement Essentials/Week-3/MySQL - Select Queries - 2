@@ -1,3 +1,5 @@
+These queries use data2.sql file
+
 1. List the customer number, the name (first and last), and the balance of customers.
 
 A: SELECT CustNo,CONCAT(CustFirstName," ",CustLastName) as Name,CustBal from Customer;
