@@ -1,2 +1,3 @@
-# This directory contains the Assignment work for DBMS Course in LMS.
-All course assignments from Coursera use mysql are put into Coursera directory.
+# This directory contains the Assignment work forDatabase Management Essentials
+
+All course assignments from this course use MySQL Server Version 5.7.26
