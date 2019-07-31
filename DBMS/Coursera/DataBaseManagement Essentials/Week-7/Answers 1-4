@@ -1,0 +1,100 @@
+1.   Determinant   Determinand FD Status   Reason of Violation
+	StdCity  -> StdNo      (True)       -
+	StdCity  -> StdClass   (True)       -
+	StdCity  -> OfferNo    (False)  [row 1&2,row 2&3]
+	StdCity  -> OffTerm    (False)  [row 2&3]
+	StdCity  -> OffYear    (False)  [row 2&3]
+	StdCity  -> EnrGrade   (False)  [row 1&2, row 2&3]
+	StdCity  -> CourseNo   (False)  [row 1&2, row 2&3]
+	StdCity  -> CrsDesc    (False)  [row 1&2, row 2&3]
+
+2.   Let the new Rows added be: 
+	S1 OMAHA   JUL  ...
+	S1 PETTOWN AUG  ...
+     we can clearly see that the FD 
+	StdCity -> StdNo is violated because a student may be from any City
+		   and his city alone won't determine student Number as we may
+		   have multiple students from same city
+
+	StdCity -> StdClass is violated because there may be multiple course 			   offerings in the same city starting at different timelines
+
+3.   Converting to tables:
+		Student(StdId, Name, Email, Phone, Web, Major, Minor, GPA, AdviserNo, AdviserName)
+
+Interview(Interviewid, BldgName, RoomNo, RoomType, Date, Time, StdId, InterviewerId)
+		FOREIGN KEY(InterviewerId) REFERENCES Interviewer
+		FOREIGN KEY(StdId) REFERENCES Student
+
+Interviewer(InterviewerId, Name, Phone, Email, CompId)
+		FOREIGN KEY(CompId) REFERENCES Company
+		CompId NOT NULL
+
+Company(CompId, CompName)
+
+Position(PosId, Name)
+
+CompPos(CompId, PosId, City, State)
+		FOREIGN KEY(CompId) REFERENCES Company
+		FOREIGN KEY(PosId) REFERENCES Position
+
+
+The student table is not in BCNF because AdviserNo -> AdviserName.  FD Violation
+The Interview table is not in BCNF because BldgName, RoomNo -> RoomType.  FD Violation.
+
+4. Apply the simple BCNF procedure to the following list of FDs. Show the result of each step. In the final list of tables, you should show the primary keys, foreign keys, and unique constraints. You do not need to write CREATE TABLE statements.
+AuthNo -> AuthName
+AuthEmail -> AuthNo
+PaperNo ->  Primary-AuthNo
+AuthNo -> AuthAddress
+AuthNo -> AuthEmail
+PaperNo ->  PapTitle
+PaperNo ->  PapAbstract
+PaperNo ->  PapStatus
+RevNo -> RevName
+RevNo -> RevEmail
+RevEmail -> RevNo
+RevNo, PaperNo  ->  Auth-Comm
+RevNo, PaperNo  ->  Prog-Comm
+RevNo, PaperNo  ->  RevDate
+RevNo, PaperNo  ->  Rating
+RevNo -> RevAddress
+
+Step 1: Arrange the remaining FDs into groups by determinant
+
+	AuthNo -> AuthName, AuthEmail, AuthAddress
+	AuthEmail -> AuthNo
+	PaperNo ->  Primary-AuthNo, Title, Abstract, Status
+	RevNo -> RevName, RevEmail, RevAddress
+	RevEmail -> RevNo
+	RevNo, PaperNo  ->  Auth-Comm, Prog-Comm, Date, Rating1, Rating2, Rating3,  
+
+Step 2: For each FD group, make a table with the determinant as the primary key. In the table list, the primary keys are underlined. 
+
+	Author(AuthNo, AuthName, AuthEmail, AuthAddress)
+		FOREIGN KEY (AuthEmail) REFERENCES Author
+	AuthEmail(AuthEmail, AuthNo)
+		FOREIGN KEY (AuthNo) REFERENCES Author
+	Paper(PaperNo, Primary-AuthNo, Title, Abstract, Status)
+		FOREIGN KEY (Primary-AuthNo) REFERENCES Author
+	Reviewer(RevNo, RevName, RevEmail, RevAddress)
+		FOREIGN KEY (RevEmail) REFERENCES ReviewerEmail
+	ReviewerEmail(RevEmail, RevNo)
+		FOREIGN KEY (RevNo) REFERENCES Reviewer
+	Review(PaperNo, RevNo, Auth-Comm, Prog-Comm, Date, Rating1, Rating2, Rating3,
+              Rating4, Rating5)
+		FOREIGN KEY (PaperNo) REFERENCES Paper
+		FOREIGN KEY (RevNo) REFERENCES Reviewer
+
+Step 3: Merge tables with the same columns. The Author and AuthEmail tables are merged. The Reviewer and ReviewerEmail tables are merged. UNIQUE constraints are added for AuthEmail and RevEmail.
+
+	Author(AuthNo, AuthName, AuthEmail, AuthAddress)
+		UNIQUE (AuthEmail)
+	Paper(PaperNo, Primary-AuthNo, Title, Abstract, Status)
+		FOREIGN KEY (Primary-AuthNo) REFERENCES Author
+	Reviewer(RevNo, RevName, RevEmail, RevAddress)
+		UNIQUE (RevEmail)
+	Review(PaperNo, RevNo, Auth-Comm, Prog-Comm, Date, Rating1, Rating2, Rating3,
+              Rating4, Rating5)
+		FOREIGN KEY (PaperNo) REFERENCES Paper
+		FOREIGN KEY (RevNo) REFERENCES Reviewer
+
