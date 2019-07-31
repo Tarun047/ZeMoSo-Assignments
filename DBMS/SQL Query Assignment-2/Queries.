@@ -1,0 +1,14 @@
+1. Find out the number of documentaries with deleted scenes.
+
+ select count(*) AS Number_of_documentaries_with_deleted_scenes from film inner join film_category 
+ on film.film_id=film_category.film_id inner join category on category.category_id=film_category.category_id 
+ where find_in_set('Deleted Scenes',film.special_features)>0 and category.name='Documentary';
+
+2. Find out the number of sci-fi movies rented by the store managed by Jon Stephens.
+   
+   select count(*) as Sales_for_Jon_stephenes from rental inner join inventory 
+  on inventory.inventory_id=rental.inventory_id inner join film_category
+  on film_category.film_id=inventory.film_id where inventory.store_id=
+ (select store_id from store where manager_staff_id=
+ (Select staff_id from staff where first_name='Jon' and last_name='Stephens')) and  
+  film_category.category_id=(Select category_id from category where name='Sci-Fi');

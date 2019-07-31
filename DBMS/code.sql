@@ -1,0 +1,2 @@
+select CONCAT(actor.first_name,' ',actor.last_name),count(*) from actor inner join film_actor on actor.actor_id=film_actor.actor_id 
+where actor.first_name='SEAN' and actor.last_name='WILLIAMS' group by actor.actor_id;

@@ -1,0 +1,34 @@
+1. Find out the PG-13 rated comedy movies. DO NOT use the film_list table.
+
+  select title from film where rating='PG-13' and film_id IN (
+  select film_id from film_category where category_id = 
+  (select category_id from category where name='Comedy'));
+
+ select title from film 
+ inner join film_category on film.film_id=film_category.film_id 
+ inner join category on film_category.category_id=category.category_id where film.rating='PG-13' and category.name='Comedy';
+
+2. Find out the top 3 rented horror movies.
+
+  select title,count(*) from film_list inner join inventory 
+  on film_list.FID = inventory.film_id inner join rental
+  on rental.inventory_id = inventory.inventory_id where category='Horror' group by title order by count(*) desc limit 3;
+
+3. Find out the list of customers from India who have rented sports movies.
+
+  select DISTINCT name from customer_list inner join rental 
+  on rental.customer_id=customer_list.ID inner join inventory 
+  on inventory.inventory_id=rental.inventory_id inner join film_list on film_list.FID=inventory.film_id  
+  where category='Sports' and country='INDIA';
+
+4. Find out the list of customers from Canada who have rented “NICK WAHLBERG” movies.
+
+  select DISTINCT name from customer_list inner join rental 
+  on rental.customer_id=customer_list.ID inner join inventory 
+  on inventory.inventory_id=rental.inventory_id inner join film_actor on film_actor.film_id=inventory.film_id
+  where actor_id=(select actor_id from actor where first_name='NICK' and last_name='WAHLBERG') and country='Canada';
+
+5. Find out the number of movies in which “SEAN WILLIAMS” acted.
+  
+   select CONCAT(actor.first_name,' ',actor.last_name),count(*) from actor inner join film_actor on actor.actor_id=film_actor.actor_id 
+   where actor.first_name='SEAN' and actor.last_name='WILLIAMS' group by actor.actor_id;
