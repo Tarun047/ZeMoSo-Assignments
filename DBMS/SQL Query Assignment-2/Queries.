@@ -12,3 +12,35 @@
  (select store_id from store where manager_staff_id=
  (Select staff_id from staff where first_name='Jon' and last_name='Stephens')) and  
   film_category.category_id=(Select category_id from category where name='Sci-Fi');
+
+3. Find out the total sales from Animation movies.
+
+   select category.name,sum(amount) as total_animation_sales from payment inner join rental
+   on payment.rental_id = rental.rental_id  inner join inventory
+   on inventory.inventory_id = rental.inventory_id inner join film_category
+   on inventory.film_id=film_category.film_id inner join category  
+   on category.category_id=film_category.category_id 
+   where category.name='Animation'
+   group by category.name; 
+
+4.  Find out the top 3 rented category of movies  by “PATRICIA JOHNSON”.
+
+  select category.name,count(*) as number_of_rentals from customer inner join rental
+  on rental.customer_id=customer.customer_id inner join inventory 
+  on inventory.inventory_id=rental.inventory_id inner join film_category
+  on film_category.film_id=inventory.film_id inner join category
+  on category.category_id=film_category.category_id
+  where first_name='PATRICIA' and last_name='JOHNSON'  
+  group by category.name
+  order by count(*) DESC 
+  limit 3;
+
+5. Find out the number of R rated movies rented by “SUSAN WILSON”.
+
+   select film.rating,count(*) as total_R_Rentals from customer inner join rental
+   on customer.customer_id = rental.customer_id inner join inventory
+   on inventory.inventory_id=rental.inventory_id inner join film on 
+   film.film_id=inventory.film_id 
+   where customer.first_name='SUSAN' and customer.last_name='WILSON' group by film.rating having film.rating='R'; 
+
+
