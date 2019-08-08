@@ -1,6 +1,7 @@
 package com.tarun.TalkBuddy.controller;
 
 import com.tarun.TalkBuddy.model.Intern;
+import com.tarun.TalkBuddy.repository.InternRepository;
 import org.springframework.expression.ExpressionException;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,12 +34,12 @@ public class InternController extends MainController{
     }
 
     @GetMapping("/{id}")
-    public Intern getIntern(@PathVariable(name="id") long internId)throws  Exception
+    public Intern getIntern(@PathVariable(name="id") long internId)throws  ExpressionException
     {
         return internRepository.findById(internId).orElseThrow(()->new ExpressionException("No Such Intern Found"));
     }
 
-    @PostMapping("/")
+    @PostMapping("/createintern")
     public Intern createIntern(@Valid @RequestBody Intern intern)
     {
         return internRepository.save(intern);
@@ -46,7 +47,7 @@ public class InternController extends MainController{
 
 
     @DeleteMapping("/{id}/remove_task")
-    public Intern removeTask(@PathVariable(name="id") long internId,@RequestParam List<String> taskIds)throws Exception
+    public Intern removeTask(@PathVariable(name="id") long internId,@RequestParam List<String> taskIds)throws ExpressionException
     {
         Set<Long> tasks = new HashSet<>(
                 taskIds.stream().map(Long::parseLong).collect(Collectors.toList())
@@ -56,6 +57,14 @@ public class InternController extends MainController{
         return internRepository.save(intern);
     }
 
+
+    @DeleteMapping("/removeintern/{id}")
+    public Intern removeIntern(@PathVariable(name="id") long id)throws Exception
+    {
+        Intern intern = internRepository.findById(id).orElseThrow(()->new Exception("No Such Intern"));
+        internRepository.delete(intern);
+        return intern;
+    }
 
 
 
