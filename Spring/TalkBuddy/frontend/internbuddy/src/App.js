@@ -1,6 +1,9 @@
 import React,{Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Select from 'react-select';
+
+
 
 //Styling area
 const largeColumn = {width:'40%',};
@@ -46,7 +49,7 @@ class App extends Component
 
     async refreshUI(event)
     {
-        event.preventDefault();
+       event.preventDefault();
 
        const response = await fetch('/api/interns/')
        const body = await response.json()
@@ -61,8 +64,7 @@ class App extends Component
 
     onDelete(id)
     {
-        fetch('/api/interns/removeintern/'+id,{method:'DELETE'}).
-        then(this.onDismiss(id));
+        fetch('/api/interns/removeintern/'+id,{method:'DELETE'}).then(this.onDismiss(id));
     }
 
     render()
@@ -84,12 +86,17 @@ class App extends Component
                  <div className="page">
                  <Button onClick={this.addIntern}>Add Interns</Button>
                     <h2>Interns List</h2>
+                    <div className="table">
+                        <div className="table-header">
+                            <span style={largeColumn}> Name </span>
+                            <span style={largeColumn}> Rating </span>
+                            <span style={largeColumn}> Tasks </span>
+                        </div>
+                        {
+                        <Table list={interns} onDismiss={this.onDismiss} onDelete={this.onDelete} callBack={this.refreshUI}/>
 
-                    {
-                      <Table list={interns} onDismiss={this.onDismiss} onDelete={this.onDelete} callback={this.refreshUI}/>
-
-                    }
-
+                        }
+                    </div>
                  </div>
 
             );
@@ -156,6 +163,18 @@ class MyForm extends React.Component {
 
 class Intern extends React.Component
 {
+
+
+     async componentDidMount()
+        {
+            const response = await fetch('/api/tasks/');
+            const body = await response.json();
+            const lis = []
+            body.forEach(task=>lis.push({value:task.id,label:task.taskName}))
+            this.setState({allTasks:lis});
+        }
+
+
     constructor(props)
     {
         super(props);
@@ -165,31 +184,61 @@ class Intern extends React.Component
             rating:props.rating,
             tasks:props.tasks,
             isExpanded:false,
+            isAssignView:false,
+            selections:null
         };
         this.onExpand=this.onExpand.bind(this);
         this.onCollapse=this.onCollapse.bind(this);
         this.onRemoveTask=this.onRemoveTask.bind(this);
+        this.setAssignView=this.setAssignView.bind(this);
+        this.onSelectTask=this.onSelectTask.bind(this);
+        this.postAssignments=this.postAssignments.bind(this);
     }
 
     onExpand(event)
     {
-        event.preventDefault();
+
         this.setState({isExpanded:true});
     }
 
     onCollapse(event)
     {
-        event.preventDefault();
         this.setState({isExpanded:false});
     }
 
-    onRemoveTask(event,internId,taskId)
+   onSelectTask(choices)
+   {
+        if(choices)
+            this.setState({selections:choices.map(choice=>choice.value)});
+        else
+            this.setState({selections:[]});
+        console.log(this.state.selections);
+   }
+
+   setAssignView()
+   {
+    this.setState({isAssignView:true,selections:null});
+    console.log(this.state.selections)
+   }
+
+
+   onRemoveTask(event,internId,taskId)
     {
-        event.preventDefault();
+        console.log(this.state.tasks);
         fetch('/api/interns/'+internId+"/remove_task"+'?taskIds='+taskId,{method:'DELETE'});
-        const taskFilter = id=>id!=taskId;
+        const taskFilter = task=>task.id!==taskId;
         const newTasks = this.state.tasks.filter(taskFilter);
-        this.setState({tasks:newTasks})
+        this.setState({tasks:newTasks});
+        console.log(this.state.tasks)
+    }
+
+
+    async postAssignments(event,internId)
+    {
+        if(this.state.allTasks)
+             await fetch('/api/interns/'+internId+"/assign_task"+'?taskIds='+this.state.selections.join());
+        this.props.callBack(event);
+        this.setState({isAssignView:false});
     }
 
     render()
@@ -199,9 +248,9 @@ class Intern extends React.Component
 
             return(
                 <div key={this.state.id} className="table-row">
-                          <span style={largeColumn}>
+                          <span style={midColumn}>
                               <a href={this.state.name}>{this.state.name}</a>
-                          </span><br/>
+                          </span>
                           <span style={midColumn}>{this.state.rating}</span>
                           <span style={largeColumn}>
                           <Button className="button-inline" onClick={this.onCollapse}>
@@ -211,15 +260,13 @@ class Intern extends React.Component
                            {
                             this.state.tasks.map(
                                 task=>
-                                <li>
+                                <li key={task.id}>
                                     <b>{task.taskName}</b>
                                     <br/>
                                     {task.description}
                                     <br/>
                                     <Button className="button-inline" onClick={(event)=>this.onRemoveTask(event,this.state.id,task.id)}>Remove Task</Button>
-
                                </li>
-
                             )
                            }
                            </ol>
@@ -230,14 +277,27 @@ class Intern extends React.Component
                            </Button>
                            </span>
                  </div>
+
             );
         }
-
+        if(this.state.isAssignView)
+        {
             return(
-
+                <div>
+                    <Select
+                        isMulti
+                        options={this.state.allTasks}
+                        onChange={this.onSelectTask}
+                    />
+                    <br />
+                    <Button className="button-inline" onClick={(event)=>this.postAssignments(event,this.state.id)}> Post Assignments </Button>
+                </div>
+            )
+        }
+        return(
                 <div key={this.state.id} className="table-row">
-                          <span style={largeColumn}>
-                              <a href={this.state.name}>{this.state.name}</a>
+                          <span style={midColumn}>
+                             {this.state.name}
                           </span><br/>
                           <span style={midColumn}>{this.state.rating}</span><br />
                           <span style={smallColumn}>
@@ -246,11 +306,17 @@ class Intern extends React.Component
                            </Button>
                            </span>
                            <span style={smallColumn}>
+                                <Button className="button-inline" onClick={this.setAssignView}>
+                                    Assign Task
+                                </Button>
+                           </span>
+                           <span style={smallColumn}>
                            <Button className="button-inline" onClick={()=>this.props.onDelete(this.state.id)}>
                                Delete
                            </Button>
                            </span>
-                        </div>
+                </div>
+
             );
     }
 }
