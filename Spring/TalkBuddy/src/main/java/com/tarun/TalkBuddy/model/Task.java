@@ -1,6 +1,7 @@
 package com.tarun.TalkBuddy.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -16,7 +17,7 @@ import java.util.Set;
 @Entity
 @Table(name="tasks")
 @EntityListeners(AuditingEntityListener.class)
-@JsonIgnoreProperties(value={"createdAt","deadline"},allowGetters = true)
+@JsonIgnoreProperties(value={"createdAt","deadline","assignments"},allowGetters = true)
 public class Task
 {
     @Id
@@ -39,6 +40,9 @@ public class Task
     @LastModifiedDate
     Date deadline;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "task",cascade = {CascadeType.ALL})
+    Set<Assignment> assignments = new HashSet<>();
 
 
 
@@ -82,4 +86,11 @@ public class Task
         this.deadline = deadline;
     }
 
+    public Set<Assignment> getAssignments() {
+        return assignments;
+    }
+
+    public void setAssignments(Set<Assignment> assignments) {
+        this.assignments = assignments;
+    }
 }

@@ -1,6 +1,7 @@
 package com.tarun.TalkBuddy.model;
 
-import org.springframework.beans.factory.annotation.Value;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.lang.Nullable;
@@ -13,11 +14,13 @@ import java.util.Set;
 
 @Entity
 @Table(name="interns")
-@EntityListeners(AuditingEntityListener.class)
+@EntityListeners({AuditingEntityListener.class})
+@NamedQuery(name="getAssignmentsForIntern",query = "select assignments from Intern where name=:x")
 public class Intern {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
 
     @NotNull
     private String name;
@@ -25,16 +28,10 @@ public class Intern {
 
     private double rating;
 
-    @Nullable
-    @ManyToMany(fetch = FetchType.LAZY,
-               cascade = {
-        CascadeType.PERSIST,
-                CascadeType.MERGE,
-    })
-    @JoinTable(name="intern_tasks",
-    joinColumns = {@JoinColumn(name="intern_id")},
-    inverseJoinColumns = {@JoinColumn(name="task_id")})
-    private Set<Task> tasks = new HashSet<>();
+    @OneToMany(mappedBy = "intern",cascade = {CascadeType.ALL})
+    Set<Assignment> assignments = new HashSet<>();
+
+
 
     public long getId() {
         return id;
@@ -61,11 +58,12 @@ public class Intern {
     }
 
 
-    public Set<Task> getTasks() {
-        return tasks;
+    public Set<Assignment> getAssignments() {
+        return assignments;
     }
 
-    public void setTasks(Set<Task> tasks) {
-        this.tasks = tasks;
+    public void setAssignments(Set<Assignment> assignments) {
+        this.assignments = assignments;
     }
+
 }

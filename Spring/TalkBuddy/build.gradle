@@ -1,10 +1,23 @@
-plugins {
-	id 'org.springframework.boot' version '2.1.6.RELEASE'
-	id 'java'
+buildscript {
+	ext {
+		springBootVersion = '2.1.2.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+		maven {
+			url "https://plugins.gradle.org/m2/"
+		}
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath "com.moowork.gradle:gradle-node-plugin:1.2.0"
+	}
 }
 
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
-
+apply plugin: 'com.moowork.node'
 group = 'com.tarun'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
@@ -24,6 +37,39 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	compile("com.h2database:h2")
 	runtimeOnly 'mysql:mysql-connector-java'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+}
+
+task copyWebApp(type: Copy) {
+	from 'frontend/internbuddybuild'
+	into 'build/resources/main/static/.'
+}
+
+task appNpmInstall(type: NpmTask) {
+	description = "Installs all dependencies from package.json"
+	workingDir = file("${project.projectDir}/frontend/internbuddy")
+	args = ["install"]
+}
+
+task appNpmBuild(type: NpmTask) {
+	description = "Builds production version of the webapp"
+	workingDir = file("${project.projectDir}/frontend/internbuddy")
+	args = ["run", "build"]
+}
+
+appNpmBuild.dependsOn appNpmInstall
+copyWebApp.dependsOn appNpmBuild
+compileJava.dependsOn copyWebApp
+
+node {
+	download = true
+
+	// Set the work directory for unpacking node
+	workDir = file("${project.buildDir}/nodejs")
+
+	// Set the work directory for NPM
+	npmWorkDir = file("${project.buildDir}/npm")
 }

@@ -1,6 +1,7 @@
 package com.tarun.TalkBuddy.controller;
 
 
+import com.tarun.TalkBuddy.repository.AssignmentRepository;
 import com.tarun.TalkBuddy.repository.InternRepository;
 import com.tarun.TalkBuddy.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +19,16 @@ public class MainController {
     @Autowired
     TaskRepository taskRepository;
 
+
+    @Autowired
+    AssignmentRepository assignmentRepository;
+
+
     @GetMapping("/code")
     public String test()
     {
         return "hello";
     }
+
+
 }

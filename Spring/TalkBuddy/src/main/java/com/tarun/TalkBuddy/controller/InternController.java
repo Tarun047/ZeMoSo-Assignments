@@ -1,7 +1,8 @@
 package com.tarun.TalkBuddy.controller;
 
+import com.tarun.TalkBuddy.model.Assignment;
 import com.tarun.TalkBuddy.model.Intern;
-import com.tarun.TalkBuddy.repository.InternRepository;
+import com.tarun.TalkBuddy.model.Task;
 import org.springframework.expression.ExpressionException;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,13 +23,18 @@ public class InternController extends MainController{
         return internRepository.findAll();
     }
 
-    @GetMapping("/{id}/assign_task")
+    @PostMapping("/{id}/assign_task")
     public Intern assignTask(@PathVariable(name = "id") long internId,@RequestParam List<String> taskIds)
     {
 
         Intern intern = internRepository.findById(internId).orElseThrow(()->new ExpressionException("Invalid id"));
-        intern.getTasks().addAll(
-                taskRepository.findAllById(taskIds.stream().map(Long::parseLong).collect(Collectors.toList())));
+        for(String id:taskIds)
+        {
+            Assignment assignment = new Assignment();
+            assignment.setIntern(intern);
+            assignment.setTask(taskRepository.findById(Long.parseLong(id)).orElseThrow(()->new ExpressionException("Invalid Task")));
+            assignmentRepository.save(assignment);
+        }
         return internRepository.save(intern);
 
     }
@@ -47,14 +53,13 @@ public class InternController extends MainController{
 
 
     @DeleteMapping("/{id}/remove_task")
-    public Intern removeTask(@PathVariable(name="id") long internId,@RequestParam List<String> taskIds)throws ExpressionException
+    public Intern removeAssignment(@PathVariable(name="id") long internId,@RequestParam List<String> taskIds)throws ExpressionException
     {
-        Set<Long> tasks = new HashSet<>(
-                taskIds.stream().map(Long::parseLong).collect(Collectors.toList())
-        );
-        Intern intern = internRepository.findById(internId).orElseThrow(()->new ExpressionException("No such Intern"));
-        intern.getTasks().removeIf(x->tasks.contains(x.getId()));
-        return internRepository.save(intern);
+        for(String id:taskIds)
+        {
+            assignmentRepository.deleteById(Long.parseLong(id));
+        }
+        return internRepository.findById(internId).orElseThrow(()->new ExpressionException("No Such Intern"));
     }
 
 

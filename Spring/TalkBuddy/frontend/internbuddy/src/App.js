@@ -1,4 +1,5 @@
 import React,{Component} from 'react';
+import MyForm from './BaseUI/BasicForms.js'
 import logo from './logo.svg';
 import './App.css';
 import Select from 'react-select';
@@ -24,7 +25,7 @@ class App extends Component
         const response = await fetch('/api/interns/')
         const body = await response.json()
         this.setState({interns:body,isLoading:false,addUI:false});
-
+        console.log(this.state.interns);
     }
 
     constructor(props)
@@ -49,8 +50,8 @@ class App extends Component
 
     async refreshUI(event)
     {
-       event.preventDefault();
-
+       if(event)
+        event.preventDefault();
        const response = await fetch('/api/interns/')
        const body = await response.json()
        this.setState({interns:body,isLoading:false,addUI:false});
@@ -106,60 +107,7 @@ class App extends Component
 
 
 
-class MyForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: '',
-      rating: null,
-    };
 
-  }
-  myChangeHandler = (event) => {
-    let nam = event.target.name;
-    let val = event.target.value;
-    this.setState({[nam]: val});
-    this.postchanges = this.postchanges.bind(this);
-  }
-
-  async postchanges(event)
-  {
-
-     await fetch('/api/interns/createintern', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name: this.state.name,
-        rating: this.state.rating,
-      })
-    });
-    this.props.callBack(event);
-  }
-
-  render() {
-    return (
-      <form onSubmit={this.postchanges}>
-      <p>Enter name:</p>
-      <input
-        type='text'
-        name='name'
-        onChange={this.myChangeHandler}
-      />
-      <p>Enter rating:</p>
-      <input
-        type='text'
-        name='rating'
-        onChange={this.myChangeHandler}
-      />
-      <br />
-      <input type="submit" value="Submit" />
-      </form>
-    );
-  }
-}
 
 class Intern extends React.Component
 {
@@ -182,7 +130,7 @@ class Intern extends React.Component
             id:props.id,
             name:props.name,
             rating:props.rating,
-            tasks:props.tasks,
+            assignments:props.assignments,
             isExpanded:false,
             isAssignView:false,
             selections:null
@@ -193,6 +141,7 @@ class Intern extends React.Component
         this.setAssignView=this.setAssignView.bind(this);
         this.onSelectTask=this.onSelectTask.bind(this);
         this.postAssignments=this.postAssignments.bind(this);
+        console.log(this.state.assignments);
     }
 
     onExpand(event)
@@ -222,22 +171,23 @@ class Intern extends React.Component
    }
 
 
-   onRemoveTask(event,internId,taskId)
+   onRemoveTask(event,internId,assignmentId)
     {
-        console.log(this.state.tasks);
-        fetch('/api/interns/'+internId+"/remove_task"+'?taskIds='+taskId,{method:'DELETE'});
-        const taskFilter = task=>task.id!==taskId;
-        const newTasks = this.state.tasks.filter(taskFilter);
-        this.setState({tasks:newTasks});
-        console.log(this.state.tasks)
+
+        fetch('/api/interns/'+internId+"/remove_task"+'?taskIds='+assignmentId,{method:'DELETE'});
+        const assignmentFilter = assignment=>assignment.id!==assignmentId;
+        const newAssignments = this.state.assignments.filter(assignmentFilter);
+        this.setState({assignments:newAssignments});
     }
 
 
     async postAssignments(event,internId)
     {
-        if(this.state.allTasks)
-             await fetch('/api/interns/'+internId+"/assign_task"+'?taskIds='+this.state.selections.join());
-        this.props.callBack(event);
+        if(this.state.selections){
+             const response = await fetch('/api/interns/'+internId+"/assign_task"+'?taskIds='+this.state.selections.join(),{method:'POST'});
+             const body = await response.json();
+             this.setState({isAssignView:false,assignments:body.assignments});
+        }
         this.setState({isAssignView:false});
     }
 
@@ -258,14 +208,14 @@ class Intern extends React.Component
                            </Button><br />
                            <ol>
                            {
-                            this.state.tasks.map(
-                                task=>
-                                <li key={task.id}>
-                                    <b>{task.taskName}</b>
+                            this.state.assignments.map(
+                                assignment=>
+                                <li key={assignment.task.id}>
+                                    <b>{assignment.task.taskName}</b>
                                     <br/>
-                                    {task.description}
+                                    {assignment.task.description}
                                     <br/>
-                                    <Button className="button-inline" onClick={(event)=>this.onRemoveTask(event,this.state.id,task.id)}>Remove Task</Button>
+                                    <Button className="button-inline" onClick={(event)=>this.onRemoveTask(event,this.state.id,assignment.id)}>Remove Task</Button>
                                </li>
                             )
                            }
@@ -318,26 +268,16 @@ class Intern extends React.Component
                 </div>
 
             );
-    }
+        }
 }
 
 
 const Table = ({list,onDismiss,onDelete,callBack})=>
       <div className="table">
         {list.map(item=>
-          <Intern id={item.id} name={item.name} rating={item.rating} tasks={item.tasks} onDelete={onDelete} callBack={callBack}/>
+          <Intern id={item.id} name={item.name} rating={item.rating} assignments={item.assignments} onDelete={onDelete} callBack={callBack}/>
         )}
       </div>
-
-const Search = ({ value, onChange, children })=>
-      <form>
-        {children}
-        <input
-          type="text"
-          value={value}
-          onChange={onChange}
-        />
-      </form>
 
 const Button = ({onClick,className="",children})=>
       <button
