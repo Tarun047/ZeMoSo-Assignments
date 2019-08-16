@@ -1,6 +1,7 @@
 
 import React,{Component} from 'react';
 import Select from 'react-select';
+import {Button} from'../Layout/BaseLayout.js'
 
 const largeColumn = {width:'40%',};
 const midColumn = {width:'30%',};
@@ -128,6 +129,7 @@ class Intern extends React.Component
 
             );
         }
+
         if(this.state.isAssignView)
         {
             return(
@@ -142,6 +144,7 @@ class Intern extends React.Component
                 </div>
             )
         }
+
         return(
                 <div key={this.state.id} className="table-row">
                           <span style={midColumn}>
@@ -170,20 +173,6 @@ class Intern extends React.Component
 }
 
 
-const Table = ({list,onDismiss,onDelete,callBack})=>
-      <div className="table">
-        {list.map(item=>
-          <Intern id={item.id} name={item.name} rating={item.rating} assignments={item.assignments} onDelete={onDelete} callBack={callBack}/>
-        )}
-      </div>
 
-const Button = ({onClick,className="",children})=>
-      <button
-        onClick={onClick}
-        className={className}
-        type="button"
-      >
-        {children}
-      </button>
 
 export default Intern;

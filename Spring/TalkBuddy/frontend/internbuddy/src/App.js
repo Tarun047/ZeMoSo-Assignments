@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import MyForm from './BaseUI/BasicForms.js'
 import Intern from './Models/Intern.js'
+import {Table,Button} from'./Layout/BaseLayout.js'
 import logo from './logo.svg';
 import './App.css';
 
@@ -93,8 +94,7 @@ class App extends Component
                             <span style={largeColumn}> Tasks </span>
                         </div>
                         {
-                        <Table list={interns} onDismiss={this.onDismiss} onDelete={this.onDelete} callBack={this.refreshUI}/>
-
+                        <Table list={interns} onDelete={this.onDelete} callBack={this.refreshUI} tag={Intern} />
                         }
                     </div>
                  </div>
@@ -104,20 +104,6 @@ class App extends Component
 }
 
 
-const Table = ({list,onDismiss,onDelete,callBack})=>
-      <div className="table">
-        {list.map(item=>
-          <Intern id={item.id} name={item.name} rating={item.rating} assignments={item.assignments} onDelete={onDelete} callBack={callBack}/>
-        )}
-      </div>
 
-const Button = ({onClick,className="",children})=>
-      <button
-        onClick={onClick}
-        className={className}
-        type="button"
-      >
-        {children}
-      </button>
 
 export default App;
