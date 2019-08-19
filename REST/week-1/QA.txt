@@ -1,0 +1,67 @@
+1. You are probably using the internet to do some of your personal banking. There is a page
+   that shows your accounts and their balances, often called something like "Account
+   Summary" or "Account Overview." You must click on an account to begin managing it. 
+   Which type of web page is this?
+   Options: [Dynamic Web Page, Static Web Page, Static Web Page, Web Service, Web app]
+Ans: Dynamic Web Page
+
+2. Another web page allows interacting with a spreadsheet in a browser. You can enter in
+   values, sum them up, perform operations on them, format them, etc. What type of web
+   page is this?
+   Options: [Web Service, Static Web Page, Dynamic Web Page, Web App]
+Ans: Web App
+
+3. Consider the two statements. Choose the one correct option.
+   1. JSON is a markup language
+   2. JSON can easily be converted into a Javascript object
+   options: [Only 1, Only 2, Both, None]
+Ans: Only 2
+
+4. Which of these is NOT a basic standard of the World Wide Web?
+   options:[FTP, HTTP, URL, TCP]
+Ans: URL
+
+5. There is an HTTP method that allows you to send, create or update a resource, but allows 
+   the server to decide its location and identity. Which HTTP method is this?
+   options:[POST,SEND,GET,PUT]
+Ans: PUT
+
+6. Which of these is often used to add dynamic content to a web page?
+   options:[JavaScript, CSS, HTML, HTML DOM]
+Ans: Java Script
+
+7. What are the three high-level components involved in a remote procedural call?
+   Ans: Client, Server, Interface Definition Language
+
+8. The process of establishing a connection between the client stub and server stub is called…
+   options: [interfacing, handshaking, binding, marshalling]
+   Ans: binding
+
+9. What are the advantages of Common Object Request Broker Architecture (CORBA)? 
+   Choose the two correct answers.
+   options:[Method Calls can be treated locally or remotely, 
+            Objects are essentially independent of their physical or virtual location,
+            Dynamic Binding is simple,
+            It allows for OOP paradigms in distributed computing]
+   Ans: option 2 and option 4
+
+10. Which of these are desirable characteristics of a web service? Select the three correct answers.
+    options:[platform-independent, modular, simple, composable]
+    Ans: Options 1,2,4
+
+11. Which of these responsibilities does the client stub have in a middleware-based 
+    architecture that uses RPC? Choose the three correct answers.
+    options:[Formatting and encoding data into standardized messages,
+             Invoking the remote procedure call over the network,
+             Invoking the server application directly,
+             Establishing a connection with the server]
+    Ans: Options 1,2,4
+
+12. What is the main difference between a web service and a web application?
+    options:[
+            Web applications dynamically generate content,
+            Web applications are presented through a browser, 
+            Web services are simpler,
+            Web services are mostly meant for business applications,
+           ] 
+    Ans: Option 2
