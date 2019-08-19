@@ -21,7 +21,7 @@ public class TaskController extends MainController{
         return taskRepository.findAll();
     }
 
-    @PostMapping("/")
+    @PostMapping("/add_task")
     public Task createTask(@Valid @RequestBody Task task)
     {
         return taskRepository.save(task);

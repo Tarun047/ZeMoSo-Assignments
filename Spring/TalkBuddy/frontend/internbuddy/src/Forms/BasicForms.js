@@ -1,11 +1,9 @@
 import React,{Component} from 'react';
-
+import {Table,Button} from '../Layout/BaseLayout.js'
 class MyForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
-      rating: null,
     };
 
   }
@@ -19,37 +17,35 @@ class MyForm extends React.Component {
   async postchanges(event)
   {
 
-     await fetch('/api/interns/createintern', {
+     await fetch(this.props.submiturl, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        name: this.state.name,
-        rating: this.state.rating,
-      })
+      body: JSON.stringify(this.state)
     });
-    this.props.callBack(event);
+    if(this.props.callBack)
+        this.props.callBack(event);
   }
 
   render() {
     return (
-      <form onSubmit={this.postchanges}>
-      <p>Enter name:</p>
-      <input
-        type='text'
-        name='name'
-        onChange={this.myChangeHandler}
-      />
-      <p>Enter rating:</p>
-      <input
-        type='text'
-        name='rating'
-        onChange={this.myChangeHandler}
-      />
+      <form onSubmit={this.postchanges}>{
+      this.props.fields.map(
+        field=>
+        <div>
+          <p>Enter {field} </p>
+          <input
+            type='text'
+            name={field}
+            onChange={this.myChangeHandler}
+          /><br />
+        </div>
+      )
+      }
       <br />
-      <input type="submit" value="Submit" />
+      <Button onClick={this.postchanges}>Submit</Button>
       </form>
     );
   }

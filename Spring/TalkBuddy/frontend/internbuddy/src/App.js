@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import MyForm from './BaseUI/BasicForms.js'
+import MyForm from './Forms/BasicForms.js'
 import Intern from './Models/Intern.js'
 import {Table,Button} from'./Layout/BaseLayout.js'
 import logo from './logo.svg';
@@ -18,6 +18,7 @@ class App extends Component
         isLoading: true,
         interns:[],
         addUI:false,
+        addTaskUI:false,
     };
 
     async componentDidMount()
@@ -35,6 +36,7 @@ class App extends Component
         this.addIntern = this.addIntern.bind(this);
         this.refreshUI = this.refreshUI.bind(this);
         this.onDelete = this.onDelete.bind(this);
+        this.addTask = this.addTask.bind(this);
     }
 
 
@@ -54,13 +56,18 @@ class App extends Component
         event.preventDefault();
        const response = await fetch('/api/interns/')
        const body = await response.json()
-       this.setState({interns:body,isLoading:false,addUI:false});
+       this.setState({interns:body,isLoading:false,addUI:false,addTaskUI:false});
 
     }
 
     addIntern()
     {
        this.setState({addUI:true})
+    }
+
+    addTask()
+    {
+        this.setState({addTaskUI:true})
     }
 
     onDelete(id)
@@ -70,7 +77,7 @@ class App extends Component
 
     render()
     {
-        const {interns,isLoading,addUI}=this.state;
+        const {interns,isLoading,addUI,addTaskUI}=this.state;
         if(isLoading)
         {
             return <p>Loading...</p>;
@@ -79,13 +86,26 @@ class App extends Component
         if(addUI)
         {
             return (
-                <MyForm callBack={this.refreshUI} />
+                <MyForm callBack={this.refreshUI} submiturl="/api/interns/createintern" fields={["name","rating"]}/>
                 )
         }
+
+        if(addTaskUI)
+        {
+            return <MyForm callBack={this.refreshUI} submiturl="/api/tasks/add_task" fields={["taskName","description"]} />
+        }
+
         return (
 
                  <div className="page">
+                 <div className="table-header">
+                 <span style={largeColumn}>
                  <Button onClick={this.addIntern}>Add Interns</Button>
+                 </span>
+                 <span>
+                 <Button onClick={this.addTask}> Add a Task </Button>
+                 </span>
+                 </div>
                     <h2>Interns List</h2>
                     <div className="table">
                         <div className="table-header">
