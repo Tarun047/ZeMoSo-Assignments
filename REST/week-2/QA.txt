@@ -1,0 +1,59 @@
+1. What standard is used for all aspects of web service development in this module, from
+   describing interfaces to publishing and discovering services?
+   options: [SOAP, UDDI, WSDL, XML]
+   ans: SOAP
+
+2. What are the two major styles of SOAP requests?
+  options: [document, request-response, envelope, RPC]
+  ans: document, RPC
+
+3. Which of these message patterns are typical of asynchronous messaging? 
+   Choose two correct answers.
+   options: [notification, one-way, request-response, solicit-response]
+   ans: options 1 and 2
+
+4. Your web browser has an add-on that is alerted when your favourite blog has a new post. 
+   Which messaging pattern is this?
+   options: [notification, solicit-response, request-response, one-way]
+   ans: notification
+
+5. An important part of a WSDL (Web Service Description Language) file is a section that describes how services are invoked. 
+   For example, this section includes the style of interaction (document or RPC), the transport protocol, 
+   and how messages are turned into XML. 
+   What is this section?
+   options:[bindings, types, services, interfaces]
+   ans: services
+
+6. Consider the two statements. Choose the one correct option.
+    1. SOAP messages can only be sent over HTTP
+    2. Every SOAP message needs a header
+    ans: Only Statement 2 is correct.
+
+7. Consider the two statements. Choose the one correct option
+   1. WSDL can be used to describe non-XML based web services
+   2. A WSDL document can import other WSDL documents to gain access to their specifications
+   ans: Only Statement 2 is correct.
+
+8. UDDI covers two aspects of web service development. Which ones? 
+   Choose the two correct answers.
+   options: [publishing, composition, discovery, security]
+   ans: composition, discovery
+
+9. The green pages of UDDI contain which data structures? 
+   Choose the two correct answers.
+   options: [businessEntity, bindingTemplate, tModel, businessService]
+   ans: bindingTemplate, tModel
+
+10. Consider the following two statements. Choose the one correct option
+    1. Binding to a service is usually a run-time activity
+    2. UDDI uses web services for publishing and discovering
+    ans: Both Statements are correct
+
+11. WS-BPEL covers what aspect of web services?
+    options:[ composition, encryption, publishing, security]
+    ans: encryption
+
+12. Which part of a WSDL 2.0 description gives concrete information about the ports to be used for the service?
+    options:[ portTypes, interfaces, bindings, services]
+    ans: services
+   
