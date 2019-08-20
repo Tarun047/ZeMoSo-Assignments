@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import MyForm from './Forms/BasicForms.js'
 import Intern from './Models/Intern.js'
 import {Table,Button} from'./Layout/BaseLayout.js'
+import Login from './Login/firebase.js'
 import logo from './logo.svg';
 import './App.css';
 
@@ -12,9 +13,11 @@ const smallColumn = {width:'10%'};
 
 
 
+
 class App extends Component
 {
     state={
+        isLoggedIn:false,
         isLoading: true,
         interns:[],
         addUI:false,
@@ -37,8 +40,13 @@ class App extends Component
         this.refreshUI = this.refreshUI.bind(this);
         this.onDelete = this.onDelete.bind(this);
         this.addTask = this.addTask.bind(this);
+        this.onLogin = this.onLogin.bind(this);
     }
 
+    onLogin()
+    {
+        this.setState({isLoggedIn:true});
+    }
 
     onDismiss(id)
       {
@@ -77,12 +85,18 @@ class App extends Component
 
     render()
     {
-        const {interns,isLoading,addUI,addTaskUI}=this.state;
+
+
+
+
+        const {interns,isLoading,addUI,addTaskUI,isLoggedIn}=this.state;
         if(isLoading)
         {
             return <p>Loading...</p>;
         }
 
+
+        if(isLoggedIn){
         if(addUI)
         {
             return (
@@ -120,7 +134,14 @@ class App extends Component
                  </div>
 
             );
+        }
+
+        else
+        {
+            return(<Login onLogin={this.onLogin} />)
+        }
     }
+
 }
 
 

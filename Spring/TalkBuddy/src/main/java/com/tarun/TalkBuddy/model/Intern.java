@@ -2,6 +2,7 @@ package com.tarun.TalkBuddy.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.NaturalId;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.lang.Nullable;
@@ -21,7 +22,7 @@ public class Intern {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-
+    @NaturalId
     @NotNull
     private String name;
 

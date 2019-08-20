@@ -3,6 +3,7 @@ package com.tarun.TalkBuddy.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.NaturalId;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -24,6 +25,7 @@ public class Task
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
 
+    @NaturalId
     @NotNull
     String taskName;
 
