@@ -1,0 +1,60 @@
+1. REST uses several HTTP methods to communicate. Which HTTP method should not make a change to data on the server?
+A: GET
+
+2. Which of these are constraints of REST architectures? Choose the three correct answers.
+   options: [ Clients can cache responses, Layered and client-server based,Uniform interface for communication, Interactions rely on state]
+A: options 1,2,3
+
+3. According to REST best practices, where should you specify what format the input and output messages are in?
+   options: [ Parameters in the URI, sub-resources in the URI, HTTP headers, XML schema ]
+A: HTTP headers
+
+4. Which of these are acceptable REST URIs according to best practices? Choose the two correct answers.
+   options[/students/, /students/3/, /student/ ,/getstudent/]
+A: options 1 & 2
+
+5. Which of these is NOT used in developing RESTful web services? 
+   options: [JSON, simple text, XML, SOAP]
+A: SOAP
+
+6. By convention, which HTML method is usually used to create a new resource?
+   options: [PATCH, POST, DELETE, PUT]
+A: POST
+
+7. What is the recommended way to not break functionality if your RESTful API is being used by many users?
+   options: [Refactor the service, keeping the API the same, Describe your service with WSDL, 
+             Subscribe your service consumers to change notifications, version your API]
+A: version your API
+
+8. Which of these best describes microservices?
+   options: [Web service architectures consisting of lots of small, modular services, 
+             Migrating business functionality into a set of services incrementally instead of all at once, 
+             a variation of SOA applied on an application scale
+             Replicating services and modifying them to fill other roles]
+A: option 3
+
+9. Consider the two statements. Choose the one correct option.
+   1. Microservices must be in the same language and framework
+   2. Microservices can be replicated for scaling
+A: Only option 2 is correct
+
+10. Which are the advantages of microservices? Choose the two correct answers.
+    options:[ Performance is very good
+	      Testing is simple
+              Small teams can develop microservices quickly
+              Services can be scaled independently
+           ]
+A: options 2 and 4
+
+11. How can you pass parameters in a REST call? Select the two correct answers.
+    options: [
+        In the SOAP header
+	In the URL
+        In the HTTP header
+        In XML 
+       ]
+   A: Options 2 and 4
+12. Consider the following two statements about RESTful web services. Choose the one correct option
+    1. Requests can be sent in simple text
+    2. PUT is usually used to create new resource
+A: Only Option 1.
