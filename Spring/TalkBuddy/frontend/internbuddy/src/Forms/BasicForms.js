@@ -17,6 +17,7 @@ class MyForm extends React.Component {
   async postchanges(event)
   {
 
+     if(this.props.submiturl){
      await fetch(this.props.submiturl, {
       method: 'POST',
       headers: {
@@ -25,8 +26,9 @@ class MyForm extends React.Component {
       },
       body: JSON.stringify(this.state)
     });
+    }
     if(this.props.callBack)
-        this.props.callBack(event);
+        this.props.callBack(event,this.props.fields);
   }
 
   render() {

@@ -2,9 +2,9 @@ import React,{Component} from 'react';
 import MyForm from './Forms/BasicForms.js'
 import Intern from './Models/Intern.js'
 import {Table,Button} from'./Layout/BaseLayout.js'
-import Login from './Login/firebase.js'
+import { auth, startFirebaseUI  } from './Login/firebase.js'
 import logo from './logo.svg';
-import './App.css';
+
 
 
 const largeColumn = {width:'40%',};
@@ -17,19 +17,31 @@ const smallColumn = {width:'10%'};
 class App extends Component
 {
     state={
-        isLoggedIn:false,
+        user:null,
         isLoading: true,
         interns:[],
         addUI:false,
         addTaskUI:false,
+
     };
 
+    componentWillMount()
+    {
+      auth.onAuthStateChanged((user) => { this.setState({user}) });
+
+    }
     async componentDidMount()
     {
         const response = await fetch('/api/interns/')
         const body = await response.json()
         this.setState({interns:body,isLoading:false,addUI:false});
         console.log(this.state.interns);
+         auth.onAuthStateChanged((user) => { this.setState({user}) });
+         if(!this.state.user)
+               {
+                      startFirebaseUI("#firebaseui-auth-container");
+               }
+
     }
 
     constructor(props)
@@ -40,12 +52,19 @@ class App extends Component
         this.refreshUI = this.refreshUI.bind(this);
         this.onDelete = this.onDelete.bind(this);
         this.addTask = this.addTask.bind(this);
-        this.onLogin = this.onLogin.bind(this);
+        this.login =  this.login.bind(this);
+        this.logout = () => { auth.signOut().then(this.forceUpdate())}
     }
 
-    onLogin()
+    login(event,values)
     {
-        this.setState({isLoggedIn:true});
+        console.log(values)
+        auth.signInWithEmailAndPassword(values[0], values[1]).catch(function(error) {
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          alert(errorMessage);
+        });
+
     }
 
     onDismiss(id)
@@ -65,7 +84,6 @@ class App extends Component
        const response = await fetch('/api/interns/')
        const body = await response.json()
        this.setState({interns:body,isLoading:false,addUI:false,addTaskUI:false});
-
     }
 
     addIntern()
@@ -89,14 +107,14 @@ class App extends Component
 
 
 
-        const {interns,isLoading,addUI,addTaskUI,isLoggedIn}=this.state;
+        const {user,interns,isLoading,addUI,addTaskUI,isLoggedIn}=this.state;
         if(isLoading)
         {
             return <p>Loading...</p>;
         }
 
 
-        if(isLoggedIn){
+        if(user){
         if(addUI)
         {
             return (
@@ -112,6 +130,8 @@ class App extends Component
         return (
 
                  <div className="page">
+                 <div> {user.email} </div>
+                 <Button onClick={this.logout}>Logout</Button>
                  <div className="table-header">
                  <span style={largeColumn}>
                  <Button onClick={this.addIntern}>Add Interns</Button>
@@ -138,7 +158,7 @@ class App extends Component
 
         else
         {
-            return(<Login onLogin={this.onLogin} />)
+            return <div id="firebaseui-auth-container"></div>
         }
     }
 

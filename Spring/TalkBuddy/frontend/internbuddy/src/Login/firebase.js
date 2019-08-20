@@ -1,6 +1,6 @@
-import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
-import React from 'react';
-import firebase from 'firebase';
+const firebase = require('firebase')
+const firebaseui = require('firebaseui')
+
 const config = {
                  apiKey: "AIzaSyALHRUe4e80ZTgi7EuqwBzvlPEhjiDEr7U",
                  authDomain: "internbuddy-c29f8.firebaseapp.com",
@@ -10,36 +10,25 @@ const config = {
                  messagingSenderId: "207196259614",
                  appId: "1:207196259614:web:f6bfbb8492b0113f"
                };
-
-firebase.initializeApp(config);
-class Login extends React.Component
-{
-
-
-    constructor(props)
-    {
-        super(props);
-        this.state = {
-             uiConfig:{
-                         // Popup signin flow rather than redirect flow.
-                         signInFlow: 'popup',
-                         // We will display Google and Facebook as auth providers.
-                         signInOptions: [
-                           firebase.auth.EmailAuthProvider.PROVIDER_ID,
-                         ],
-                         callbacks: {
-                           // Avoid redirects after sign-in.
-                           signInSuccessWithAuthResult: ()=>{ props.onLogin(); return false}
-                         }
-                       }
-        };
-
-    }
-
-    render()
-    {
-        return (<StyledFirebaseAuth uiConfig={this.state.uiConfig} firebaseAuth={firebase.auth()} />);
-    }
+firebase.initializeApp(config)
+const auth = firebase.auth()
+const uiConfig = ({
+  signInOptions: [
+    firebase.auth.EmailAuthProvider.PROVIDER_ID
+  ],
+  tosUrl: '/terms-of-service' ,// This doesn't exist yet
+  callbacks: {
+        // Avoid redirects after sign-in.
+        signInSuccessWithAuthResult: () => false
+      }
+})
+const ui = new firebaseui.auth.AuthUI(firebase.auth())
+const startFirebaseUI = function (elementId) {
+  ui.start(elementId, uiConfig)
 }
 
-export default Login;
+module.exports = {
+  firebase,
+  auth,
+  startFirebaseUI
+}
