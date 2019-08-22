@@ -14,7 +14,8 @@ firebase.initializeApp(config)
 const auth = firebase.auth()
 const uiConfig = ({
   signInOptions: [
-    firebase.auth.EmailAuthProvider.PROVIDER_ID
+    firebase.auth.EmailAuthProvider.PROVIDER_ID,
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
   ],
   tosUrl: '/terms-of-service' ,// This doesn't exist yet
   callbacks: {

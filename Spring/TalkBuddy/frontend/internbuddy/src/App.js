@@ -25,24 +25,14 @@ class App extends Component
 
     };
 
-    componentWillMount()
-    {
-      auth.onAuthStateChanged((user) => { this.setState({user}) });
-
-    }
     async componentDidMount()
     {
         const response = await fetch('/api/interns/')
         const body = await response.json()
         this.setState({interns:body,isLoading:false,addUI:false});
-        console.log(this.state.interns);
-         auth.onAuthStateChanged((user) => { this.setState({user}) });
-         if(!this.state.user)
-               {
-                      startFirebaseUI("#firebaseui-auth-container");
-               }
 
     }
+
 
     constructor(props)
     {
@@ -52,20 +42,19 @@ class App extends Component
         this.refreshUI = this.refreshUI.bind(this);
         this.onDelete = this.onDelete.bind(this);
         this.addTask = this.addTask.bind(this);
-        this.login =  this.login.bind(this);
-        this.logout = () => { auth.signOut().then(this.forceUpdate())}
+        this.handleLogin = this.handleLogin.bind(this);
+        this.logout = () => { auth.signOut()}
+        auth.onAuthStateChanged((user)=>this.handleLogin(user));
+
     }
 
-    login(event,values)
+    handleLogin(user)
     {
-        console.log(values)
-        auth.signInWithEmailAndPassword(values[0], values[1]).catch(function(error) {
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          alert(errorMessage);
-        });
-
+        this.setState({user:user});
+        if(user==null)
+            startFirebaseUI("#firebaseui-auth-container");
     }
+
 
     onDismiss(id)
       {
@@ -107,14 +96,10 @@ class App extends Component
 
 
 
-        const {user,interns,isLoading,addUI,addTaskUI,isLoggedIn}=this.state;
-        if(isLoading)
-        {
-            return <p>Loading...</p>;
-        }
+        const {interns,isLoading,addUI,addTaskUI,isLoggedIn}=this.state;
 
 
-        if(user){
+        if(this.state.user!==null){
         if(addUI)
         {
             return (
@@ -130,14 +115,16 @@ class App extends Component
         return (
 
                  <div className="page">
-                 <div> {user.email} </div>
-                 <Button onClick={this.logout}>Logout</Button>
+                 <div align="right">
+                 <div> {this.state.user.email} </div>
+                 <Button className="button-inline" onClick={this.logout}>Logout</Button>
+                 </div>
                  <div className="table-header">
                  <span style={largeColumn}>
-                 <Button onClick={this.addIntern}>Add Interns</Button>
+                 <Button className="button-inline" onClick={this.addIntern}>Add Interns</Button>
                  </span>
                  <span>
-                 <Button onClick={this.addTask}> Add a Task </Button>
+                 <Button className="button-inline" onClick={this.addTask}> Add a Task </Button>
                  </span>
                  </div>
                     <h2>Interns List</h2>
@@ -155,7 +142,6 @@ class App extends Component
 
             );
         }
-
         else
         {
             return <div id="firebaseui-auth-container"></div>
