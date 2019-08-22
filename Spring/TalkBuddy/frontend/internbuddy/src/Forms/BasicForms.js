@@ -28,7 +28,7 @@ class MyForm extends React.Component {
     });
     }
     if(this.props.callBack)
-        this.props.callBack(event,this.props.fields);
+        this.props.callBack(event,this.state);
   }
 
   render() {

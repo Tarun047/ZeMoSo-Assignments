@@ -43,6 +43,7 @@ class App extends Component
         this.onDelete = this.onDelete.bind(this);
         this.addTask = this.addTask.bind(this);
         this.handleLogin = this.handleLogin.bind(this);
+        this.timer = setInterval(this.refreshUI,300000)
         this.logout = () => { auth.signOut()}
         auth.onAuthStateChanged((user)=>this.handleLogin(user));
 
@@ -66,13 +67,14 @@ class App extends Component
         );
       }
 
-    async refreshUI(event)
+    async refreshUI(event,update)
     {
        if(event)
         event.preventDefault();
        const response = await fetch('/api/interns/')
        const body = await response.json()
        this.setState({interns:body,isLoading:false,addUI:false,addTaskUI:false});
+
     }
 
     addIntern()
@@ -92,10 +94,6 @@ class App extends Component
 
     render()
     {
-
-
-
-
         const {interns,isLoading,addUI,addTaskUI,isLoggedIn}=this.state;
 
 

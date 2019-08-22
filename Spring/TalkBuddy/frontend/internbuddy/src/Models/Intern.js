@@ -120,7 +120,11 @@ class Intern extends React.Component
                            }
                            </ol>
                            </span>
-
+                           <span style={smallColumn}>
+                            <Button className="button-inline" onClick={()=>this.props.onDelete(this.state.id)}>
+                                Delete
+                            </Button>
+                           </span>
                  </div>
 
             );

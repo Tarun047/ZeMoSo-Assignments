@@ -10,7 +10,8 @@ const Table = ({list,onDelete,callBack,tag})=>
            rating:item.rating,
            assignments:item.assignments,
            onDelete:onDelete,
-           callBack:callBack
+           callBack:callBack,
+           key:item.id
           },null
          )
         )}
