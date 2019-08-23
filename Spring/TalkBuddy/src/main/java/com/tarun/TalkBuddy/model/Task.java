@@ -1,13 +1,13 @@
 package com.tarun.TalkBuddy.model;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.NaturalId;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.lang.Nullable;
+
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -18,7 +18,7 @@ import java.util.Set;
 @Entity
 @Table(name="tasks")
 @EntityListeners(AuditingEntityListener.class)
-@JsonIgnoreProperties(value={"createdAt","deadline","assignments"},allowGetters = true)
+@JsonIgnoreProperties(value={"createdAt","assignments"},allowGetters = true)
 public class Task
 {
     @Id
@@ -37,9 +37,10 @@ public class Task
     @CreatedDate
     Date createdAt;
 
+
     @Column(nullable = false)
-    @Temporal(value = TemporalType.TIMESTAMP)
-    @LastModifiedDate
+    @Temporal(value = TemporalType.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     Date deadline;
 
     @JsonIgnore

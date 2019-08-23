@@ -5,7 +5,7 @@ class MyForm extends React.Component {
     super(props);
     this.state = {
     };
-
+    console.log(props.fields);
   }
   myChangeHandler = (event) => {
     let nam = event.target.name;
@@ -34,13 +34,13 @@ class MyForm extends React.Component {
   render() {
     return (
       <form onSubmit={this.postchanges}>{
-      this.props.fields.map(
-        field=>
+     Object.entries(this.props.fields).map(
+        ([key,value])=>
         <div>
-          <p>Enter {field} </p>
+          <p>Enter {key} </p>
           <input
-            type='text'
-            name={field}
+            type={value}
+            name={key}
             onChange={this.myChangeHandler}
           /><br />
         </div>

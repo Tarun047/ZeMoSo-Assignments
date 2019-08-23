@@ -22,7 +22,7 @@ public class TaskController extends MainController{
     }
 
     @PostMapping("/add_task")
-    public Task createTask(@Valid @RequestBody Task task)
+    public Task createTask(@RequestBody Task task)
     {
         return taskRepository.save(task);
     }

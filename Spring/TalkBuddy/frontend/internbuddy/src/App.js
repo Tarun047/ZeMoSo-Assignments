@@ -101,13 +101,13 @@ class App extends Component
         if(addUI)
         {
             return (
-                <MyForm callBack={this.refreshUI} submiturl="/api/interns/createintern" fields={["name","rating"]}/>
+                <MyForm callBack={this.refreshUI} submiturl="/api/interns/createintern" fields={{"name":"text","rating":"text"}}/>
                 )
         }
 
         if(addTaskUI)
         {
-            return <MyForm callBack={this.refreshUI} submiturl="/api/tasks/add_task" fields={["taskName","description"]} />
+            return <MyForm callBack={this.refreshUI} submiturl="/api/tasks/add_task" fields={{"taskName":"text","description":"text","deadline":"date"}} />
         }
 
         return (
