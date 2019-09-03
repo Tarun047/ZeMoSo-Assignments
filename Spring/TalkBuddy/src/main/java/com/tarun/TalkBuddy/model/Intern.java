@@ -29,6 +29,10 @@ public class Intern {
 
     private double rating;
 
+    @ManyToOne
+    private Mentor mentor
+
+
     @OneToMany(mappedBy = "intern",cascade = {CascadeType.ALL})
     Set<Assignment> assignments = new HashSet<>();
 

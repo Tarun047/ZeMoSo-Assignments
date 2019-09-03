@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import MyForm from './Forms/BasicForms.js'
 import Intern from './Models/Intern.js'
 import {Table,Button} from'./Layout/BaseLayout.js'
-import { auth, startFirebaseUI  } from './Login/firebase.js'
+import { auth  } from './Login/firebase.js'
 import logo from './logo.svg';
 
 
@@ -14,7 +14,7 @@ const smallColumn = {width:'10%'};
 //TODO: Add intern specific page
 
 
-class App extends Component
+class MentorApp extends Component
 {
     state={
         user:null,
@@ -37,30 +37,16 @@ class App extends Component
     constructor(props)
     {
         super(props);
+        this.state.user=props.user
         this.onDismiss = this.onDismiss.bind(this);
         this.addIntern = this.addIntern.bind(this);
         this.refreshUI = this.refreshUI.bind(this);
         this.onDelete = this.onDelete.bind(this);
         this.addTask = this.addTask.bind(this);
-        this.handleLogin = this.handleLogin.bind(this);
         this.timer = setInterval(this.refreshUI,300000)
         this.logout = () => { auth.signOut()}
-        auth.onAuthStateChanged((user)=>this.handleLogin(user));
 
-    }
 
-    async handleLogin(user)
-    {
-        this.setState({user:user});
-        if(user==null)
-            startFirebaseUI("#firebaseui-auth-container");
-        else
-        {
-            const user_role = await fetch('/api/roles/rolelevel',{headers: {'uid':user.uid}});
-            const newLevel = await user_role.text()
-            console.log(newLevel);
-            this.setState({rolelevel:newLevel})
-        }
     }
 
 
@@ -103,8 +89,6 @@ class App extends Component
     {
         const {interns,isLoading,addUI,addTaskUI,isLoggedIn}=this.state;
         console.log(this.state.user);
-
-        if(this.state.user!==null){
         if(addUI)
         {
             return (
@@ -146,11 +130,7 @@ class App extends Component
                  </div>
 
             );
-        }
-        else
-        {
-            return <div id="firebaseui-auth-container"></div>
-        }
+
     }
 
 }
@@ -158,4 +138,4 @@ class App extends Component
 
 
 
-export default App;
+export default MentorApp;
