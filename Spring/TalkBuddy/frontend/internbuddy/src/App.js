@@ -49,11 +49,18 @@ class App extends Component
 
     }
 
-    handleLogin(user)
+    async handleLogin(user)
     {
         this.setState({user:user});
         if(user==null)
             startFirebaseUI("#firebaseui-auth-container");
+        else
+        {
+            const user_role = await fetch('/api/roles/rolelevel',{headers: {'uid':user.uid}});
+            const newLevel = await user_role.text()
+            console.log(newLevel);
+            this.setState({rolelevel:newLevel})
+        }
     }
 
 
@@ -95,7 +102,7 @@ class App extends Component
     render()
     {
         const {interns,isLoading,addUI,addTaskUI,isLoggedIn}=this.state;
-
+        console.log(this.state.user);
 
         if(this.state.user!==null){
         if(addUI)
