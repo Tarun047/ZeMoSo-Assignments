@@ -4,22 +4,22 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="main.css">
         <script>
-        window.onscroll = function() {scrollFunction()};
-        function scrollFunction() 
-        {
-            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) 
-            {
-                document.getElementById("navbar").style.top = "0";
-            } 
-            else 
-            {
-                document.getElementById("navbar").style.top = "-50px";
-            }
-        }
+                window.onscroll = function() {scrollFunction()};
+                function scrollFunction() 
+                {
+                    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) 
+                    {
+                        document.getElementById("navbar").style.top = "-10";
+                    } 
+                    else 
+                    {
+                        document.getElementById("navbar").style.top = "0";
+                    }
+                }
         </script>
     </head>
     <body>
-        <div class='nav-bar'>
+        <div id="navbar" class='nav-bar'>
             <ul>
                 <li><a class="active" href="index.html">Home</a></li>
                 <li><a href="aboutme.html">About Me</a></li>
@@ -28,7 +28,7 @@
             </ul>
         </div>
         <div class="main-container">
-            <img src="static/code.jpg" alt="I believe in Idea, Imagination and Implementation" style="fill-opacity: 0.2 " />
+            <img src="static/code.jpg" alt="I believe in Idea, Imagination and Implementation" style="max-width: 100%;height: auto;" />
         </div>
         <div class="footer">
                 Made with <span class="heart">❤</span> by Tarun Gudipati
