@@ -8,10 +8,12 @@ div.nav-bar ul {
     width: 100%;
     background-color: #333;
   }
+
 div.nav-bar ul li
 {
     float: left;
 }
+
 div.nav-bar ul li a
 {
     display: block;
@@ -29,4 +31,15 @@ div.nav-bar ul li a:hover
 div.footer
 {
     text-align: center;
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:25px;
+}
+
+.body
+{
+    background-color: crimson;
+    width: 100%;
+    height: 100%;
 }
