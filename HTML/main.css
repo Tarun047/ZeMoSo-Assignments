@@ -1,8 +1,8 @@
 div.nav-bar
 {
     background-color: #333;
-    position: fixed; 
-    top: -50px; 
+    position: relative; 
+    top: -10px; 
     width: 100%; 
     transition: top 0.3s; 
 }
@@ -58,7 +58,7 @@ div.main-container ul
     align-self: center;
     overflow: hidden;
     display: flex;
-    width: 50%;
+    width: 40%;
     margin: auto;
 }
 div.main-container ul li
