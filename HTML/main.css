@@ -56,7 +56,6 @@ div.main-container
 div.main-container ul
 {
     list-style-type: none;
-    align-self: center;
     overflow: hidden;
     display: flex;
     width: 50%;
@@ -66,6 +65,8 @@ div.main-container ul
 div.main-container ul li
 {
     float: left;
+    padding: 16px;
+    margin: 14px;
 }
 
 div.main-container ul li div
@@ -78,7 +79,7 @@ div.main-container ul li div
 
 div.footer
 {
-    position: relative;
+   position: relative;
    left: 0;
    bottom: 0;
    width: 100%;
