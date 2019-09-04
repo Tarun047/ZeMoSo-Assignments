@@ -28,12 +28,16 @@ div.nav-bar ul li a:hover
     background-color: cornflowerblue
 }
 
+.active
+{
+    background-color: cornflowerblue;
+}
+
+
 body
 {
     background-color: cornsilk;
 }
-
-
 
 div.footer
 {
