@@ -52,7 +52,7 @@ body
 div.main-container
 {
     text-align: center;
-    justify-content: center;
+    flex-direction: column;
 }
 div.main-container ul
 {
@@ -80,9 +80,10 @@ div.main-container ul li div
 
 div.footer
 {
-   position: fixed;
+   position: relative;
    left: 0;
    bottom: 0;
    width: 100%;
    text-align: center;
+   
 }
