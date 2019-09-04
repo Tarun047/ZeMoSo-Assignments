@@ -4,37 +4,34 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="main.css">
         <script>
-                window.onscroll = function() {scrollFunction()};
-                function scrollFunction() 
-                {
-                    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) 
-                    {
-                        document.getElementById("navbar").style.top = "-10";
-                    } 
-                    else 
-                    {
-                        document.getElementById("navbar").style.top = "0";
-                    }
-                }
+        window.onscroll = function() {scrollFunction()};
+        function scrollFunction() 
+        {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) 
+            {
+                document.getElementById("navbar").style.top = "-10";
+            } 
+            else 
+            {
+                document.getElementById("navbar").style.top = "0";
+            }
+        }
         </script>
     </head>
     <body>
         <div id="navbar" class='nav-bar'>
             <ul>
-                <li><a class="active" href="index.html">Home</a></li>
-                <li><a href="aboutme.html">About Me</a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a class="active" href="aboutme.html">About Me</a></li>
                 <li><a href="#contact">Contact Me</a></li>
                 <li><a href="#about">My Gallery with a grid of photos</a></li>
             </ul>
         </div>
         <div class="main-container">
-            <img src="static/code.jpg" alt="I believe in Idea, Imagination and Implementation" style="width: 100%;object-fit: cover" />
-        </div>
-        <div style="text-align: center"> 
-            <h1> Tarun Gudipati </h1>
+            <h1>Content</h1>
         </div>
         <div class="footer">
-                Made with <span class="heart">❤</span> by Tarun Gudipati
+            Made with <span class="heart">❤</span> by Tarun Gudipati
         </div>
     </body>
 </html>

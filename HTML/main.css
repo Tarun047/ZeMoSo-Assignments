@@ -80,7 +80,7 @@ div.main-container ul li div
 
 div.footer
 {
-   position: relative;
+   position: fixed;
    left: 0;
    bottom: 0;
    width: 100%;
