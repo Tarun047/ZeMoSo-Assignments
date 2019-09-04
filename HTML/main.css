@@ -43,17 +43,15 @@ body
 div.main-container
 {
     text-align: center;
-    align-items: center;
 }
 div.main-container ul
 {
     list-style-type: none;
-    margin: 0;
-    padding: 0;
+    align-self: center;
     overflow: hidden;
     display: flex;
-
-    width: 100%;
+    width: 50%;
+    margin: auto;
 }
 div.main-container ul li
 {
