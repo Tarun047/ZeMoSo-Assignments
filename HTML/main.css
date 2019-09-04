@@ -4,6 +4,7 @@ div.nav-bar
     position: fixed; 
     width: 100%; 
     top: 0px;
+    left: 0px;
     transition: top 0.3s; 
 }
 div.nav-bar ul {
@@ -43,7 +44,7 @@ div.nav-bar ul li a:hover
 
 body
 {
-    background-color: floralwhite;
+    background-color:#fff;
     width: auto;
     height: auto;
 }
