@@ -1,3 +1,11 @@
+div.nav-bar
+{
+    background-color: #333;
+    position: fixed; 
+    top: -50px; 
+    width: 100%; 
+    transition: top 0.3s; 
+}
 div.nav-bar ul {
     list-style-type: none;
     margin: 0;
