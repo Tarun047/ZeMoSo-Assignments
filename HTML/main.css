@@ -51,6 +51,7 @@ body
 div.main-container
 {
     text-align: center;
+    justify-content: space-evenly;
 }
 div.main-container ul
 {
@@ -58,9 +59,9 @@ div.main-container ul
     align-self: center;
     overflow: hidden;
     display: flex;
-    width: 40%;
+    width: 50%;
     margin: auto;
-    justify-content: space-evenly;
+    justify-content: space-around;
 }
 div.main-container ul li
 {
