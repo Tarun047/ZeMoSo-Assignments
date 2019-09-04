@@ -60,6 +60,7 @@ div.main-container ul
     display: flex;
     width: 40%;
     margin: auto;
+    justify-content: space-evenly;
 }
 div.main-container ul li
 {
