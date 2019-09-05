@@ -59,9 +59,9 @@ div.main-container ul
     list-style-type: none;
     overflow: hidden;
     display: flex;
-    width: auto;
+    width: 50%;
     margin: auto;
-    justify-content: space-evenly;
+    justify-content: space-around;
 }
 div.main-container ul li
 {
@@ -79,11 +79,12 @@ div.main-container ul li div
 }
 .left-sub-container
 {
-    float: left;
+    display: inline-block;
+    text-align: center;
 }
 .central-image-container
 {
-    background-image: url('static/ismartTarun.jpg');
+    display: inline-block;
 }
 
 .footer
