@@ -61,7 +61,7 @@ div.main-container ul
     display: flex;
     width: auto;
     margin: auto;
-    justify-content: center;
+    justify-content: space-evenly;
 }
 div.main-container ul li
 {
@@ -83,7 +83,7 @@ div.main-container ul li div
 }
 .central-image-container
 {
-    background-image: url('static/code.jpg');
+    background-image: url('static/ismartTarun.jpg');
 }
 
 .footer
