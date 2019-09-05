@@ -52,7 +52,7 @@ body
 div.main-container
 {
     text-align: center;
-    flex-direction: column;
+    justify-content: center;
 }
 div.main-container ul
 {
