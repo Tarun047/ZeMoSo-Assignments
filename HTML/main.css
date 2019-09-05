@@ -60,9 +60,12 @@ div.main-container ul
 {
     list-style-type: none;
     display: flex;
+    flex-direction: row;
     width: 50%;
     margin: auto;
-    justify-content: space-around;
+    justify-content: center;
+    flex-grow: inherit;
+    flex-basis: 50%;
 }
 div.main-container ul li
 {
@@ -86,7 +89,8 @@ div.main-container ul li div
 }
 .central-image-container
 {
-    flex-wrap: wrap-reverse;
+    text-align: center;
+    padding-left: 16px;
 }
 
 .right-sub-container
