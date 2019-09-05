@@ -87,15 +87,16 @@ div.main-container ul li div
     float: left;
     left: 0px
 }
-.central-image-container
+.central-sub-container
 {
     text-align: center;
     padding-left: 16px;
+    padding-right: 16px;
 }
 
 .right-sub-container
 {
-    float: left;
+    float: right;
 }
 
 .footer
