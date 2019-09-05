@@ -4,6 +4,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="main.css">
         <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+        <script>
+            function submitForm()
+            {
+                alert("Submit success!")
+            }
+        </script>
     </head>
     <body>
         <div id="navbar" class='nav-bar'>
@@ -36,7 +42,7 @@
               Or Contact me directly
             </span>
         </div><br /><br />
-        <form action="/action_page.php">
+        <form method="POST">
             <div class="row">
               <div class="col-25">
                 <label for="fname">First Name</label>
@@ -55,13 +61,13 @@
             </div>
             <div class="row">
               <div class="col-25">
-                <label for="country">Country</label>
+                <label for="reason">Reason</label>
               </div>
               <div class="col-75">
-                <select id="country" name="country">
-                  <option value="australia">Australia</option>
-                  <option value="canada">Canada</option>
-                  <option value="usa">USA</option>
+                <select id="reason" name="reason">
+                  <option value="getquote">To get a Quote on a Project</option>
+                  <option value="support">Support Issue for a previous project</option>
+                  <option value="other">Other Reasons</option>
                 </select>
               </div>
             </div>
@@ -74,7 +80,15 @@
               </div>
             </div>
             <div class="row">
-              <input type="submit" value="Submit">
+                <div class="col-25">
+                    <label for="email">Email</label>
+                </div>
+                <div class="col-75">
+                        <input type="text" id="email" name="email" placeholder="Your Email id..">
+                </div>
+            </div>
+            <div class="row">
+              <input type="submit" value="Submit" onclick="submitForm()">
             </div>
             </form>
         </div> 
