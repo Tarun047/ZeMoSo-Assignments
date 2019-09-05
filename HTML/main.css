@@ -81,6 +81,12 @@ div.main-container ul li div
     padding: 14px 16px;
     text-decoration: none;
 }
+
+div.main-container ul li a
+{
+    text-decoration: none;
+    color: #333;
+}
 .left-sub-container
 {
     text-align: left;
