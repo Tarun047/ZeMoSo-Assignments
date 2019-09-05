@@ -6,13 +6,30 @@
         <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
     </head>
     <body>
-            <div id="navbar" class='nav-bar'>
+        <div id="navbar" class='nav-bar'>
                     <ul>
                         <li><a class="active" href="index.html">Home</a></li>
                         <li><a href="aboutme.html">About Me</a></li>
                         <li><a href="contact.html">Contact Me</a></li>
                         <li><a href="#about">My Gallery with a grid of photos</a></li>
                     </ul>
-                </div>
+        </div>
+        <div class="main-container">
+            <h2>Form</h2>
+        <h3> Reach out to me on </h3>
+        <ul>
+            <li>
+                <img src="static/twitter.svg" />
+                <h3>Twitter</h3>
+            </li>
+        </ul>
+        <form action="/action_page.php">
+            First name:<input type="text" name="firstname">
+            <br>
+            Last name:<input type="text" name="lastname">
+            <br><br>
+            <input type="submit" value="Submit">
+        </form>
+        </div> 
     </body>
 </html>
