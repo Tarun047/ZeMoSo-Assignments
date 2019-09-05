@@ -87,6 +87,12 @@ div.main-container ul li div
     display: inline-block;
 }
 
+.right-sub-container
+{
+    display: inline-block;
+    text-align: center;
+}
+
 .footer
 {
    position: relative;
