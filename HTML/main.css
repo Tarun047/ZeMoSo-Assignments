@@ -54,7 +54,7 @@ div.main-container
 {
     text-align: center;
     justify-content: center;
-   
+    width: 100%
 }
 div.main-container ul
 {
@@ -82,17 +82,17 @@ div.main-container ul li div
 .left-sub-container
 {
     text-align: left;
-    flex-direction: row;
+    float: left;
+    left: 0px
 }
 .central-image-container
 {
-    display: inline-block;
+    float: left;
 }
 
 .right-sub-container
 {
-    display: inline-block;
-    text-align: center;
+    float: left;
 }
 
 .footer
