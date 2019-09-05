@@ -3,6 +3,7 @@
         <title>My Home page</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="main.css">
+        <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
         <script>
         window.onscroll = function() {scrollFunction()};
 
@@ -49,15 +50,13 @@
             <div id="work-div" onclick="showWorkExperience()">
                 <img src="static/goal.svg" alt="My Work Experience" height="50px" width="50px" />
                 <h3>Work Experience</h3>
-                <div id="work-area" style="display: none ;transition: display 0.5s ease-out;">
+                <div id="work-area" style="display: none ;transition: display 0.5s ease-out">
                     <!-- Empty div to fill work Exeperience on Click-->
-                    <ul>
-                        <li>
-                            <h1>ZeMoSo Technologies </h1> 
-                            <h3> Full Stack Developer</h3>
-                            (2020 - Present)
-                        </li>
-                    </ul>
+                    <article>
+                        I have started my career as a full stack developer with <em>ZeMoSo Technologies</em>.<br />
+                        My primary work includes working on ideas and converting them to minimum viable products.<br />
+                        I have worked on Spring and react majorly
+                    </article>
                 </div>
             </div>
             <ul>
@@ -65,6 +64,11 @@
                     <div class="left-sub-container">
                         <img src="static/open-book.svg" alt="Education" height="25px" width="25px">
                         <h3>Education</h3>
+                        <div id="education-area" style="display: none ;transition: display 0.5s ease-out;">
+                           <article>
+                               I have completed my graduation at B.V. Raju Institute of Technology
+                           </article>
+                        </div>
                     </div>
                 </li>
                 <li>
