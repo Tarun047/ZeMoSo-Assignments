@@ -59,7 +59,6 @@ div.main-container
 div.main-container ul
 {
     list-style-type: none;
-    overflow: hidden;
     display: flex;
     width: 50%;
     margin: auto;
@@ -87,7 +86,7 @@ div.main-container ul li div
 }
 .central-image-container
 {
-    float: left;
+    flex-wrap: wrap-reverse;
 }
 
 .right-sub-container
