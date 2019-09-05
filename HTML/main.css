@@ -47,13 +47,14 @@ body
     background-color:#fff;
     width: auto;
     height: auto;
+    font-family:  'Stylish', sans-serif;
 }
 
 div.main-container
 {
     text-align: center;
     justify-content: center;
-    font-family:  'Stylish', sans-serif;
+   
 }
 div.main-container ul
 {
@@ -80,8 +81,8 @@ div.main-container ul li div
 }
 .left-sub-container
 {
-    display: inline-block;
-    text-align: center;
+    text-align: left;
+    flex-direction: row;
 }
 .central-image-container
 {
