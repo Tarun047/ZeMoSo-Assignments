@@ -77,6 +77,15 @@ div.main-container ul li div
     padding: 14px 16px;
     text-decoration: none;
 }
+div.left-sub-container
+{
+    float: left;
+}
+div.central-image-holder
+{
+    background-image: url('static/code.jpg');
+    float: right;
+}
 
 div.footer
 {
