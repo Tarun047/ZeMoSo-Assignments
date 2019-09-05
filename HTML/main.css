@@ -109,11 +109,12 @@ div.main-container ul li a
 {
     padding: 16px;
     margin: 24px;
+    text-align: center;
 }
 
-input[type=text], select, textarea {
+input, select, textarea {
     box-sizing: border-box;
-    margin: 16px;
+    margin: 8px;
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
