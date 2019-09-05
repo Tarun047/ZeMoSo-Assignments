@@ -5,6 +5,7 @@
         <link rel="stylesheet" href="main.css">
         <script>
         window.onscroll = function() {scrollFunction()};
+
         function scrollFunction() 
         {
             if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) 
@@ -15,6 +16,11 @@
             {
                 document.getElementById("navbar").style.top = "0px";
             }
+        }
+
+        function showWorkExperience()
+        {
+
         }
         </script>
     </head>
@@ -36,9 +42,12 @@
                 I love the way computers have made our lives easier and 
                 I believe that there is still a long way to go and more to achieve using this technology.
             </article>
-            <div>
+            <div id="work-div" onclick="">
                 <img src="static/goal.svg" alt="My Work Experience" height="50px" width="50px" />
-                <h1>Work Experience</h1>
+                <h3>Work Experience</h3>
+                <div id="work-area">
+                    <!-- Empty div to fill work Exeperience on Click-->
+                </div>
             </div>
             <ul>
                 <li>
