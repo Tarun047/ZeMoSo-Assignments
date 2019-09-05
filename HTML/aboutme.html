@@ -20,7 +20,11 @@
 
         function showWorkExperience()
         {
-
+            const element = document.getElementById("work-area");
+            if(element.style.display=="none")
+                element.style.display="block";
+            else
+                element.style.display="none";
         }
         </script>
     </head>
@@ -45,7 +49,7 @@
             <div id="work-div" onclick="showWorkExperience()">
                 <img src="static/goal.svg" alt="My Work Experience" height="50px" width="50px" />
                 <h3>Work Experience</h3>
-                <div id="work-area" style="visibility: none;transition: visibility 0.5s ease-out;">
+                <div id="work-area" style="display: none ;transition: display 0.5s ease-out;">
                     <!-- Empty div to fill work Exeperience on Click-->
                     <h1> Sample WeX</h1>
                 </div>
