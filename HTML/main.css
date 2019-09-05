@@ -77,22 +77,20 @@ div.main-container ul li div
     padding: 14px 16px;
     text-decoration: none;
 }
-div.left-sub-container
+.left-sub-container
 {
     float: left;
 }
-div.central-image-holder
+.central-image-container
 {
     background-image: url('static/code.jpg');
-    float: right;
+    float: left;
 }
 
-div.footer
+.footer
 {
    position: relative;
-   left: 0;
-   bottom: 0;
-   width: 100%;
+   width: auto;
    text-align: center;
    
 }
