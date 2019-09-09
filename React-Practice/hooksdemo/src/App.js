@@ -17,7 +17,7 @@ function App() {
  
   useEffect(()=>{
     document.title=title;
-  })
+  },[title])
 
   return (
     <div className="App">
