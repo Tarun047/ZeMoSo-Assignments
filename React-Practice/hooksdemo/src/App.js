@@ -1,8 +1,26 @@
 import React,{useState,useEffect} from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import './App.css';
+
+const useStyles = makeStyles(theme => 
+  ({
+    root: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      justifyContent: 'space-around',
+      overflow: 'hidden',
+      backgroundColor: theme.palette.background.paper,
+    },
+    gridList: {
+      width: 500,
+      height: 450,
+    },
+  }))
+
 
 function App() {
   let [stock,setStock] = useState({});
+  const classes = useStyles();
 
   useEffect(()=>
   {
@@ -16,7 +34,8 @@ function App() {
   },[setStock])
   console.log(stock)
   return (
-    <div className="App">
+
+    <div className={classes.root}>
       {
         stock ? Object.keys(stock).map(
           time=>
