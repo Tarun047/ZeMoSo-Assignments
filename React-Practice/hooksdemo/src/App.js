@@ -49,13 +49,12 @@ function App() {
     <div className={classes.root}>
       {
       stock ? <VictoryChart data={transformData('1. open')} height={250}>
-           <VictoryLine 
-              interpolation="linear"
-              data={transformData('1. open')} 
-              x="basicData.time" y="basicData.price"
-              style={{data: {stroke: '#c43a31', strokeWidth: 1}}}
-            />
-      </VictoryChart> : null
+      <VictoryLine 
+        interpolation="linear"
+        data={transformData('1. open')}  
+        style={{data: {stroke: "#c43a31", strokeWidth: 1}}}
+      />
+    </VictoryChart>: null
       }
     </div>
   );
