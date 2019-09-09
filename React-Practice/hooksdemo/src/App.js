@@ -14,13 +14,20 @@ function App() {
     }
     fetchData();
   },[setStock])
+  console.log(stock)
   return (
     <div className="App">
       {
         stock ? Object.keys(stock).map(
           time=>
           <div key={time}>
-            {time}:{stock[time]}
+            {time}:
+            {
+              Object.keys(stock[time]).map(interval=>
+                <div key={interval}>
+                  {interval}:{stock[time][interval]}
+                </div>
+            )}
           </div>
         ):null
       }
