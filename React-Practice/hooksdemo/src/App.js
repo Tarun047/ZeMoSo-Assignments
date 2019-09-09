@@ -1,9 +1,16 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import logo from './logo.svg';
 import './App.css';
 
 function App() {
-  [counter,setCounter] = useState(0);
+  const [count,setCount] = useState(0);
+  const [title,setTitle] = useState(0);
+  function increment()
+  {
+    setCount(count+1);
+  }
+
+ 
 
   return (
     <div className="App">
@@ -22,7 +29,8 @@ function App() {
         </a>
         <div>
           <button onClick={increment}>Click Me</button>
-          <br/>Current Count is:{count}
+          <br/>Current Count is:{count}<br/>
+          <input type="text" value={title} />
         </div>
       </header>
     </div>
