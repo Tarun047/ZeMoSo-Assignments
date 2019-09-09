@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme =>
 
 
 function App() {
-  let [stock,setStock] = useState({});
+  let [stock,setStock] = useState(null);
   const classes = useStyles();
 
   useEffect(()=>
@@ -36,13 +36,11 @@ function App() {
 
   function transformData()
   {
-    Object.keys(stock['Time Series (5min)']).map(key=>{
-    { 
-      x:key,
-      y:stock[key]['1. open']
+    
+    if(stock)
+    {
+      console.log(stock['Time Series (5min)'])
     }
-    });
-     return "Hello"
   }
   
   return (
