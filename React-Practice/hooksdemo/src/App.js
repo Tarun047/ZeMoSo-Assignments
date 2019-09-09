@@ -21,32 +21,44 @@ const useStyles = makeStyles(theme =>
 
 function App() {
   let [stock,setStock] = useState(null);
+  let [intrest,setIntrest] = useState(null)
   const classes = useStyles();
 
   useEffect(()=>
   {
     async function fetchData()
     {
-      const response = await fetch('https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=MSFT&interval=5min&apikey=S9C3XDXUHXF2Q4BB');
-      const data = await response.json();
-      setStock(data);
+      if(intrest)
+      {
+        const response = await fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${intrest}&interval=5min&apikey=S9C3XDXUHXF2Q4BB`);
+        const data = await response.json();
+        setStock(data);
+      }
     }
     fetchData();
-  },[setStock])
+  },[intrest,setStock])
+
 
   function transformData(column)
   {
     
-    if(stock)
+    if('Time Series (5min)' in stock)
     {
-      console.log(Object.keys(stock['Time Series (5min)']).map(key=>{return {x: new Date(key),y:parseFloat(stock['Time Series (5min)'][key][column]) };}));
       return Object.keys(stock['Time Series (5min)']).map(key=>{return {x: new Date(key),y:parseFloat(stock['Time Series (5min)'][key][column]) };});
     }
     return null;
   }
+
+  function handleIntrestChange(event)
+  {
+    setIntrest(event.target.value);
+  }
   
   return (
     <div className={classes.root}>
+      <div>
+        <input value={intrest} onChange={handleIntrestChange} />
+      </div>
       {
       stock ? <VictoryChart data={transformData('1. open')} height={250}>
       <VictoryLine 
