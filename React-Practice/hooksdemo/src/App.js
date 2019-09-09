@@ -1,8 +1,10 @@
-import React from 'react';
+import React,{useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  [counter,setCounter] = useState(0);
+
   return (
     <div className="App">
       <header className="App-header">
@@ -18,6 +20,10 @@ function App() {
         >
           Learn React
         </a>
+        <div>
+          <button onClick={increment}>Click Me</button>
+          <br/>Current Count is:{count}
+        </div>
       </header>
     </div>
   );
