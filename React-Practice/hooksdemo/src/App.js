@@ -13,7 +13,7 @@ function App() {
       setStock(data);
     }
     fetchData();
-  })
+  },[stock['Time Series (5min)']])
   return (
     <div className="App">
       {
