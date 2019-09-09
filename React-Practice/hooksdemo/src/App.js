@@ -10,7 +10,14 @@ function App() {
     setCount(count+1);
   }
 
+  function handleChange(event)
+  {
+    setTitle(event.target.value);
+  }
  
+  useEffect(()=>{
+    document.title=title;
+  })
 
   return (
     <div className="App">
@@ -30,7 +37,7 @@ function App() {
         <div>
           <button onClick={increment}>Click Me</button>
           <br/>Current Count is:{count}<br/>
-          <input type="text" value={title} />
+          <input type="text" value={title} onChange={handleChange} />
         </div>
       </header>
     </div>
