@@ -11,14 +11,18 @@ function App() {
       const response = await fetch('https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=MSFT&interval=5min&apikey=S9C3XDXUHXF2Q4BB');
       const data = await response.json();
       setStock(data['Time Series (5min)']);
-      return data['Meta Data']['3. Last Refreshed']
     }
-    let lastUpdate = fetchData();
-  },[lastUpdate])
+    fetchData();
+  },[setStock])
   return (
     <div className="App">
       {
-        console.log(stock?stock:"Not Yet")
+        stock ? Object.keys(stock).map(
+          time=>
+          <div key={time}>
+            {time}:{stock[time]}
+          </div>
+        ):null
       }
     </div>
   );
