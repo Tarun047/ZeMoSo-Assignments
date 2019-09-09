@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import {VictoryChart} from 'victory'
+import {VictoryChart,VictoryLine} from 'victory'
 import './App.css';
 
 const useStyles = makeStyles(theme => 
@@ -34,19 +34,28 @@ function App() {
     fetchData();
   },[setStock])
 
-  function transformData()
+  function transformData(column)
   {
     
     if(stock)
     {
-      console.log(stock['Time Series (5min)'])
+      console.log(Object.keys(stock['Time Series (5min)']).map(key=>{return {x: new Date(key),y:parseFloat(stock['Time Series (5min)'][key][column]) };}));
+      return Object.keys(stock['Time Series (5min)']).map(key=>{return {x: new Date(key),y:parseFloat(stock['Time Series (5min)'][key][column]) };});
     }
+    return null;
   }
   
   return (
     <div className={classes.root}>
       {
-        stock ? transformData():null
+      stock ? <VictoryChart data={transformData('1. open')} height={250}>
+           <VictoryLine 
+              interpolation="linear"
+              data={transformData('1. open')} 
+              x="basicData.time" y="basicData.price"
+              style={{data: {stroke: '#c43a31', strokeWidth: 1}}}
+            />
+      </VictoryChart> : null
       }
     </div>
   );
