@@ -2,6 +2,7 @@ import React,{useState,useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {VictoryChart,VictoryLine} from 'victory'
 import './App.css';
+import useDebounce from './debounce'
 
 const useStyles = makeStyles(theme => 
   ({
@@ -21,28 +22,33 @@ const useStyles = makeStyles(theme =>
 
 function App() {
   let [stock,setStock] = useState(null);
-  let [intrest,setIntrest] = useState(null)
+  let [intrest,setIntrest] = useState('')
+  const debouncedSearchTerm = useDebounce(intrest, 500);
+  const [isSearching, setIsSearching] = useState(false);
+  
   const classes = useStyles();
 
   useEffect(()=>
   {
     async function fetchData()
     {
-      if(intrest)
-      {
-        const response = await fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${intrest}&interval=5min&apikey=S9C3XDXUHXF2Q4BB`);
+     
+        const response = await fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${debouncedSearchTerm}&interval=5min&apikey=S9C3XDXUHXF2Q4BB`);
         const data = await response.json();
         setStock(data);
-      }
     }
-    fetchData();
-  },[intrest,setStock])
+    if(debouncedSearchTerm)
+    {
+      setIsSearching(true);
+      fetchData().then(()=>setIsSearching(false))
+    }
+  },[debouncedSearchTerm])
 
 
   function transformData(column)
   {
     
-    if('Time Series (5min)' in stock)
+    if(stock)
     {
       return Object.keys(stock['Time Series (5min)']).map(key=>{return {x: new Date(key),y:parseFloat(stock['Time Series (5min)'][key][column]) };});
     }
@@ -60,13 +66,13 @@ function App() {
         <input value={intrest} onChange={handleIntrestChange} />
       </div>
       {
-      stock ? <VictoryChart data={transformData('1. open')} height={250}>
+      !isSearching ? <VictoryChart data={transformData('1. open')} height={250}>
       <VictoryLine 
         interpolation="linear"
         data={transformData('1. open')}  
         style={{data: {stroke: "#c43a31", strokeWidth: 1}}}
       />
-    </VictoryChart>: null
+    </VictoryChart>:<div> "Searching ..."</div>
       }
     </div>
   );
