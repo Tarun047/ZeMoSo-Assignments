@@ -16,7 +16,9 @@ function App() {
   })
   return (
     <div className="App">
-      {stock}
+      {
+        stock?stock["Time Series (5min)"]:null
+      }
     </div>
   );
 }
