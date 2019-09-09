@@ -17,7 +17,7 @@ function App() {
   return (
     <div className="App">
       {
-        stock?stock["Time Series (5min)"]:null
+        console.log(stock?stock:"Not Yet")
       }
     </div>
   );
