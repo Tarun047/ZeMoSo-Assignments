@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import {VictoryChart,VictoryLine} from 'victory'
 import './App.css';
 import useDebounce from './debounce'
+import { spacing } from '@material-ui/system';
 
 const useStyles = makeStyles(theme => 
   ({
@@ -13,6 +14,7 @@ const useStyles = makeStyles(theme =>
       alignItems:'center',
       overflow: 'hidden',
       backgroundColor: theme.palette.background.paper,
+      padding: '16'
     },
     gridList: {
       width: 500,
