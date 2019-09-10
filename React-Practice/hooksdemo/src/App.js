@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import {VictoryChart,VictoryLine} from 'victory'
+import {Container} from '@material-ui/core';
+import {VictoryChart,VictoryLine} from 'victory';
 import './App.css';
 import useDebounce from './debounce'
 
@@ -8,7 +9,6 @@ const useStyles = makeStyles(theme =>
   ({
     root: {
       display: 'flex',
-      height:'100%',
       flexWrap: 'wrap',
       flexDirection: 'column',
       alignItems:'center',
@@ -65,7 +65,7 @@ function App() {
   }
   
   return (
-    <div className={classes.root}>
+    <Container maxWidth="sm"> class={classes.root}>
       <div>
         <input value={intrest} onChange={handleIntrestChange} />
       </div>
@@ -92,7 +92,7 @@ function App() {
         />
     </VictoryChart> : <div> Enter a valid term to Search</div>
       }
-    </div>
+    </Container>
   );
 }
 
