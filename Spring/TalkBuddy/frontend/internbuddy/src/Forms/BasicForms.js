@@ -33,7 +33,7 @@ class MyForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.postchanges}>{
+      <form>{
      Object.entries(this.props.fields).map(
         ([key,value])=>
         <div>
