@@ -7,13 +7,21 @@ import useDebounce from './debounce'
 
 const useStyles = makeStyles(theme => 
   ({
+    body:
+    {
+      height:'100%',
+    },
     root: {
+      position:"absolute",
       display: 'flex',
       flexWrap: 'wrap',
+      bottom:0,
       flexDirection: 'column',
       alignItems:'center',
       overflow: 'hidden',
       padding: '16',
+      background:'#08F9DC',
+      height: '100%'
     },
     gridList: {
       width: 500,
