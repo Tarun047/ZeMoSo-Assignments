@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import {Container} from '@material-ui/core';
+import {Container, TextField} from '@material-ui/core';
 import {VictoryChart,VictoryLine} from 'victory';
 import './App.css';
 import useDebounce from './debounce'
@@ -22,6 +22,10 @@ const useStyles = makeStyles(theme =>
     searchLabel:
     {
       margin:8,
+    },
+    textField: {
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
     }
   }))
 
@@ -69,9 +73,16 @@ function App() {
   
   return (
     <Container className={classes.root}>
-      <div>
-        <input value={intrest} onChange={handleIntrestChange} />
-      </div>
+       <TextField
+        required
+        id="outlined-required"
+        label="Stock Code"
+        className={classes.textField}
+        margin="normal"
+        variant="outlined"
+        value={intrest}
+        onChange={handleIntrestChange}
+      />
       {
       stock && !isSearching ? 
       <VictoryChart data={transformData('1. open')} height={250} scale={{ x: "time" }} animate={{
