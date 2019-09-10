@@ -7,26 +7,22 @@ import useDebounce from './debounce'
 
 const useStyles = makeStyles(theme => 
   ({
-    body:
-    {
-      height:'100%',
-    },
     root: {
-      position:"absolute",
       display: 'flex',
       flexWrap: 'wrap',
-      bottom:0,
       flexDirection: 'column',
       alignItems:'center',
       overflow: 'hidden',
-      padding: '16',
-      background:'#08F9DC',
-      height: '100%'
+      margin: 16
     },
     gridList: {
       width: 500,
       height: 450,
     },
+    searchLabel:
+    {
+      margin:8,
+    }
   }))
 
 
@@ -72,7 +68,7 @@ function App() {
   }
   
   return (
-    <Container class={classes.root} height="100%" fixed>
+    <Container className={classes.root}>
       <div>
         <input value={intrest} onChange={handleIntrestChange} />
       </div>
@@ -97,7 +93,7 @@ function App() {
         data={transformData('3. low')}  
         style={{data: {stroke: "#789394", strokeWidth: 1}}}
         />
-    </VictoryChart> : <div> Enter a valid term to Search</div>
+    </VictoryChart> : <div className={classes.searchLabel}> Enter a valid term to Search</div>
       }
     </Container>
   );
