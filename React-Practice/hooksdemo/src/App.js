@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import {VictoryChart,VictoryLine,VictoryZoomContainer} from 'victory'
+import {VictoryChart,VictoryLine} from 'victory'
 import './App.css';
 import useDebounce from './debounce'
 
@@ -70,7 +70,10 @@ function App() {
       </div>
       {
       stock && !isSearching ? 
-      <VictoryChart data={transformData('1. open')} height={250} containerComponent={<VictoryZoomContainer zoomDomain={{x: [60,24*60], y: [0, 1000]}}/>} >
+      <VictoryChart data={transformData('1. open')} height={250} scale={{ x: "time" }} animate={{
+        duration: 2000,
+        onLoad: { duration: 1000 }
+      }} >
         <VictoryLine 
         interpolation="linear"
         data={transformData('1. open')}  
