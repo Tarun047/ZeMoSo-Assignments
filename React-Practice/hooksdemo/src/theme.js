@@ -7,6 +7,7 @@ export default createMuiTheme({
     secondary: blue,
   },
   typography: {
-    fontFamily: '"Product Sans", serif',
+    fontFamily: "'Chilanka', cursive"
+
   },
 });

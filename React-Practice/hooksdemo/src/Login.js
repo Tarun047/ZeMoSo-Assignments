@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles'
 import {auth} from './firebase/manager'
-import {Container,TextField,Typography} from '@material-ui/core'
+import {Container,TextField,Typography,Button} from '@material-ui/core'
 import logo from './logo.svg'
 
 const useStyles = makeStyles(theme => 
@@ -30,7 +30,7 @@ export default function Login()
 
     return(
         <Container maxWith="sm" className={classes.root}>
-                <Typography variant="h1" component="h2" gutterBottom>
+                <Typography variant="h3" component="h3" gutterBottom>
                     Stocks Application
                 </Typography>
                 <TextField 
@@ -50,6 +50,9 @@ export default function Login()
                     autoComplete="current-password"
                     margin="normal"
                     />
+                <Button variant="outlined" color="primary" className={classes.button}>
+                    Login
+                </Button>
             
         </Container>
     )
