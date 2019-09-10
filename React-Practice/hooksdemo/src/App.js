@@ -82,6 +82,7 @@ function App() {
         variant="outlined"
         value={intrest}
         onChange={handleIntrestChange}
+        inputProps={{autoCapitalize:'on'}}
       />
       {
       stock && !isSearching ? 
