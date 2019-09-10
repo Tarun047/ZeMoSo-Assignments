@@ -35,7 +35,7 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.bootcd :spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	compile("com.h2database:h2")
 	runtimeOnly 'mysql:mysql-connector-java'
@@ -44,7 +44,7 @@ dependencies {
 
 task copyWebApp(type: Copy) {
 	from 'frontend/internbuddy/build'
-	into 'build/resources/main/static/.'o
+	into 'build/resources/main/static/.'
 }
 
 task appNpmInstall(type: NpmTask) {
