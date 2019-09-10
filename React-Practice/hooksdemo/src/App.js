@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import {VictoryChart,VictoryLine} from 'victory'
 import './App.css';
 import useDebounce from './debounce'
-import { spacing } from '@material-ui/system';
 
 const useStyles = makeStyles(theme => 
   ({
@@ -71,10 +70,16 @@ function App() {
       </div>
       {
       stock && !isSearching ? <VictoryChart data={transformData('1. open')} height={250}>
+
       <VictoryLine 
         interpolation="linear"
         data={transformData('1. open')}  
         style={{data: {stroke: "#c43a31", strokeWidth: 1}}}
+      />
+      <VictoryLine 
+        interpolation="linear"
+        data={transformData('2. high')}  
+        style={{data: {stroke: "#D6D60C", strokeWidth: 1}}}
       />
     </VictoryChart> : <div> Enter a valid term to Search</div>
       }
