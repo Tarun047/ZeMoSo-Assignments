@@ -35,9 +35,9 @@ function App() {
     async function fetchData()
     {
      
-        const response = await fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${debouncedSearchTerm}&interval=5min&apikey=S9C3XDXUHXF2Q4BB`);
+        const response = await fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${debouncedSearchTerm}&interval=1min&apikey=S9C3XDXUHXF2Q4BB`);
         const data = await response.json();
-        if('Time Series (5min)' in data)
+        if('Time Series (1min)' in data)
           setStock(data);
     }
     if(debouncedSearchTerm)
@@ -55,7 +55,7 @@ function App() {
 
   function transformData(column)
   {
-      return Object.keys(stock['Time Series (5min)']).map(key=>{return {x: new Date(key),y:parseFloat(stock['Time Series (5min)'][key][column]) };});
+      return Object.keys(stock['Time Series (1min)']).map(key=>{return {x: new Date(key),y:parseFloat(stock['Time Series (1min)'][key][column]) };});
   }
 
   function handleIntrestChange(event)
@@ -71,8 +71,8 @@ function App() {
       {
       stock && !isSearching ? 
       <VictoryChart data={transformData('1. open')} height={250} scale={{ x: "time" }} animate={{
-        duration: 2000,
-        onLoad: { duration: 1000 }
+        duration: 5000,
+        onLoad: { duration: 100 }
       }} >
         <VictoryLine 
         interpolation="linear"
