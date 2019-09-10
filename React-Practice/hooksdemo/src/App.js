@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import {VictoryChart,VictoryLine} from 'victory'
+import {VictoryChart,VictoryLine,VictoryZoomContainer} from 'victory'
 import './App.css';
 import useDebounce from './debounce'
 
@@ -69,22 +69,23 @@ function App() {
         <input value={intrest} onChange={handleIntrestChange} />
       </div>
       {
-      stock && !isSearching ? <VictoryChart data={transformData('1. open')} height={250}>
-      <VictoryLine 
+      stock && !isSearching ? 
+      <VictoryChart data={transformData('1. open')} height={250} containerComponent={<VictoryZoomContainer zoomDomain={{x: [60,24*60], y: [0, 1000]}}/>} >
+        <VictoryLine 
         interpolation="linear"
         data={transformData('1. open')}  
         style={{data: {stroke: "#c43a31", strokeWidth: 1}}}
-      />
-      <VictoryLine 
+        />
+        <VictoryLine 
         interpolation="linear"
         data={transformData('2. high')}  
         style={{data: {stroke: "#D6D60C", strokeWidth: 1}}}
-      />
-      <VictoryLine 
+        />
+        <VictoryLine 
         interpolation="linear"
         data={transformData('3. low')}  
         style={{data: {stroke: "#789394", strokeWidth: 1}}}
-      > closing </VictoryLine>
+        />
     </VictoryChart> : <div> Enter a valid term to Search</div>
       }
     </div>
