@@ -30,7 +30,7 @@ public class Intern {
     private double rating;
 
     @ManyToOne
-    private Mentor mentor
+    private Mentor mentor;
 
 
     @OneToMany(mappedBy = "intern",cascade = {CascadeType.ALL})
