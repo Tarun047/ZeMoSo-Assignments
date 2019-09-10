@@ -12,3 +12,7 @@ const firebaseConfig = {
 
 initializeApp(firebaseConfig);
 const auth = _auth()
+
+module.exports = {
+    auth
+}
