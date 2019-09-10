@@ -1,8 +1,8 @@
 import React,{useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles'
 import {auth} from './firebase/manager'
-import {Container,TextField} from '@material-ui/core'
-
+import {Container,TextField,Typography} from '@material-ui/core'
+import logo from './logo.svg'
 
 const useStyles = makeStyles(theme => 
     ({
@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme =>
             flexDirection: 'column',
             alignItems:'center',
             overflow: 'hidden',
-            margin: 16
+            margin: 100
           },
         textField: {
             marginLeft: theme.spacing(1),
@@ -30,7 +30,9 @@ export default function Login()
 
     return(
         <Container maxWith="sm" className={classes.root}>
-            <form>
+                <Typography variant="h1" component="h2" gutterBottom>
+                    Stocks Application
+                </Typography>
                 <TextField 
                     id="outlined-required"
                     label="User Name"
@@ -48,7 +50,7 @@ export default function Login()
                     autoComplete="current-password"
                     margin="normal"
                     />
-            </form>
+            
         </Container>
     )
 }
