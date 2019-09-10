@@ -70,7 +70,6 @@ function App() {
       </div>
       {
       stock && !isSearching ? <VictoryChart data={transformData('1. open')} height={250}>
-
       <VictoryLine 
         interpolation="linear"
         data={transformData('1. open')}  
@@ -81,6 +80,11 @@ function App() {
         data={transformData('2. high')}  
         style={{data: {stroke: "#D6D60C", strokeWidth: 1}}}
       />
+      <VictoryLine 
+        interpolation="linear"
+        data={transformData('3. low')}  
+        style={{data: {stroke: "#789394", strokeWidth: 1}}}
+      > closing </VictoryLine>
     </VictoryChart> : <div> Enter a valid term to Search</div>
       }
     </div>
