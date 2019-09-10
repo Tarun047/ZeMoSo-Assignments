@@ -8,11 +8,12 @@ const useStyles = makeStyles(theme =>
   ({
     root: {
       display: 'flex',
+      height:'100%',
       flexWrap: 'wrap',
       flexDirection: 'column',
       alignItems:'center',
       overflow: 'hidden',
-      backgroundColor: theme.palette.background.paper,
+      backgroundColor: '#08F9DC',
       padding: '16'
     },
     gridList: {
