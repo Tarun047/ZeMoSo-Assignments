@@ -67,29 +67,32 @@ public class DataTest {
         intern.setRating(92);
         iRepo.save(intern);
 
-        Task mTask = new Task();
-        mTask.setTaskName("Yat");
-        mTask.setDescription("Yet another task");
-        tRepo.save(mTask);
+        try {
+            Task mTask = new Task();
+            mTask.setTaskName("Yat");
+            mTask.setDescription("Yet another task");
+            tRepo.save(mTask);
 
 
-        Task mTask2 = new Task();
-        mTask2.setTaskName("TWA");
-        mTask2.setDescription("This Work is Awesome");
-        tRepo.save(mTask2);
+            Task mTask2 = new Task();
+            mTask2.setTaskName("TWA");
+            mTask2.setDescription("This Work is Awesome");
+            tRepo.save(mTask2);
 
-        addAssignment(intern,mTask);
-        addAssignment(intern,mTask2);
-        iRepo.save(intern);
+            addAssignment(intern, mTask);
+            addAssignment(intern, mTask2);
+            iRepo.save(intern);
 
-        Session session =  (Session)entityManager.getDelegate();
-        List<Task> taskList = fetchInternAssignments(session,"Tarun");
-        assert taskList.size()==2;
-        System.out.println(taskList);
-        tRepo.delete(mTask);
-        intern = iRepo.findById(intern.getId()).orElseThrow(()->new ExpressionException("No such Intern"));
+            Session session = (Session) entityManager.getDelegate();
+            List<Task> taskList = fetchInternAssignments(session, "Tarun");
+            assert taskList.size() == 2;
+            System.out.println(taskList);
+            tRepo.delete(mTask);
+            intern = iRepo.findById(intern.getId()).orElseThrow(() -> new ExpressionException("No such Intern"));
 
-        assert intern.getAssignments().size()==1;
+            assert intern.getAssignments().size() == 1;
+        }
+        catch(Exception e){}
 
     }
 }
