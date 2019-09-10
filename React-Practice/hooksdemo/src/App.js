@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme =>
       flexDirection: 'column',
       alignItems:'center',
       overflow: 'hidden',
-      padding: '16'
+      padding: '16',
     },
     gridList: {
       width: 500,
@@ -64,7 +64,7 @@ function App() {
   }
   
   return (
-    <Container maxWidth="xl" class={classes.root}>
+    <Container class={classes.root} height="100%" fixed>
       <div>
         <input value={intrest} onChange={handleIntrestChange} />
       </div>
