@@ -68,7 +68,7 @@ function App() {
 
   function handleIntrestChange(event)
   {
-    setIntrest(event.target.value);
+    setIntrest(event.target.value.toUpperCase());
   }
   
   return (
@@ -82,7 +82,6 @@ function App() {
         variant="outlined"
         value={intrest}
         onChange={handleIntrestChange}
-        inputProps={{autoCapitalize:'on'}}
       />
       {
       stock && !isSearching ? 
