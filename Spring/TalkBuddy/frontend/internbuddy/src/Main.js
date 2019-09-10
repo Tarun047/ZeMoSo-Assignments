@@ -33,7 +33,7 @@ class Main extends React.Component
     {
         if(this.state.user!==null && this.state.role!=null)
         {
-                if(this.state.role=='INTERN')
+                if(this.state.role=='ADMIN')
                     return <MentorApp user={this.state.user}/>;
                 if(this.state.role=='ADMIN')
                     return <AdminApp user={this.state.user}/>

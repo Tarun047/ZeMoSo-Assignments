@@ -44,7 +44,7 @@ dependencies {
 
 task copyWebApp(type: Copy) {
 	from 'frontend/internbuddy/build'
-	into 'build/resources/main/static/.'
+	into 'build/resources/main/static/.'o
 }
 
 task appNpmInstall(type: NpmTask) {
