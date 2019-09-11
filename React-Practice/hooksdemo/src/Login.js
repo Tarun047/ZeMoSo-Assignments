@@ -3,6 +3,7 @@ import {makeStyles} from '@material-ui/core/styles'
 import {auth} from './firebase/manager'
 import {Box,TextField,Typography,Button} from '@material-ui/core'
 import logo from './logo.svg'
+import { statement } from '@babel/template';
 
 const useStyles = makeStyles(theme => 
     ({
@@ -48,12 +49,14 @@ export default function Login()
 {
 
     const classes = useStyles();
-    const [userName,setUserName] = useState(null);
-    const [password,setPassword] = useState(null);
+    const [credentials,setCredentials] = useState({
+        userName:'',
+        password:''
+    })
 
-    function handleInput(event)
+    function handleChange(event)
     {
-        
+        setCredentials({...credentials,[event.target.name]:event.target.value})
     }
 
     return(
@@ -65,17 +68,21 @@ export default function Login()
                 <TextField 
                     id="outlined-required"
                     label="User Name"
+                    name="userName"
                     className={classes.textField}
                     margin="normal"
                     variant="outlined"
-                    value={userName}
+                    onChange={handleChange}
+                    value={credentials.userName}
                  />
                  <TextField
                     id="standard-password-input"
                     label="Password"
+                    name="password"
                     className={classes.textField}
-                    value={password}
+                    value={credentials.password}
                     type="password"
+                    onChange={handleChange}
                     autoComplete="current-password"
                     margin="normal"
                     />
