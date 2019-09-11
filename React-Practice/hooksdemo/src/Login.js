@@ -8,7 +8,13 @@ const useStyles = makeStyles(theme =>
     ({
         root: {
             position: "absolute",
+            width:'100%',
+            height:'100%',
+            display: 'flex',
+            flexWrap: 'wrap',
+            flexDirection: 'column',
             alignItems:'center',
+            alignSelf:'center',
             overflow: 'hidden',
             backgroundImage: 'url(http://bit.ly/2gPLxZ4)',
             backgroundRepeat: 'no-repeat',
@@ -19,12 +25,18 @@ const useStyles = makeStyles(theme =>
         textField: {
             marginLeft: theme.spacing(1),
             marginRight: theme.spacing(1),
-          },
+          },  
         login: 
         {
+            before:
+            {
+                boxShadow: 'inset 0 0 0 3000px rgba(255,255,255,0.3)',
+                filter: 'blur(10px)',
+            },
             display: 'flex',
             flexWrap: 'wrap',
             flexDirection: 'column',
+            background:'inherit'
         }
     }));
 
