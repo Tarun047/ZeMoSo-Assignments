@@ -1,28 +1,31 @@
 import React,{useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles'
 import {auth} from './firebase/manager'
-import {Container,TextField,Typography,Button} from '@material-ui/core'
+import {Box,TextField,Typography,Button} from '@material-ui/core'
 import logo from './logo.svg'
 
 const useStyles = makeStyles(theme => 
     ({
         root: {
             position: "absolute",
-            top:0,
-            left:0,
-            bottom:0,
-            right:0,
-            display: 'flex',
-            flexWrap: 'wrap',
-            flexDirection: 'column',
             alignItems:'center',
             overflow: 'hidden',
-            backgroundColor: '#08F9DC',
+            backgroundImage: 'url(http://bit.ly/2gPLxZ4)',
+            backgroundRepeat: 'no-repeat',
+            backgroundAttachment: 'fixed',
+            backgroundSize: 'cover',
+
           },
         textField: {
             marginLeft: theme.spacing(1),
             marginRight: theme.spacing(1),
-          }
+          },
+        login: 
+        {
+            display: 'flex',
+            flexWrap: 'wrap',
+            flexDirection: 'column',
+        }
     }));
 
 
@@ -40,7 +43,8 @@ export default function Login()
     }
 
     return(
-        <Container maxWith="lg" className={classes.root}>
+        <Box className={classes.root}>
+            <div className={classes.login}>
                 <Typography variant="h3" component="h3" gutterBottom>
                     Stocks Application
                 </Typography>
@@ -64,7 +68,7 @@ export default function Login()
                 <Button variant="outlined" color="primary" className={classes.button}>
                     Login
                 </Button>
-            
-        </Container>
+            </div>
+        </Box>
     )
 }
