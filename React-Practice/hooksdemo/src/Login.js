@@ -5,6 +5,7 @@ import {Box,TextField,Typography,Button} from '@material-ui/core'
 import logo from './logo.svg'
 import { statement } from '@babel/template';
 
+
 const useStyles = makeStyles(theme => 
     ({
         root: {
@@ -17,6 +18,10 @@ const useStyles = makeStyles(theme =>
             alignItems:'center',
             alignSelf:'center',
             overflow: 'hidden',
+            backgroundImage:'url(http://bit.ly/2gPLxZ4)',
+            backgroundRepeat: 'no-repeat',
+            backgroundAttachment:'fixed',
+            backgroundSize:'cover'
             
 
           },
@@ -30,12 +35,13 @@ const useStyles = makeStyles(theme =>
             {
                 content:"Stocks",
                 background: 'inherit',
-                boxShadow: 'inset 0 0 0 3000px rgba(255,255,255,0.3)',
-                filter: 'blur(10px)',
+               
             },
             display: 'flex',
             flexWrap: 'wrap',
             flexDirection: 'column',
+            boxShadow: 'inset 0 0 0 3000px rgba(255,255,255,0.3)',
+            filter: 'blur(10px)',
             margin:100
             
         }
