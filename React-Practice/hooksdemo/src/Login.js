@@ -58,8 +58,10 @@ export default function Login()
 
     function handleSubmit(event)
     {
-        if(credentials.userName=='')
-            alert('Username can\'t be blank')
+        const re =  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+
+        if(!re.test(credentials.userName.toLowerCase()))
+            alert('Invalid username')
         else if(credentials.password=='')
             alert('Password can\'t be blank')
         else
@@ -77,7 +79,7 @@ export default function Login()
 
     return(
         <Box className={classes.root}>
-            <div className={classes.login}>
+            <form className={classes.login}>
                 <Typography variant="h3" component="h3" gutterBottom>
                     Stocks Application
                 </Typography>
@@ -105,7 +107,7 @@ export default function Login()
                 <Button variant="outlined" color="primary" className={classes.button} onClick={handleSubmit}>
                     Login
                 </Button>
-            </div>
+            </form>
         </Box>
     )
 }
