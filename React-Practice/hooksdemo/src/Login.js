@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles'
-import {auth} from './firebase/manager'
+import auth from './firebase/manager'
 import {Box,TextField,Typography,Button} from '@material-ui/core'
 import logo from './logo.svg'
 import { statement } from '@babel/template';
@@ -57,6 +57,23 @@ export default function Login()
     function handleChange(event)
     {
         setCredentials({...credentials,[event.target.name]:event.target.value})
+    }
+
+    function handleSubmit(event)
+    {
+        if(credentials.userName=='')
+            alert('Username can\'t be blank')
+        else if(credentials.password=='')
+            alert('Password can\'t be blank')
+        else
+        {
+            auth.signInWithEmailAndPassword(email, password).catch(function(error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // ...
+              });
+        }
     }
 
     return(
