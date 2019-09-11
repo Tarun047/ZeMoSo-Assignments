@@ -19,12 +19,11 @@ export default function Main()
         setUser(user)
     }
 
-    if(user===null)
-        return (
+    if(user!==null)
+        return (<App />)
+    return (
             <MuiThemeProvider theme={theme}>
                 <Login />
             </MuiThemeProvider>
         )
-    else
-        return (<App />)
 }

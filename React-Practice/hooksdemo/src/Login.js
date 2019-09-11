@@ -13,11 +13,11 @@ const useStyles = makeStyles(theme =>
             height:'100%',
             display: 'flex',
             flexWrap: 'wrap',
-            flexDirection: 'row',
+            flexDirection: 'column',
             alignItems:'center',
             alignSelf:'center',
             overflow: 'hidden',
-            textAlign:"center"
+            
 
           },
         textField: {
@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme =>
             display: 'flex',
             flexWrap: 'wrap',
             flexDirection: 'column',
-            textAlign:"center"
+            margin:100
             
         }
     }));
@@ -90,6 +90,7 @@ export default function Login(props)
                     className={classes.textField}
                     margin="normal"
                     variant="outlined"
+                    autoComplete="off"
                     onChange={handleChange}
                     value={credentials.userName}
                  />
