@@ -67,7 +67,7 @@ export default function Login(props)
         else
         {
             auth.signInWithEmailAndPassword(credentials.userName, credentials.password)
-            .then((result)=>console.log(props.onLogin))
+            .then((result)=>props.onLogin(result))
             .catch(function(error) {
                 // Handle Errors here.
                 var errorCode = error.code;
@@ -76,7 +76,6 @@ export default function Login(props)
               });
         }
     }
-
     return(
         <Box className={classes.root}>
             <form className={classes.login}>
