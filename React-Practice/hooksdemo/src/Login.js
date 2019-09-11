@@ -7,12 +7,17 @@ import logo from './logo.svg'
 const useStyles = makeStyles(theme => 
     ({
         root: {
+            position: "absolute",
+            top:0,
+            left:0,
+            bottom:0,
+            right:0,
             display: 'flex',
             flexWrap: 'wrap',
             flexDirection: 'column',
             alignItems:'center',
             overflow: 'hidden',
-            margin: 100
+            backgroundColor: '#08F9DC',
           },
         textField: {
             marginLeft: theme.spacing(1),
@@ -35,7 +40,7 @@ export default function Login()
     }
 
     return(
-        <Container maxWith="sm" className={classes.root}>
+        <Container maxWith="lg" className={classes.root}>
                 <Typography variant="h3" component="h3" gutterBottom>
                     Stocks Application
                 </Typography>
