@@ -10,13 +10,19 @@ export default function Main()
     useEffect(
         ()=>
         {
-            console.log(user);
+            auth.onAuthStateChanged(handleAuth)
         },[user]
     )
+
+    function handleAuth(user)
+    {
+        setUser(user)
+    }
+
     if(user===null)
         return (
             <MuiThemeProvider theme={theme}>
-                <Login onLogin={(user)=>setUser(user)} />
+                <Login />
             </MuiThemeProvider>
         )
     else

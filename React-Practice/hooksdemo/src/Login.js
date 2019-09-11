@@ -13,11 +13,11 @@ const useStyles = makeStyles(theme =>
             height:'100%',
             display: 'flex',
             flexWrap: 'wrap',
-            flexDirection: 'column',
+            flexDirection: 'row',
             alignItems:'center',
             alignSelf:'center',
             overflow: 'hidden',
-            
+            textAlign:"center"
 
           },
         textField: {
@@ -36,6 +36,7 @@ const useStyles = makeStyles(theme =>
             display: 'flex',
             flexWrap: 'wrap',
             flexDirection: 'column',
+            textAlign:"center"
             
         }
     }));

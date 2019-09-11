@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import {Container, TextField, Toolbar,Button,AppBar} from '@material-ui/core';
 import {VictoryChart,VictoryLine} from 'victory';
 import './App.css';
+import auth from './firebase/manager'
 import useDebounce from './debounce'
 
 
@@ -76,7 +77,7 @@ function App() {
     <Container className={classes.root}>
     <AppBar position="static">
       <Toolbar display="flex" flexStart="end">
-        <Button color="default">
+        <Button color="default" onClick={()=>auth.signOut()}>
           Logout
         </Button>
       </Toolbar>
