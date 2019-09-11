@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import {Container, TextField} from '@material-ui/core';
+import {Container, TextField, Toolbar,Button,AppBar} from '@material-ui/core';
 import {VictoryChart,VictoryLine} from 'victory';
 import './App.css';
 import useDebounce from './debounce'
@@ -74,6 +74,13 @@ function App() {
   
   return (
     <Container className={classes.root}>
+    <AppBar position="static">
+      <Toolbar display="flex" flexStart="end">
+        <Button color="default">
+          Logout
+        </Button>
+      </Toolbar>
+    </AppBar>
        <TextField
         required
         id="outlined-required"
