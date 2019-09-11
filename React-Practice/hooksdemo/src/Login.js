@@ -25,25 +25,20 @@ const useStyles = makeStyles(theme =>
         textField: {
             marginLeft: theme.spacing(1),
             marginRight: theme.spacing(1),
-          },  
+          },
         login: 
         {
             "&:before":
             {
-                content:" ",
+                content:"Stocks",
+                background: 'inherit',
                 boxShadow: 'inset 0 0 0 3000px rgba(255,255,255,0.3)',
                 filter: 'blur(10px)',
-                background:'inherit',
-                backgroundColor:"white",
-                position:'absolute',
-                top:0,
-                bottom:0,
-                left:0,
-                right:0,
             },
             display: 'flex',
             flexWrap: 'wrap',
             flexDirection: 'column',
+            
         }
     }));
 
