@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles'
 import auth from './firebase/manager'
-import {Box,TextField,Typography,Button} from '@material-ui/core'
+import {Box,TextField,Typography,Button, Backdrop} from '@material-ui/core'
 import logo from './logo.svg'
 import { statement } from '@babel/template';
 
@@ -31,19 +31,15 @@ const useStyles = makeStyles(theme =>
           },
         login: 
         {
-            "&:before":
-            {
-                content:"Stocks",
-                background: 'inherit',
-               
-            },
             display: 'flex',
             flexWrap: 'wrap',
             flexDirection: 'column',
-            boxShadow: 'inset 0 0 0 3000px rgba(255,255,255,0.3)',
-            filter: 'blur(10px)',
-            margin:100
-            
+            background: 'rgba(255, 255, 255, 0.3)',
+            margin:100,
+            alignItems:'center',
+            justifyContent:'center',
+            padding:25,
+            backdropFilter:'blur(8px)'
         }
     }));
 
