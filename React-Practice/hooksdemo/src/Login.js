@@ -17,10 +17,7 @@ const useStyles = makeStyles(theme =>
             alignItems:'center',
             alignSelf:'center',
             overflow: 'hidden',
-            backgroundImage: 'url(http://bit.ly/2gPLxZ4)',
-            backgroundRepeat: 'no-repeat',
-            backgroundAttachment: 'fixed',
-            backgroundSize: 'cover',
+            
 
           },
         textField: {
@@ -67,11 +64,13 @@ export default function Login()
             alert('Password can\'t be blank')
         else
         {
-            auth.signInWithEmailAndPassword(email, password).catch(function(error) {
+            auth.signInWithEmailAndPassword(credentials.userName, credentials.password)
+            .then((result)=>console.log(result))
+            .catch(function(error) {
                 // Handle Errors here.
                 var errorCode = error.code;
                 var errorMessage = error.message;
-                // ...
+                console.log(errorMessage);
               });
         }
     }
@@ -103,7 +102,7 @@ export default function Login()
                     autoComplete="current-password"
                     margin="normal"
                     />
-                <Button variant="outlined" color="primary" className={classes.button}>
+                <Button variant="outlined" color="primary" className={classes.button} onClick={handleSubmit}>
                     Login
                 </Button>
             </div>
