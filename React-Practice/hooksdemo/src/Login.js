@@ -28,15 +28,22 @@ const useStyles = makeStyles(theme =>
           },  
         login: 
         {
-            before:
+            "&:before":
             {
+                content:" ",
                 boxShadow: 'inset 0 0 0 3000px rgba(255,255,255,0.3)',
                 filter: 'blur(10px)',
+                background:'inherit',
+                backgroundColor:"white",
+                position:'absolute',
+                top:0,
+                bottom:0,
+                left:0,
+                right:0,
             },
             display: 'flex',
             flexWrap: 'wrap',
             flexDirection: 'column',
-            background:'inherit'
         }
     }));
 
