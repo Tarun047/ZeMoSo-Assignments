@@ -7,14 +7,11 @@ import MuiThemeProvider from '@material-ui/styles/ThemeProvider';
 export default function Main()
 {
     const [user,setUser] = useState(auth.user)
-    useEffect(() => {
-        auth.onAuthStateChanged((user)=>{setUser(user)})
-    }, [user])
-
+    console.log(auth.user)
     if(!auth.user)
         return (
             <MuiThemeProvider theme={theme}>
-                <Login />
+                <Login onLogin={setUser} />
             </MuiThemeProvider>
         )
     else

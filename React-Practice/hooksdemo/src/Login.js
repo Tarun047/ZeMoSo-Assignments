@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme =>
 
 
 
-export default function Login()
+export default function Login(props)
 {
 
     const classes = useStyles();
@@ -67,7 +67,7 @@ export default function Login()
         else
         {
             auth.signInWithEmailAndPassword(credentials.userName, credentials.password)
-            .then((result)=>console.log(result))
+            .then((result)=>console.log(props.onLogin))
             .catch(function(error) {
                 // Handle Errors here.
                 var errorCode = error.code;
