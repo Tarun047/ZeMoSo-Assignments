@@ -65,7 +65,7 @@ export default function Login(props)
 
         if(!re.test(credentials.userName.toLowerCase()))
             alert('Invalid username')
-        else if(credentials.password=='')
+        else if(credentials.password==='')
             alert('Password can\'t be blank')
         else
         {
