@@ -8,9 +8,14 @@ import BasicForm from './FormMaker/BasicFormMaker';
 const useStyles = makeStyles(
   theme=>(
     {
-      appBarRoot:
+      main:
       {
-        flexGrow: 1,
+        padding:32,
+      },
+      appBar:
+      {
+        flexGrow:1,
+        padding:32,
       },
       root:
       {
@@ -33,8 +38,8 @@ function App() {
   const classes = useStyles();
 
   return (
-        <Container maxWidth="sm">
-          <AppBar className={classes.appBarRoot}>
+        <Container maxWidth="sm" className={classes.main}>
+          <AppBar className={classes.appBar}>
             <Toolbar>
               <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                 <MenuIcon />
