@@ -2,7 +2,7 @@ import React,{useState} from 'react'
 import { TextField } from '@material-ui/core'
 export default function BasicForm(props)
 {
-    [state,setState] = useState({})
+    const [state,setState] = useState({})
     function handleChange(event)
     {
         setState({...state,[event.target.id]:event.target.value})
@@ -11,16 +11,17 @@ export default function BasicForm(props)
     return (
         <form>
            {
-               props.fields.map(
-                   fieldEntry=>
+              Object.entries(props.fields).map(
+                  ([key,value])=>
                     <TextField 
-                        id={fieldEntry.name}
-                        name={filedEntry.name}
-                        value={`state.${fieldEntry.name}`}
+                        id={key}
+                        label={key}
+                        value={state[key]}
+                        onChange={handleChange}
                         margin="normal"
-                        variant="outlined" 
+                        variant="outlined"
                     />
-               )
+              )
            }
         </form>
     )
