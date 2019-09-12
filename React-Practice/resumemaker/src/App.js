@@ -30,17 +30,6 @@ function App() {
 
   return (
         <Container maxWidth="sm" className={classes.root}>
-          <AppBar>
-            <Toolbar>
-              <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                <MenuIcon />
-              </IconButton>
-              <Typography variant="h6" className={classes.title}>
-                Temp
-              </Typography>
-              <Button color="inherit">Logout</Button>
-            </Toolbar>
-          </AppBar>
           <BasicForm fields={{name:"FirstName"}} />
         </Container>
   );
