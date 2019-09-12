@@ -12,7 +12,6 @@ const useStyles = makeStyles(
         width:'100%',
         display:'flex',
         flexWrap:'wrap',
-        backgroundColor:'#F94208',
       }
     })
 )
@@ -20,7 +19,7 @@ function App() {
   const classes = useStyles();
 
   return (
-        <Container fixed className={classes.root}>
+        <Container maxWidth="sm" className={classes.root}>
 
         </Container>
   );
