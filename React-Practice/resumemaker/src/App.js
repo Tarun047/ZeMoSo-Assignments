@@ -8,19 +8,12 @@ import BasicForm from './FormMaker/BasicFormMaker';
 const useStyles = makeStyles(
   theme=>(
     {
-      main:
-      {
-        padding:32,
-      },
       appBar:
       {
         flexGrow:1,
-        padding:32,
       },
       root:
       {
-        height:'100%',
-        width:'100%',
         display:'flex',
         flexWrap:'wrap',
         flexDirection:'column',
@@ -38,7 +31,7 @@ function App() {
   const classes = useStyles();
 
   return (
-        <Container maxWidth="sm" className={classes.main}>
+        <Container maxWidth="sm">
           <AppBar className={classes.appBar}>
             <Toolbar>
               <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
@@ -50,6 +43,7 @@ function App() {
               <Button color="inherit">Logout</Button>
             </Toolbar>
           </AppBar>
+          <Toolbar />
           <Box className={classes.root}>
             <BasicForm fields={{name:"FirstName"}} />
           </Box>
