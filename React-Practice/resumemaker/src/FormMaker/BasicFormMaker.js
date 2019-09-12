@@ -1,5 +1,5 @@
-import React,{useState} from 'react'
-import {makeStyles} from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
+import React, { useState } from 'react'
 
 const useStyles = makeStyles(
     theme=>(
@@ -8,7 +8,7 @@ const useStyles = makeStyles(
         {
           display:'flex',
           flexWrap:'wrap',
-          flexDirection:'column',
+          flexDirection:'row',
           alignItems:'center',
         },
       })
@@ -16,7 +16,7 @@ const useStyles = makeStyles(
 
 export default function BasicForm(props)
 {
-    
+    const classes = useStyles()
     const [state,setState] = useState({})
     function handleChange(event)
     {
@@ -24,7 +24,7 @@ export default function BasicForm(props)
     }
 
     return (
-        <form >
+        <form className={classes.root}>
            {
               Object.entries(props.fields).map(
                   ([key,value])=>
