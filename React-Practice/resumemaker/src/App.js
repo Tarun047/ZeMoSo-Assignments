@@ -2,7 +2,8 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import {makeStyles} from '@material-ui/core/styles'
-import {Box, Container, TextField} from '@material-ui/core'
+import {Container, Toolbar,AppBar, IconButton,Typography,Button} from '@material-ui/core'
+import MenuIcon from '@material-ui/icons'
 import BasicForm from './FormMaker/BasicFormMaker';
 const useStyles = makeStyles(
   theme=>(
@@ -13,7 +14,8 @@ const useStyles = makeStyles(
         width:'100%',
         display:'flex',
         flexWrap:'wrap',
-        textAlign:'center'
+        flexDirection:'column',
+        alignItems:'center',
       }
     })
 )
@@ -22,6 +24,17 @@ function App() {
 
   return (
         <Container maxWidth="sm" className={classes.root}>
+          <AppBar>
+            <Toolbar>
+              <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                <MenuIcon />
+              </IconButton>
+              <Typography variant="h6" className={classes.title}>
+                Temp
+              </Typography>
+              <Button color="inherit">Logout</Button>
+            </Toolbar>
+          </AppBar>
           <BasicForm fields={{name:"FirstName"}} />
         </Container>
   );
