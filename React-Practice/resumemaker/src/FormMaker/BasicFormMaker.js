@@ -1,7 +1,22 @@
 import React,{useState} from 'react'
-import { TextField } from '@material-ui/core'
+import {makeStyles} from '@material-ui/core/styles'
+
+const useStyles = makeStyles(
+    theme=>(
+      {
+        root:
+        {
+          display:'flex',
+          flexWrap:'wrap',
+          flexDirection:'column',
+          alignItems:'center',
+        },
+      })
+  )
+
 export default function BasicForm(props)
 {
+    
     const [state,setState] = useState({})
     function handleChange(event)
     {
@@ -9,18 +24,16 @@ export default function BasicForm(props)
     }
 
     return (
-        <form>
+        <form >
            {
               Object.entries(props.fields).map(
                   ([key,value])=>
-                    <TextField 
-                        id={key}
-                        label={key}
-                        value={state[key]}
-                        onChange={handleChange}
-                        margin="normal"
-                        variant="outlined"
-                    />
+                    React.createElement(value,{id:key,
+                        label:key,
+                        value:state[key],
+                        onChange:handleChange,
+                        margin:"normal",
+                        variant:"outlined"})
               )
            }
         </form>

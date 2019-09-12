@@ -2,7 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import {makeStyles} from '@material-ui/core/styles'
-import {Container, Toolbar,AppBar, IconButton,Typography,Button, Box} from '@material-ui/core'
+import {Container, Toolbar,AppBar, IconButton,Typography,Button, Box, TextField} from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
 import BasicForm from './FormMaker/BasicFormMaker';
 const useStyles = makeStyles(
@@ -45,7 +45,7 @@ function App() {
           </AppBar>
           <Toolbar />
           <Box className={classes.root}>
-            <BasicForm fields={{name:"FirstName"}} />
+            <BasicForm fields={{"First Name":TextField,"Last Name":TextField}} />
           </Box>
         </Container>
   );
