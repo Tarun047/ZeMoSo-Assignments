@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import classes from '*.module.sass';
 useStyles = makeStyles(
   theme=>(
     {
@@ -9,16 +10,18 @@ useStyles = makeStyles(
         height:'100%',
         width:'100%',
         display:flex,
-        flexWrap:''
+        flexWrap:'',
       }
     })
 )
 function App() {
+  classes = useStyles();
+
   return (
     <div className="App">
-      <Container >
+      <Box className={classes.root}>
 
-      </Container>
+      </Box>
     </div>
   );
 }
