@@ -1,29 +1,28 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import classes from '*.module.sass';
-useStyles = makeStyles(
+import {makeStyles} from '@material-ui/core/styles'
+import {Box, Typography} from '@material-ui/core'
+const useStyles = makeStyles(
   theme=>(
     {
       root:
       {
         height:'100%',
         width:'100%',
-        display:flex,
+        display:'flex',
         flexWrap:'wrap',
-        background:'static/code.jpg'
+        backgroundColor:'#F94208',
       }
     })
 )
 function App() {
-  classes = useStyles();
+  const classes = useStyles();
 
   return (
-    <div className="App">
-      <Box className={classes.root}>
-
-      </Box>
-    </div>
+        <Typography>
+          Hello World
+        </Typography>
   );
 }
 
