@@ -8,7 +8,7 @@ const useStyles = makeStyles(
         {
           display:'flex',
           flexWrap:'wrap',
-          flexDirection:'row',
+          flexDirection:'column',
           alignItems:'center',
         },
       })
