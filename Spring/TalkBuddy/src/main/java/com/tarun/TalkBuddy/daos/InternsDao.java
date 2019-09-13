@@ -1,6 +1,8 @@
 package com.tarun.TalkBuddy.daos;
 
-public interface GenericDao<T,K>
+import com.tarun.TalkBuddy.model.Intern;
+
+public interface InternsDao extends GenericDao<Intern,Long>
 {
-    T list
+
 }
