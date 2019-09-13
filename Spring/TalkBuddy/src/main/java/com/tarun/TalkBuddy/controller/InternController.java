@@ -20,14 +20,14 @@ public class InternController extends MainController{
     @GetMapping("/")
     public List<Intern> findAll()
     {
-        return internRepository.findAll();
+        return internService.findAll();
     }
 
     @PostMapping("/{id}/assign_task")
     public Intern assignTask(@PathVariable(name = "id") long internId,@RequestParam List<String> taskIds)
     {
 
-        Intern intern = internRepository.findById(internId).orElseThrow(()->new ExpressionException("Invalid id"));
+        Intern intern = internService.findIntern(internId).orElseThrow(()->new ExpressionException("Invalid id"));
         for(String id:taskIds)
         {
             Assignment assignment = new Assignment();

@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class InternServiceImpl implements InternService {
@@ -14,8 +16,8 @@ public class InternServiceImpl implements InternService {
 
     @Transactional
     @Override
-    public boolean addIntern(Intern intern) {
-        return internsDao.createOrUpdate(intern);
+    public Intern addIntern(Intern intern) {
+        return internsDao.save(intern);
     }
 
     @Transactional
@@ -24,20 +26,27 @@ public class InternServiceImpl implements InternService {
         return internsDao.remove(intern);
     }
 
+
     @Transactional
     @Override
-    public Intern findIntern(Long id) {
-        return internsDao.findById(id);
-    }
-
-    @Override
-    public boolean updateIntern(Intern intern) {
-        return internsDao.createOrUpdate(intern);
+    public Optional<Intern> findIntern(Long id) {
+        return internsDao.find(id);
     }
 
     @Transactional
     @Override
-    public boolean removeIntern(Long id) {
-        return internsDao.removeById(id);
+    public Intern updateIntern(Intern intern) {
+        return internsDao.save(intern);
+    }
+
+    @Override
+    public List<Intern> findAll() {
+        return internsDao.list();
+    }
+
+    @Transactional
+    @Override
+    public boolean removeIntern(long id) {
+        return internsDao.remove(id);
     }
 }

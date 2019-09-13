@@ -28,13 +28,10 @@ public class InternsDaoImpl implements InternsDao {
         return Optional.ofNullable(currentSession.get(Intern.class,key));
     }
 
-    @Override
-    public boolean remove(Long key) {
-        return false;
-    }
+
 
     @Override
-    public boolean removeById(Long key) {
+    public boolean remove(Long key) {
         try {
             Session currentSession = sessionFactory.getCurrentSession();
             currentSession.remove(find(key));
