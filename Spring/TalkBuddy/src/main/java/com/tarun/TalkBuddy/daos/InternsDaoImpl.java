@@ -10,7 +10,7 @@ import java.util.List;
 public class InternsDaoImpl implements InternsDao {
 
     @Autowired
-    SessionFactory sessionFactory;
+    private SessionFactory sessionFactory;
 
     @Override
     public List<Intern> list() {
@@ -20,20 +20,49 @@ public class InternsDaoImpl implements InternsDao {
 
     @Override
     public Intern findById(Long key) {
+        Session currentSession = sessionFactory.getCurrentSession();
+        return currentSession.get(Intern.class,key);
     }
 
     @Override
-    public Intern removeById(Long key) {
-        return null;
+    public boolean removeById(Long key) {
+        try {
+            Session currentSession = sessionFactory.getCurrentSession();
+            currentSession.remove(findById(key));
+            return true;
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override
-    public Intern remove(Intern entry) {
-        return null;
+    public boolean remove(Intern entry) {
+        try {
+            Session currentSession = sessionFactory.getCurrentSession();
+            currentSession.remove(entry);
+            return true;
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override
-    public Intern createOrUpdate(Intern entry) {
-        Session curre
+    public boolean createOrUpdate(Intern entry) {
+        try {
+            Session currentSession = sessionFactory.getCurrentSession();
+            currentSession.save(entry);
+            return true;
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

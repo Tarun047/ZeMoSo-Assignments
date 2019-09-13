@@ -8,10 +8,10 @@ public interface GenericDao<T,K>
 
     T findById(K key);
 
-    T removeById(K key);
+    boolean removeById(K key);
 
-    T remove(T entry);
+    boolean remove(T entry);
 
-    T createOrUpdate(T entry);
+    boolean createOrUpdate(T entry);
 
 }
