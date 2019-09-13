@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class InternsDaoImpl implements InternsDao {
@@ -21,16 +22,22 @@ public class InternsDaoImpl implements InternsDao {
     }
 
     @Override
-    public Intern findById(Long key) {
+    public Optional<Intern> find(Long key) {
+
         Session currentSession = sessionFactory.getCurrentSession();
-        return currentSession.get(Intern.class,key);
+        return Optional.ofNullable(currentSession.get(Intern.class,key));
+    }
+
+    @Override
+    public boolean remove(Long key) {
+        return false;
     }
 
     @Override
     public boolean removeById(Long key) {
         try {
             Session currentSession = sessionFactory.getCurrentSession();
-            currentSession.remove(findById(key));
+            currentSession.remove(find(key));
             return true;
         }
         catch (Exception e)
@@ -55,16 +62,16 @@ public class InternsDaoImpl implements InternsDao {
     }
 
     @Override
-    public boolean createOrUpdate(Intern entry) {
+    public Intern save(Intern entry) {
         try {
             Session currentSession = sessionFactory.getCurrentSession();
             currentSession.save(entry);
-            return true;
+            return entry;
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
-        return false;
+        return null;
     }
 }

@@ -1,17 +1,20 @@
 package com.tarun.TalkBuddy.daos;
 
-import java.util.List;
 
-public interface GenericDao<T,K>
+import java.io.Serializable;
+import java.util.List;
+import java.util.Optional;
+
+public interface GenericDao<T,K extends Serializable>
 {
     List<T> list();
 
-    T findById(K key);
+    Optional<T> find(K key);
 
-    boolean removeById(K key);
+    boolean remove(K key);
 
     boolean remove(T entry);
 
-    boolean createOrUpdate(T entry);
+    T save(T entry);
 
 }
