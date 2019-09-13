@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,18 +14,18 @@ import java.util.Optional;
 public class InternsDaoImpl implements InternsDao {
 
     @Autowired
-    private SessionFactory sessionFactory;
+    EntityManager entityManager;
 
     @Override
     public List<Intern> list() {
-        Session currentSession = sessionFactory.getCurrentSession();
+        Session currentSession = (Session) entityManager.getDelegate();
         return currentSession.createQuery("from Intern",Intern.class).getResultList();
     }
 
     @Override
     public Optional<Intern> find(Long key) {
 
-        Session currentSession = sessionFactory.getCurrentSession();
+        Session currentSession = (Session) entityManager.getDelegate();
         return Optional.ofNullable(currentSession.get(Intern.class,key));
     }
 
@@ -33,7 +34,7 @@ public class InternsDaoImpl implements InternsDao {
     @Override
     public boolean remove(Long key) {
         try {
-            Session currentSession = sessionFactory.getCurrentSession();
+            Session currentSession = (Session) entityManager.getDelegate();
             currentSession.remove(find(key));
             return true;
         }
@@ -47,7 +48,7 @@ public class InternsDaoImpl implements InternsDao {
     @Override
     public boolean remove(Intern entry) {
         try {
-            Session currentSession = sessionFactory.getCurrentSession();
+            Session currentSession = (Session) entityManager.getDelegate();
             currentSession.remove(entry);
             return true;
         }
@@ -61,7 +62,7 @@ public class InternsDaoImpl implements InternsDao {
     @Override
     public Intern save(Intern entry) {
         try {
-            Session currentSession = sessionFactory.getCurrentSession();
+            Session currentSession = (Session) entityManager.getDelegate();
             currentSession.save(entry);
             return entry;
         }

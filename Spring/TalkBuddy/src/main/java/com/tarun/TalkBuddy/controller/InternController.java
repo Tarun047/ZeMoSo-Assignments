@@ -35,20 +35,20 @@ public class InternController extends MainController{
             assignment.setTask(taskRepository.findById(Long.parseLong(id)).orElseThrow(()->new ExpressionException("Invalid Task")));
             assignmentRepository.save(assignment);
         }
-        return internRepository.save(intern);
+        return internService.updateIntern(intern);
 
     }
 
     @GetMapping("/{id}")
     public Intern getIntern(@PathVariable(name="id") long internId)throws  ExpressionException
     {
-        return internRepository.findById(internId).orElseThrow(()->new ExpressionException("No Such Intern Found"));
+        return internService.findIntern(internId).orElseThrow(()->new ExpressionException("No Such Intern Found"));
     }
 
     @PostMapping("/createintern")
     public Intern createIntern(@Valid @RequestBody Intern intern)
     {
-        return internRepository.save(intern);
+        return internService.addIntern(intern);
     }
 
 
@@ -59,15 +59,15 @@ public class InternController extends MainController{
         {
             assignmentRepository.deleteById(Long.parseLong(id));
         }
-        return internRepository.findById(internId).orElseThrow(()->new ExpressionException("No Such Intern"));
+        return internService.findIntern(internId).orElseThrow(()->new ExpressionException("No Such Intern"));
     }
 
 
     @DeleteMapping("/removeintern/{id}")
     public Intern removeIntern(@PathVariable(name="id") long id)throws Exception
     {
-        Intern intern = internRepository.findById(id).orElseThrow(()->new Exception("No Such Intern"));
-        internRepository.delete(intern);
+        Intern intern = internService.findIntern(id).orElseThrow(()->new Exception("No Such Intern"));
+        internService.removeIntern(intern);
         return intern;
     }
 
