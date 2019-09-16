@@ -18,18 +18,18 @@ public class TaskController extends MainController{
     @GetMapping("/")
     public List<Task> findAll()
     {
-        return taskRepository.findAll();
+        return taskService.findAll();
     }
 
     @PostMapping("/add_task")
     public Task createTask(@RequestBody Task task)
     {
-        return taskRepository.save(task);
+        return taskService.addTask(task);
     }
 
     @DeleteMapping("/remove/{id}")
     public void removeTask(@PathVariable(name="id") long taskId)
     {
-        taskRepository.delete(taskRepository.findById(taskId).orElseThrow(()->new ExpressionException("No such Task")));
+        taskService.removeTask(taskId);
     }
 }

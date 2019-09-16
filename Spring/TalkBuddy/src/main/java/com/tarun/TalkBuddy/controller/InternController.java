@@ -32,7 +32,7 @@ public class InternController extends MainController{
         {
             Assignment assignment = new Assignment();
             assignment.setIntern(intern);
-            assignment.setTask(taskRepository.findById(Long.parseLong(id)).orElseThrow(()->new ExpressionException("Invalid Task")));
+            assignment.setTask(taskService.findTask(Long.parseLong(id)).orElseThrow(()->new ExpressionException("Invalid Task")));
             assignmentRepository.save(assignment);
         }
         return internService.updateIntern(intern);

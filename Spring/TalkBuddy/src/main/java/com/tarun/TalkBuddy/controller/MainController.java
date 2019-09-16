@@ -5,6 +5,7 @@ import com.tarun.TalkBuddy.repository.AssignmentRepository;
 import com.tarun.TalkBuddy.repository.InternRepository;
 import com.tarun.TalkBuddy.repository.TaskRepository;
 import com.tarun.TalkBuddy.service.InternService;
+import com.tarun.TalkBuddy.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +19,7 @@ public class MainController {
     InternService internService;
 
     @Autowired
-    TaskRepository taskRepository;
+    TaskService taskService;
 
 
     @Autowired
