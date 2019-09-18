@@ -3,7 +3,8 @@ Write a java function that checks if the input string contains all the letters o
 Write time and space complexity of your solution as comments in the source file.
 */
 /*
-Time complexity - O(N), Space Complexity - O(1) N = length of input string
+Time complexity - O(N), Space Complexity - O(1) [Because Input String contains at max 26 unique characters which means Hash Set size is 26]
+N = length of input string
 */
 import java.util.HashSet;
 import java.util.Set;
