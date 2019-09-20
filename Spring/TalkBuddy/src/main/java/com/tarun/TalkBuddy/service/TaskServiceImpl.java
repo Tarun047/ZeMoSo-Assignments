@@ -1,6 +1,8 @@
 package com.tarun.TalkBuddy.service;
 
+import com.tarun.TalkBuddy.daos.AssignmentDao;
 import com.tarun.TalkBuddy.daos.TaskDao;
+import com.tarun.TalkBuddy.model.Assignment;
 import com.tarun.TalkBuddy.model.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,9 @@ public class TaskServiceImpl implements TaskService {
     @Autowired
     TaskDao taskDao;
 
+    @Autowired
+    AssignmentDao assignmentDao;
+
     @Transactional
     @Override
     public Task addTask(Task task) {
@@ -23,6 +28,9 @@ public class TaskServiceImpl implements TaskService {
     @Transactional
     @Override
     public boolean removeTask(Task task) {
+        task = taskDao.find(task.getId()).get();
+        for(Assignment assignment:task.getAssignments())
+            assignmentDao.remove(assignment);
         return taskDao.remove(task);
     }
 
@@ -39,6 +47,7 @@ public class TaskServiceImpl implements TaskService {
         return taskDao.save(task);
     }
 
+    @Transactional
     @Override
     public List<Task> findAll() {
         return taskDao.list();

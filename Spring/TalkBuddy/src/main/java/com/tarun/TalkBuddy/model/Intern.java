@@ -1,5 +1,6 @@
 package com.tarun.TalkBuddy.model;
 
+import ch.qos.logback.classic.pattern.ClassNameOnlyAbbreviator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.NaturalId;
@@ -9,6 +10,7 @@ import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,7 +19,7 @@ import java.util.Set;
 @Table(name="interns")
 @EntityListeners({AuditingEntityListener.class})
 @NamedQuery(name="getAssignmentsForIntern",query = "select assignments from Intern where name=:x")
-public class Intern {
+public class Intern implements Serializable,Cloneable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -33,7 +35,7 @@ public class Intern {
     private Mentor mentor;
 
 
-    @OneToMany(mappedBy = "intern",cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "intern",cascade = {CascadeType.PERSIST,CascadeType.MERGE},orphanRemoval = true)
     Set<Assignment> assignments = new HashSet<>();
 
 
@@ -69,6 +71,16 @@ public class Intern {
 
     public void setAssignments(Set<Assignment> assignments) {
         this.assignments = assignments;
+    }
+
+    public Intern copy()
+    {
+        Intern intern = new Intern();
+        intern.setId(this.id);
+        intern.setName(this.name);
+        intern.setRating(this.rating);
+        intern.setAssignments(this.assignments);
+        return intern;
     }
 
 }

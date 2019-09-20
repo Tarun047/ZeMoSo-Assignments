@@ -4,6 +4,7 @@ package com.tarun.TalkBuddy.controller;
 import com.tarun.TalkBuddy.repository.AssignmentRepository;
 import com.tarun.TalkBuddy.repository.InternRepository;
 import com.tarun.TalkBuddy.repository.TaskRepository;
+import com.tarun.TalkBuddy.service.AssignmentService;
 import com.tarun.TalkBuddy.service.InternService;
 import com.tarun.TalkBuddy.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class MainController {
 
 
     @Autowired
-    AssignmentRepository assignmentRepository;
+    AssignmentService assignmentService;
 
 
     @GetMapping("/code")

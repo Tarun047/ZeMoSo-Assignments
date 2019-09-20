@@ -11,6 +11,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,7 +27,6 @@ public class Task
     long id;
 
     @NaturalId
-    @NotNull
     String taskName;
 
     @NotNull
@@ -44,7 +44,7 @@ public class Task
     Date deadline;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "task",cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "task",cascade = {CascadeType.PERSIST,CascadeType.MERGE},orphanRemoval = true)
     Set<Assignment> assignments = new HashSet<>();
 
 
@@ -95,5 +95,19 @@ public class Task
 
     public void setAssignments(Set<Assignment> assignments) {
         this.assignments = assignments;
+    }
+
+
+    public Task copy()
+    {
+
+        Task task = new Task();
+        task.setId(this.id);
+        task.setTaskName(this.taskName);
+        task.setDescription(this.description);
+        task.setDeadline(this.deadline);
+        task.setCreatedAt(this.createdAt);
+        task.setAssignments(this.assignments);
+        return task;
     }
 }

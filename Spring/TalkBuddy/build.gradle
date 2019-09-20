@@ -40,6 +40,8 @@ dependencies {
 	compile("com.h2database:h2")
 	runtimeOnly 'mysql:mysql-connector-java'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.junit.jupiter:junit-jupiter:5.5.2'
+	
 }
 
 task copyWebApp(type: Copy) {

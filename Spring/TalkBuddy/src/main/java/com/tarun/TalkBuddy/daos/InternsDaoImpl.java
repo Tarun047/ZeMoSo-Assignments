@@ -46,30 +46,24 @@ public class InternsDaoImpl implements InternsDao {
     }
 
     @Override
-    public boolean remove(Intern entry) {
+    public boolean remove(Intern entry)
+    {
         try {
-            Session currentSession = (Session) entityManager.getDelegate();
-            currentSession.remove(entry);
+            entityManager.remove(entry);
             return true;
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
     @Override
-    public Intern save(Intern entry) {
-        try {
+    public Intern save(Intern entry)
+    {
             Session currentSession = (Session) entityManager.getDelegate();
             currentSession.save(entry);
             return entry;
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-        return null;
+
     }
 }

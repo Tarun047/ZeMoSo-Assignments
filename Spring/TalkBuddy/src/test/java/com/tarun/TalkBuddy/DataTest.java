@@ -90,6 +90,8 @@ public class DataTest {
             tRepo.delete(mTask);
             intern = iRepo.findById(intern.getId()).orElseThrow(() -> new ExpressionException("No such Intern"));
 
+
+
             assert intern.getAssignments().size() == 1;
         }
         catch(Exception e){}

@@ -1,7 +1,6 @@
 package com.tarun.TalkBuddy.daos;
 
 import com.tarun.TalkBuddy.model.Task;
-import com.tarun.TalkBuddy.model.Task;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -43,25 +42,15 @@ public class TaskDaoImpl implements TaskDao {
 
     @Override
     public boolean remove(Task entry) {
-        try {
-            Session currentSession = (Session) entityManager.getDelegate();
-            currentSession.remove(entry);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        entityManager.remove(entry);
         return false;
     }
 
     @Override
-    public Task save(Task entry) {
-        try {
-            Session currentSession = (Session) entityManager.getDelegate();
-            currentSession.save(entry);
-            return entry;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+    public Task save(Task entry)
+    {
+      Session currentSession = (Session) entityManager.getDelegate();
+      currentSession.save(entry);
+      return entry;
     }
 }

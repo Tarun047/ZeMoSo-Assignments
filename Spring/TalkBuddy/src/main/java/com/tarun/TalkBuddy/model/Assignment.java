@@ -3,27 +3,36 @@ package com.tarun.TalkBuddy.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.NaturalId;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Entity
-public class Assignment {
+@Table(name="assignments")
+@EntityListeners(AuditingEntityListener.class)
+public class Assignment implements Serializable,Cloneable
+{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
 
 
     @ManyToOne
     @JoinColumn(name="intern_id")
     @JsonIgnore
-    Intern intern;
+    private Intern intern;
 
     @ManyToOne
     @JoinColumn(name="task_id")
-    Task task;
+    private Task task;
 
     int rating;
+
 
     public long getId() {
         return id;
@@ -64,11 +73,20 @@ public class Assignment {
     remove the assignment from intern side as well
      */
 
+    public Assignment copy()
+    {
+        Assignment assignment = new Assignment();
+        assignment.setId(this.id);
+        assignment.setIntern(this.intern);
+        assignment.setTask(this.task);
+        assignment.setRating(this.rating);
+        return assignment;
+    }
+
     @PreRemove
     public void preRemove()
     {
         intern.getAssignments().remove(this);
         task.getAssignments().remove(this);
     }
-
 }

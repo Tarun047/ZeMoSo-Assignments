@@ -39,6 +39,7 @@ public class InternServiceImpl implements InternService {
         return internsDao.save(intern);
     }
 
+    @Transactional
     @Override
     public List<Intern> findAll() {
         return internsDao.list();

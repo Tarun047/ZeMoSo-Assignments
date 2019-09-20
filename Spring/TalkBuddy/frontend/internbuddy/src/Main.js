@@ -37,6 +37,8 @@ class Main extends React.Component
                     return <MentorApp user={this.state.user}/>;
                 if(this.state.role=='ADMIN')
                     return <AdminApp user={this.state.user}/>
+                else
+                    return <MentorApp user={this.state.user} />
         }
         else
             return <div id="firebaseui-auth-container"></div>;
