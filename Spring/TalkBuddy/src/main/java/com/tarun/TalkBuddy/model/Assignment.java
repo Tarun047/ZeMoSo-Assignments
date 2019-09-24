@@ -1,14 +1,13 @@
 package com.tarun.TalkBuddy.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.NaturalId;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Table(name="assignments")
@@ -17,16 +16,18 @@ public class Assignment implements Serializable,Cloneable
 {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GenericGenerator(name="assignment_generator",strategy = "com.tarun.TalkBuddy.model.generators.AssignmentIdGenerator")
+    @GeneratedValue(generator = "assignment_generator")
     private long id;
 
 
-
+    @NotNull
     @ManyToOne
     @JoinColumn(name="intern_id")
     @JsonIgnore
     private Intern intern;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name="task_id")
     private Task task;
@@ -76,17 +77,18 @@ public class Assignment implements Serializable,Cloneable
     public Assignment copy()
     {
         Assignment assignment = new Assignment();
-        assignment.setId(this.id);
+        assignment.setId(Objects.hash(this.intern.getId(),this.getTask().getId()));
         assignment.setIntern(this.intern);
         assignment.setTask(this.task);
         assignment.setRating(this.rating);
         return assignment;
     }
 
-    @PreRemove
-    public void preRemove()
-    {
-        intern.getAssignments().remove(this);
-        task.getAssignments().remove(this);
-    }
+
+//    @PreRemove
+//    public void preRemove()
+//    {
+//        intern.getAssignments().remove(this);
+//        task.getAssignments().remove(this);
+//    }
 }

@@ -8,20 +8,17 @@ import org.hibernate.annotations.NaturalId;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="tasks")
+@Table(name = "tasks")
 @EntityListeners(AuditingEntityListener.class)
-@JsonIgnoreProperties(value={"createdAt","assignments"},allowGetters = true)
-public class Task
-{
+@JsonIgnoreProperties(value = {"createdAt", "assignments"}, allowGetters = true)
+public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
@@ -40,13 +37,12 @@ public class Task
 
     @Column(nullable = false)
     @Temporal(value = TemporalType.DATE)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     Date deadline;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "task",cascade = {CascadeType.PERSIST,CascadeType.MERGE},orphanRemoval = true)
+    @OneToMany(mappedBy = "task", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
     Set<Assignment> assignments = new HashSet<>();
-
 
 
     public long getId() {
@@ -98,8 +94,7 @@ public class Task
     }
 
 
-    public Task copy()
-    {
+    public Task copy() {
 
         Task task = new Task();
         task.setId(this.id);

@@ -40,7 +40,6 @@ class Intern extends React.Component
         this.setAssignView=this.setAssignView.bind(this);
         this.onSelectTask=this.onSelectTask.bind(this);
         this.postAssignments=this.postAssignments.bind(this);
-        console.log(this.state.assignments);
     }
 
     onExpand(event)

@@ -4,16 +4,18 @@ package com.tarun.TalkBuddy;
 import com.tarun.TalkBuddy.model.Assignment;
 import com.tarun.TalkBuddy.model.Intern;
 import com.tarun.TalkBuddy.model.Task;
-import com.tarun.TalkBuddy.service.AssignmentService;
-import com.tarun.TalkBuddy.service.InternService;
-import com.tarun.TalkBuddy.service.TaskService;
+import com.tarun.TalkBuddy.service.interfaces.AssignmentService;
+import com.tarun.TalkBuddy.service.interfaces.InternService;
+import com.tarun.TalkBuddy.service.interfaces.TaskService;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.SerializationUtils;
@@ -33,10 +35,10 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 public class JUnitTest
 {
-    static Task tasks[];
-    static Intern interns[];
-    static Assignment assignments[];
-    AtomicInteger currentIndex = new AtomicInteger(0);
+    static Task[] tasks;
+    static Intern[] interns;
+    static Assignment[] assignments;
+    static AtomicInteger currentIndex = new AtomicInteger(0);
 
     @Autowired
     private InternService internService;
@@ -91,11 +93,11 @@ public class JUnitTest
         assignment.setTask(task);
 
 
-        int currentIndex = this.currentIndex.get();
-        interns[currentIndex] = intern;
-        tasks[currentIndex] = task;
-        assignments[currentIndex] = assignment;
-        this.currentIndex.set((currentIndex+1)%100);
+        int idx = currentIndex.get();
+        interns[idx] = intern;
+        tasks[idx] = task;
+        assignments[idx] = assignment;
+        currentIndex.set((idx+1)%100);
     }
 
     public Intern getCurrentIntern()
@@ -128,23 +130,26 @@ public class JUnitTest
         //Add original Object
         internService.addIntern(getCurrentIntern());
         taskService.addTask(getCurrentTask());
+        assignmentService.addAssignment(getCurrentAssignment());
 
         //Get a copy of the original objects
         Intern dupIntern = getCurrentIntern().copy();
         Task dupTask = getCurrentTask().copy();
-
+        Assignment dupAssignment = getCurrentAssignment().copy();
         //Make sure copies aren't same
         assertNotEquals(getCurrentIntern(),dupIntern);
         assertNotEquals(getCurrentTask(),dupTask);
+        //assertNotEquals(getCurrentAssignment(),dupAssignment);
 
         //Try to add Duplicate Object
-        assertThrows(DataIntegrityViolationException.class,()->internService.addIntern(getCurrentIntern()));
-        assertThrows(Exception.class,()->taskService.addTask(getCurrentTask()));
-
+        assertThrows(DataIntegrityViolationException.class,()->internService.addIntern(dupIntern));
+        assertThrows(DataIntegrityViolationException.class,()->taskService.addTask(dupTask));
+        assertThrows(DataIntegrityViolationException.class,()->assignmentService.addAssignment(dupAssignment));
 
     }
 
     @Test
+    @DisplayName("Test if invalid entries are accepted")
     public void testInvalidEntry()
     {
         //Initialize all Not Null attributes to null
@@ -161,13 +166,13 @@ public class JUnitTest
 
         //Try to add the invalid objects
         assertThrows(ConstraintViolationException.class,()->internService.addIntern(currentIntern));
-        Exception e1 = assertThrows(Exception.class,()->taskService.addTask(currentTask));
-        Exception e2 = assertThrows(Exception.class,()->assignmentService.addAssignment(currentAssignment));
-        System.out.println(e1.getMessage()+" "+e2.getMessage());
+        assertThrows(ConstraintViolationException.class,()->taskService.addTask(currentTask));
+        assertThrows(JpaSystemException.class,()->assignmentService.addAssignment(currentAssignment));
 
     }
 
     @Test
+    @DisplayName("Test if deletion is uniform")
     public void testDelete()
     {
         //Add test objects
@@ -185,6 +190,7 @@ public class JUnitTest
         assertEquals(prevSizeOfTask-1,taskService.findAll().size());
         assertEquals(prevSizeOfAssignment-1,assignmentService.findAll().size());
     }
+
 
 
 
