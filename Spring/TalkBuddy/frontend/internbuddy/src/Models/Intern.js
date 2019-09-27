@@ -3,6 +3,7 @@ import React,{Component} from 'react';
 import Select from 'react-select';
 import {Button} from'../Layout/BaseLayout.js'
 
+
 const largeColumn = {width:'40%',};
 const midColumn = {width:'30%',};
 const smallColumn = {width:'10%'};
@@ -14,11 +15,21 @@ class Intern extends React.Component
 
      async componentDidMount()
         {
+            //Fetch All Tasks
             const response = await fetch('/api/tasks/');
-            const body = await response.json();
-            const lis = []
-            body.forEach(task=>lis.push({value:task.id,label:task.taskName}))
-            this.setState({allTasks:lis});
+            let allTasks = await response.json()
+            
+            //Create a Map of Tasks
+            const taskMap = new Map();
+            allTasks.forEach(task=>taskMap.set(task.id,task));
+            
+            //Remove assignments for current intern which are already assigned
+            this.state.assignments.forEach(assignment=>taskMap.delete(assignment.task.id))
+
+            //Convert to desired format 
+            allTasks = []
+            taskMap.forEach(task=>allTasks.push({value:task.id,label:task.taskName}))
+            this.setState({allTasks:allTasks});
         }
 
 

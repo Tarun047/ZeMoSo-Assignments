@@ -12,10 +12,10 @@ import java.util.Set;
 
 
 @Entity
-@Table(name="interns")
+@Table(name = "interns")
 @EntityListeners({AuditingEntityListener.class})
-@NamedQuery(name="getAssignmentsForIntern",query = "select assignments from Intern where name=:x")
-public class Intern implements Serializable,Cloneable {
+@NamedQuery(name = "getAssignmentsForIntern", query = "select assignments from Intern where name=:x")
+public class Intern implements Serializable, Cloneable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -30,15 +30,20 @@ public class Intern implements Serializable,Cloneable {
     @ManyToOne
     private Mentor mentor;
 
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            mappedBy = "intern")
+    private Profile profile;
 
-    @OneToMany(mappedBy = "intern",cascade = {CascadeType.PERSIST,CascadeType.MERGE},orphanRemoval = true)
+    @OneToMany(mappedBy = "intern", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
     Set<Assignment> assignments = new HashSet<>();
-
 
 
     public long getId() {
         return id;
     }
+
 
     public void setId(long id) {
         this.id = id;
@@ -69,8 +74,16 @@ public class Intern implements Serializable,Cloneable {
         this.assignments = assignments;
     }
 
-    public Intern copy()
-    {
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
+    }
+
+
+    public Intern copy() {
         Intern intern = new Intern();
         intern.setId(this.id);
         intern.setName(this.name);
@@ -78,5 +91,6 @@ public class Intern implements Serializable,Cloneable {
         intern.setAssignments(this.assignments);
         return intern;
     }
+
 
 }

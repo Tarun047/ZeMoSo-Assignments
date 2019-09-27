@@ -2,7 +2,9 @@ package com.tarun.TalkBuddy.controller;
 
 import com.tarun.TalkBuddy.model.Assignment;
 import com.tarun.TalkBuddy.model.Intern;
+import com.tarun.TalkBuddy.model.Profile;
 import com.tarun.TalkBuddy.model.Task;
+import com.tarun.TalkBuddy.model.enums.RoleType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.expression.ExpressionException;
@@ -48,9 +50,16 @@ public class InternController extends MainController {
         return internService.findIntern(internId).orElseThrow(() -> new ExpressionException("No Such Intern Found"));
     }
 
-    @PostMapping("/createintern")
-    public Intern createIntern(@Valid @RequestBody Intern intern) {
-        return internService.addIntern(intern);
+    @PostMapping("/createintern/{uid}")
+    public Intern createIntern(@PathVariable(name="uid")String uid,@Valid @RequestBody Intern intern) {
+        Profile profile = new Profile();
+        profile.setUid(uid);
+        profile.setIntern(intern);
+        profile.setRole(RoleType.INTERN);
+        intern = internService.addIntern(intern);
+        profileRepository.save(profile);
+        return intern;
+
     }
 
 

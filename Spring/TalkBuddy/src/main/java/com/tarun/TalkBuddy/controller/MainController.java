@@ -1,6 +1,7 @@
 package com.tarun.TalkBuddy.controller;
 
 
+import com.tarun.TalkBuddy.repository.ProfileRepository;
 import com.tarun.TalkBuddy.service.interfaces.AssignmentService;
 import com.tarun.TalkBuddy.service.interfaces.InternService;
 import com.tarun.TalkBuddy.service.interfaces.TaskService;
@@ -22,6 +23,9 @@ public class MainController {
 
     @Autowired
     AssignmentService assignmentService;
+
+    @Autowired
+    ProfileRepository profileRepository;
 
 
     @GetMapping("/code")

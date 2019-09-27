@@ -1,6 +1,7 @@
 package com.tarun.TalkBuddy.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tarun.TalkBuddy.model.enums.AssignmentStatus;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -32,7 +33,19 @@ public class Assignment implements Serializable,Cloneable
     @JoinColumn(name="task_id")
     private Task task;
 
+
+    public AssignmentStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(AssignmentStatus status) {
+        this.status = status;
+    }
+
+    AssignmentStatus status = AssignmentStatus.OPEN;
+
     int rating;
+
 
 
     public long getId() {

@@ -1,18 +1,34 @@
 import React,{Component} from 'react';
 import MentorApp from './MentorApp'
 import AdminApp from './AdminApp'
+import InternApp from './InternApp'
 import { auth, startFirebaseUI  } from './Login/firebase.js'
+import { Snackbar,TextField,Box } from '@material-ui/core';
+import BasicForm from './BasicFormMaker'
+import {Provider} from 'react-redux'
+import Store from './Store'
 class Main extends React.Component
 {
     state={
         user:null,
-        role:null
+        role:null,
+        open:false
         };
+    classes={
+            root:
+            {
+                display:'flex',
+                flexWrap:'wrap',
+                flexDirection:'column',
+                alignItems:'center',
+            }
+    }
     constructor(props)
     {
         super(props);
         this.handleLogin=this.handleLogin.bind(this);
         auth.onAuthStateChanged((user)=>this.handleLogin(user));
+        
     }
 
     async handleLogin(user)
@@ -23,9 +39,33 @@ class Main extends React.Component
         else
         {
            const user_role = await fetch('/api/roles/rolelevel',{headers: {'uid':user.uid}});
-           const newLevel = await user_role.text()
-           //console.log(newLevel);
-           this.setState({role:newLevel.slice(1,-1)})
+           const profile = await user_role.json()
+           if(profile.role==='UNRECOGNIZED_USER' && user!=null)
+           {
+              
+               const response = await fetch('/api/interns/createintern/'+user.uid, {
+                method: 'POST',
+                headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json',
+                },
+                body:JSON.stringify({
+                    name:user.email,
+                    rating:0
+                })
+              });
+              const intern = await response.json();
+               this.setState({role:intern});
+           }
+           else
+           {
+            if(profile.role=='INTERN')
+                this.setState({role:profile.intern})
+            else if(profile.role=="MENTOR")
+                this.setState({role:profile.mentor})
+            else
+                this.setState({role:"ADMIN"})
+           }
         }
     }
 
@@ -38,10 +78,12 @@ class Main extends React.Component
                 if(this.state.role=='ADMIN')
                     return <AdminApp user={this.state.user}/>
                 else
-                    return <MentorApp user={this.state.user} />
+                    return <Provider store={Store}><InternApp user={this.state.user} intern={this.state.role} /></Provider>
         }
         else
-            return <div id="firebaseui-auth-container"></div>;
+            return(
+                <div id="firebaseui-auth-container"></div>
+            );
     }
 }
 

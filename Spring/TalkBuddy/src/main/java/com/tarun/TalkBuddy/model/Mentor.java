@@ -23,5 +23,34 @@ public class Mentor
     @OneToMany(mappedBy = "mentor",cascade = {CascadeType.ALL})
     Set<Intern> interns = new HashSet<>();
 
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            mappedBy = "mentor")
+    private Profile profile;
 
+
+    public long getId() {
+        return id;
+    }
+
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Set<Intern> getInterns() {
+        return interns;
+    }
+
+    public void setInterns(Set<Intern> interns) {
+        this.interns = interns;
+    }
 }
