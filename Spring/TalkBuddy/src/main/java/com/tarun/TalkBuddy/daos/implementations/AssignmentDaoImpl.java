@@ -73,18 +73,20 @@ public class AssignmentDaoImpl implements AssignmentDao {
       Intern intern = entry.getIntern();
       Task task = entry.getTask();
       Session session = (Session)entityManager.getDelegate();
-      if(intern!=null && task!=null)
-      {
-          Set<Assignment> assignments = intern.getAssignments();
-          assignments.add(entry);
-          intern.setAssignments(assignments);
-          assignments = task.getAssignments();
-          assignments.add(entry);
-          task.setAssignments(assignments);
-          session.save(entry);
+      if(!find(entry.getId()).isPresent()) {
+          if (intern != null && task != null) {
+              Set<Assignment> assignments = intern.getAssignments();
+              assignments.add(entry);
+              intern.setAssignments(assignments);
+              assignments = task.getAssignments();
+              assignments.add(entry);
+              task.setAssignments(assignments);
+              session.save(entry);
+          } else
+              session.save(entry);
       }
       else
-        session.save(entry);
+          session.merge(entry);
       return entry;
     }
 }

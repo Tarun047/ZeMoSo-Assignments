@@ -2,6 +2,7 @@ package com.tarun.TalkBuddy.service.implementations;
 
 import com.tarun.TalkBuddy.daos.interfaces.AssignmentDao;
 import com.tarun.TalkBuddy.model.Assignment;
+import com.tarun.TalkBuddy.model.enums.AssignmentStatus;
 import com.tarun.TalkBuddy.service.interfaces.AssignmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,15 @@ public class AssignmentServiceImpl implements AssignmentService {
     @Override
     public Assignment updateAssignment(Assignment assignment) {
         return assignmentDao.save(assignment);
+    }
+
+    @Transactional
+    @Override
+    public void updateStatus(long id,AssignmentStatus status)throws Exception
+    {
+        Assignment assignment = assignmentDao.find(id).orElseThrow(()->new Exception("No such assignment"));
+        assignment.setStatus(status);
+        assignmentDao.save(assignment);
     }
 
     @Transactional

@@ -1,5 +1,5 @@
 import React,{useEffect} from 'react';
-import { CardContent,Card,Box,Typography, Container,Toolbar,AppBar,InputBase,Button } from '@material-ui/core';
+import { CardContent,Card,Box,Typography, Container,Toolbar,AppBar,InputBase,Button,FormControlLabel,FormLabel,RadioGroup,Radio,FormControl } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search'
 import {makeStyles,fade} from '@material-ui/core/styles'
 import Task from './Models/Task'
@@ -61,7 +61,11 @@ const useStyles = makeStyles(theme=>({
       },
       banner: {
         textAlign:"center"
-        }
+        },
+      statusfilter:
+      {
+        margin:theme.spacing(3),
+      }
   }));
 export default function InternApp(props)
 {
@@ -77,9 +81,21 @@ export default function InternApp(props)
      },props.intern
     );
     
-    
 
-    
+    async function updateAssignmentChange(id)
+    {
+      console.log(JSON.stringify(taskList[id]))
+      await fetch('/api/assignments/update', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'assignmentId':taskList[id].id,
+          'uid':props.user.uid
+        },
+       body: JSON.stringify(taskList[id].status)
+      });
+    }
+
     console.log(taskList)
     return(
       
@@ -112,11 +128,51 @@ export default function InternApp(props)
       </AppBar>
       <Toolbar></Toolbar>
       <div className={classes.banner}><Typography>Welcome {props.intern.name} </Typography></div>
+      <Toolbar>
+      <FormControl component="fieldset" className={classes.statusfilter} onChange={(event)=>dispatch({type:'CHANGE_VISIBILITY_FILTER',payload:event.target.value})}>
+        <FormLabel component="legend">Filter</FormLabel>
+        <RadioGroup aria-label="Filter" name="statusfilter" defaultValue="ALL" row>
+        <FormControlLabel
+            value="ALL"
+            control={<Radio color="primary" />}
+            label="All"
+            labelPlacement="bottom"
+          />
+          <FormControlLabel
+            value="OPEN"
+            control={<Radio color="primary" />}
+            label="Open"
+            labelPlacement="bottom"
+          />
+          <FormControlLabel
+            value="CLOSED"
+            control={<Radio color="primary" />}
+            label="Closed"
+            labelPlacement="bottom"
+          />
+          <FormControlLabel
+            value="IN_PROGRESS"
+            control={<Radio color="primary" />}
+            label="In Progress"
+            labelPlacement="bottom"
+          />
+          </RadioGroup>
+        </FormControl>
+      </Toolbar>
+      
       <Box className = {classes.root}>
         {
          taskList.map(
            (assignment,idx)=>
-           <Task key={idx} title={assignment.task.taskName} description={assignment.task.description} deadline={assignment.task.deadline} status={assignment.status} />
+           <Task 
+            key={idx}
+            id = {idx}
+            title={assignment.task.taskName} 
+            description={assignment.task.description} 
+            deadline={assignment.task.deadline} 
+            status={assignment.status} 
+            onChange={(key,value)=>{dispatch({type:'UPDATE_ASSIGNMENT_STATUS', payload:{id:key,status:value}})}}
+            onAssignmentChange={updateAssignmentChange} />
          )
         }
       </Box>
@@ -124,3 +180,4 @@ export default function InternApp(props)
       
     )
 }
+

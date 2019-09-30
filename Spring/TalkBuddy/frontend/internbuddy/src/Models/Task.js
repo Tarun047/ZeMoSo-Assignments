@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import {makeStyles} from '@material-ui/core/styles'
-import {Card,CardContent,Typography, CardActions,IconButton,Collapse,FormControl,Select,MenuItem,InputLabel} from '@material-ui/core'
+import {Card,CardContent,Typography, CardActions,IconButton,Collapse,FormControl,Select,MenuItem,InputLabel, Button} from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import clsx from 'clsx'
 const useStyles = makeStyles((theme)=>({
@@ -56,16 +56,15 @@ export default function Task(props)
                 <Typography className={classes.title}>Deadline: {props.deadline}</Typography>
             </CardContent>
             <CardActions>
-                <Typography className={classes.bullet}>
                     <FormControl className={classes.formControl}>
                           <InputLabel>Status</InputLabel>
-                            <Select value={props.status} onChange={(event)=>props.onChange(props.key,event.target.value)}>
+                            <Select value={props.status} onChange={
+                              (event)=>props.onChange(props.id,event.target.value)}>
                             <MenuItem value={'OPEN'}>Open</MenuItem>
                             <MenuItem value={'IN_PROGRESS'}>In Progress</MenuItem>
                             <MenuItem value={'CLOSED'}>Closed</MenuItem>
                           </Select>
                     </FormControl>
-                </Typography>
                 <IconButton
                     className={clsx(classes.expand, {
                         [classes.expandOpen]: expanded,
@@ -79,6 +78,9 @@ export default function Task(props)
             <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent>
                     <Typography className={classes.content}>Description: {props.description}</Typography>
+                    <Button variant="contained" color="primary" onClick={()=>props.onAssignmentChange(props.id)}>
+                          Save
+                    </Button>
                 </CardContent>
             </Collapse>
         </Card>
