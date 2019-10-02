@@ -47,7 +47,7 @@ public class AssignmentServiceImpl implements AssignmentService {
     {
         Assignment assignment = assignmentDao.find(id).orElseThrow(()->new Exception("No such assignment"));
         assignment.setStatus(status);
-        assignmentDao.save(assignment);
+        assignmentDao.update(assignment);
     }
 
     @Transactional

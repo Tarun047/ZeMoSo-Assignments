@@ -2,10 +2,12 @@ package com.tarun.TalkBuddy.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tarun.TalkBuddy.model.enums.AssignmentStatus;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import org.hibernate.annotations.CascadeType;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
@@ -96,12 +98,4 @@ public class Assignment implements Serializable,Cloneable
         assignment.setRating(this.rating);
         return assignment;
     }
-
-
-//    @PreRemove
-//    public void preRemove()
-//    {
-//        intern.getAssignments().remove(this);
-//        task.getAssignments().remove(this);
-//    }
 }

@@ -65,6 +65,7 @@ public class InternController extends MainController {
 
     @DeleteMapping("/{id}/remove_task")
     public Intern removeAssignment(@PathVariable(name = "id") long internId, @RequestParam List<String> taskIds) throws ExpressionException {
+        System.out.println(internId);
         for (String id : taskIds) {
             assignmentService.removeAssignment(Long.parseLong(id));
         }

@@ -3,4 +3,5 @@ package com.tarun.TalkBuddy.daos.interfaces;
 import com.tarun.TalkBuddy.model.Assignment;
 
 public interface AssignmentDao extends GenericDao<Assignment,Long>{
+    Assignment update(Assignment assignment) throws Exception;
 }

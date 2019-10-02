@@ -25,6 +25,7 @@ import java.io.Serializable;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Date;
+import java.util.Optional;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -102,7 +103,7 @@ public class JUnitTest
 
     public Intern getCurrentIntern()
     {
-        return interns[currentIndex.get()-1];
+        return interns[currentIndex.get() - 1];
     }
 
     public Assignment getCurrentAssignment()
@@ -139,13 +140,12 @@ public class JUnitTest
         //Make sure copies aren't same
         assertNotEquals(getCurrentIntern(),dupIntern);
         assertNotEquals(getCurrentTask(),dupTask);
-        //assertNotEquals(getCurrentAssignment(),dupAssignment);
+
 
         //Try to add Duplicate Object
         assertThrows(DataIntegrityViolationException.class,()->internService.addIntern(dupIntern));
         assertThrows(DataIntegrityViolationException.class,()->taskService.addTask(dupTask));
         assertThrows(DataIntegrityViolationException.class,()->assignmentService.addAssignment(dupAssignment));
-
     }
 
     @Test
@@ -167,6 +167,7 @@ public class JUnitTest
         //Try to add the invalid objects
         assertThrows(ConstraintViolationException.class,()->internService.addIntern(currentIntern));
         assertThrows(ConstraintViolationException.class,()->taskService.addTask(currentTask));
+        //We can't get an ID if intern and task are not set
         assertThrows(JpaSystemException.class,()->assignmentService.addAssignment(currentAssignment));
 
     }
@@ -175,6 +176,7 @@ public class JUnitTest
     @DisplayName("Test if deletion is uniform")
     public void testDelete()
     {
+        /* Deletion from Task Side */
         //Add test objects
         internService.addIntern(getCurrentIntern());
         taskService.addTask(getCurrentTask());
@@ -182,17 +184,32 @@ public class JUnitTest
 
         //Track the previous size
         int prevSizeOfTask = taskService.findAll().size(),prevSizeOfAssignment = assignmentService.findAll().size();
-
+        int prevSizeOfInternSet = getCurrentIntern().getAssignments().size();
         //Remove the current task
         taskService.removeTask(getCurrentTask());
 
         //Check if removal is persistant
         assertEquals(prevSizeOfTask-1,taskService.findAll().size());
         assertEquals(prevSizeOfAssignment-1,assignmentService.findAll().size());
+
+
+        /* Deletion from Intern Side */
+        taskService.addTask(getCurrentTask());
+        assignmentService.addAssignment(getCurrentAssignment());
+
+        //Track previous size
+        int prevSizeOfAssignments = assignmentService.findAll().size(),
+                internAssignmentsSize =  getCurrentIntern().getAssignments().size();
+
+        //Remove the current Intern
+        internService.removeIntern(getCurrentIntern());
+        assertEquals(prevSizeOfAssignments-internAssignmentsSize,assignmentService.findAll().size());
     }
 
+    @Test
+    @DisplayName("Test for assignment deletion side effects")
+    public void testIsolation()
+    {
 
-
-
-
+    }
 }

@@ -42,7 +42,7 @@ public class Task {
     Date deadline;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "task", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
+    @OneToMany(mappedBy = "task", cascade = {CascadeType.PERSIST, CascadeType.MERGE,CascadeType.REMOVE})
     Set<Assignment> assignments = new HashSet<>();
 
 

@@ -30,15 +30,7 @@ public class TaskServiceImpl implements TaskService {
     @Transactional
     @Override
     public boolean removeTask(Task task) {
-        boolean retVal = taskDao.remove(task.getId());
-        if(retVal)
-        {
-            Set<Assignment> assignments = task.getAssignments();
-            for (Assignment assignment : assignments) {
-                assignmentDao.remove(assignment);
-            }
-        }
-        return retVal;
+        return taskDao.remove(task.getId());
     }
 
 

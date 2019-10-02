@@ -71,8 +71,8 @@ export default function InternApp(props)
 {
 
     const classes = useStyles();
-    const taskList = useSelector(state=>state.assignment.showList)
-    const searchTerm = useSelector(state=>state.assignment.searchTerm)
+    const taskList = useSelector(state=>state.assignment.taskList)
+    const filters = useSelector(state=>state.assignment.filters)
     const dispatch = useDispatch()
 
     useEffect(()=>
@@ -80,6 +80,8 @@ export default function InternApp(props)
       dispatch({type:'UPDATE_DATA',payload:props.intern.assignments})
      },props.intern
     );
+
+    
     
 
     async function updateAssignmentChange(id)
@@ -96,7 +98,8 @@ export default function InternApp(props)
       });
     }
 
-    console.log(taskList)
+    let showList = taskList
+    Object.values(filters).forEach(filter=>showList=showList.filter(filter))
     return(
       
       <Container>
@@ -116,7 +119,6 @@ export default function InternApp(props)
                 root: classes.inputRoot,
                 input: classes.inputInput,
                 }}
-                value={searchTerm}
                 onChange={(event)=>dispatch({type:'CHANGE_SEARCH',payload:event.target.value})}
                 inputProps={{ 'aria-label': 'search' }}
 
@@ -162,7 +164,7 @@ export default function InternApp(props)
       
       <Box className = {classes.root}>
         {
-         taskList.map(
+         showList.map(
            (assignment,idx)=>
            <Task 
             key={idx}

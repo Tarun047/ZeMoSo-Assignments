@@ -30,15 +30,7 @@ public class InternServiceImpl implements InternService {
     @Transactional
     @Override
     public boolean removeIntern(Intern intern) {
-        boolean retVal = internDao.remove(intern.getId());
-        if(retVal)
-        {
-            Set<Assignment> assignments = intern.getAssignments();
-            for (Assignment assignment : assignments) {
-                assignmentDao.remove(assignment);
-            }
-        }
-        return retVal;
+        return internDao.remove(intern.getId());
     }
 
 

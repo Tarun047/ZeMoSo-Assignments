@@ -36,7 +36,7 @@ public class Intern implements Serializable, Cloneable {
             mappedBy = "intern")
     private Profile profile;
 
-    @OneToMany(mappedBy = "intern", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
+    @OneToMany(mappedBy = "intern", cascade = {CascadeType.PERSIST, CascadeType.MERGE,CascadeType.REMOVE})
     Set<Assignment> assignments = new HashSet<>();
 
 

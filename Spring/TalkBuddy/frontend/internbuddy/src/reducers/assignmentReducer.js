@@ -1,9 +1,9 @@
 const initialState = {
     taskList:[],
-    showList:[],
-    searchTerm: "",
-    visibility:'ALL'
+    filters:{},
 }
+
+
 
 export default (state = initialState, action) =>
 {
@@ -17,36 +17,20 @@ export default (state = initialState, action) =>
             };
         }
         case "CHANGE_SEARCH":{
-            if(state.visibility==='ALL')
-            {
-                return {
-                    ...state,
-                    showList:state.taskList.filter(value=>value.task.taskName.toLowerCase().includes(action.payload)),
-                    searchTerm: action.payload
-                };
-            }
-            else
-            {
-                return {
-                    ...state,
-                    showList:state.taskList.filter(value=>value.status==state.visibility && value.task.taskName.toLowerCase().includes(action.payload)),
-                    searchTerm: action.payload
-                }
-            }
-            
+            const new_filters = {...state.filters,search:value=>value.task.taskName.toLowerCase().includes(action.payload)}
+            return {
+                ...state,
+                filters:new_filters,
+                searchTerm: action.payload
+            };
         }
         case "CHANGE_VISIBILITY_FILTER":
             {
-                if(action.payload==='ALL')
-                    return{
-                        ...state,
-                        showList:state.taskList,
-                        visibility:action.payload
-                    }
+                const new_filters = {...state.filters,visibility:value=>action.payload==='ALL' || value.status===action.payload}
                 return {
                     ...state,
                     visibility:action.payload,
-                    showList:state.taskList.filter(value=>value.status===action.payload)
+                    filters:new_filters
                 }
             }
         case "UPDATE_ASSIGNMENT_STATUS":
@@ -60,8 +44,7 @@ export default (state = initialState, action) =>
                     ,...state.taskList.slice(action.payload.id+1)]
                 return{
                     ...state,
-                    taskList: updatedList,
-                    showList: updatedList
+                    taskList: updatedList
                 }
             }
         default:{
