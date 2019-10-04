@@ -10,6 +10,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,7 +19,7 @@ import java.util.Set;
 @Table(name = "tasks")
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"createdAt", "assignments"}, allowGetters = true)
-public class Task {
+public class Task implements Serializable,Cloneable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;

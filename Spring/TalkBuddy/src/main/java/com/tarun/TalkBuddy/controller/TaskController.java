@@ -21,6 +21,11 @@ public class TaskController extends MainController{
         return taskService.findAll();
     }
 
+    @GetMapping("/{id}")
+    public Task getTask(@PathVariable(name = "id") long internId) throws ExpressionException {
+        return taskService.findTask(internId).orElseThrow(() -> new ExpressionException("No Such Intern Found"));
+    }
+
     @PostMapping("/add_task")
     public Task createTask(@RequestBody Task task)
     {

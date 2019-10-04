@@ -1,27 +1,226 @@
 package com.tarun.TalkBuddy;
 
-import com.tarun.TalkBuddy.repository.InternRepository;
-import com.tarun.TalkBuddy.repository.TaskRepository;
-
+import com.tarun.TalkBuddy.controller.AssignmentController;
+import com.tarun.TalkBuddy.controller.InternController;
+import com.tarun.TalkBuddy.controller.ProfileController;
+import com.tarun.TalkBuddy.controller.TaskController;
+import com.tarun.TalkBuddy.model.Assignment;
+import com.tarun.TalkBuddy.model.Intern;
+import com.tarun.TalkBuddy.model.Profile;
+import com.tarun.TalkBuddy.model.Task;
+import com.tarun.TalkBuddy.model.enums.AssignmentStatus;
+import com.tarun.TalkBuddy.model.enums.RoleType;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.*;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.persistence.EntityManager;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Predicate;
+
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(webEnvironment =  SpringBootTest.WebEnvironment.DEFINED_PORT)
+@TestPropertySource("classpath:test.properties")
 public class TalkBuddyApplicationTests {
+	@Autowired
+	InternController internController;
+
+	@Autowired
+	AssignmentController assignmentController;
+
+	@Autowired
+	TaskController taskController;
+
+	@Autowired
+	ProfileController profileController;
+
+	@Autowired
+	TestRestTemplate restTemplate;
+
+	final private int port=8080;
+
+	final private String url="http://localhost:"+port;
+
+
+	static Task[] tasks;
+	static Intern[] interns;
+	static Assignment[] assignments;
+	static AtomicInteger currentIndex = new AtomicInteger(0);
+
+	@BeforeClass
+	public static void initAll()
+	{
+		tasks = new Task[100];
+		interns = new Intern[100];
+		assignments = new Assignment[100];
+	}
+
+	@Before
+	public void init()
+	{
+		Intern intern = (Intern)Helper.populate(new Intern(),Intern.class);
+
+		Task task = (Task)Helper.populate(new Task(),Task.class);
+
+
+		Assignment assignment = new Assignment();
+		assignment.setIntern(intern);
+		assignment.setTask(task);
+
+		int idx = currentIndex.get();
+		interns[idx] = intern;
+		tasks[idx] = task;
+		assignments[idx] = assignment;
+		currentIndex.set((idx+1)%100);
+	}
+
+	public Intern getCurrentIntern()
+	{
+		return interns[currentIndex.get() - 1];
+	}
+
+	public Assignment getCurrentAssignment()
+	{
+		return assignments[currentIndex.get()-1];
+	}
+
+	public Task getCurrentTask()
+	{
+		return tasks[currentIndex.get()-1];
+	}
+
 
 
 	@Test
 	public void contextLoads() {
+		assertThat(internController).isNotNull();
+		assertThat(assignmentController).isNotNull();
+		assertThat(taskController).isNotNull();
+		assertThat(profileController).isNotNull();
+	}
+
+	@Test
+	public void testAdditionEndPoints() {
+
+		String uid = (String)Helper.getRandVal(String.class);
+		int internSize = internController.findAll().size();
+		int taskSize = taskController.findAll().size();
+		int assignmentSize  = assignmentController.findAll().size();
+
+		//Successful Requests
+		ResponseEntity<Intern> internResponse = restTemplate.postForEntity(url+ String.format("/api/interns/createintern/%s", uid),getCurrentIntern(),Intern.class);
+		assertTrue(internResponse.getStatusCode().is2xxSuccessful());
+
+		ResponseEntity<Task> taskResponse = restTemplate.postForEntity(url+"/api/tasks/add_task",getCurrentTask(),Task.class);
+		assertTrue(taskResponse.getStatusCode().is2xxSuccessful());
 
 
+		ResponseEntity<Intern> assignmentResponse = restTemplate.postForEntity(
+				url+String.format("/api/interns/%s/assign_task?taskIds=%s",internResponse.getBody().getId(),
+						taskResponse.getBody().getId()),
+				null,
+				Intern.class
+		);
+
+		assertTrue(assignmentResponse.getStatusCode().is2xxSuccessful());
+
+		assertEquals(internSize+1,internController.findAll().size());
+		assertEquals(taskSize+1,taskController.findAll().size());
+		assertEquals(assignmentSize+1,assignmentController.findAll().size());
+	}
+
+	@Test
+	public void testDelete()
+	{
+		long internId = internController.createIntern((String)Helper.getRandVal(String.class),getCurrentIntern()).getId();
+		long taskId = taskController.createTask(getCurrentTask()).getId();
+
+		int initialTaskSize = taskController.findAll().size();
+		int initalInternSize = internController.findAll().size();
+		ResponseEntity<Intern> assignmentResponse = restTemplate.postForEntity(
+				url+String.format("/api/interns/%s/assign_task?taskIds=%s",internId,
+						 taskId),
+				null,
+				Intern.class
+		);
+
+		int initialAssignmentSize = assignmentController.findAll().size();
+
+		assertTrue(assignmentResponse.getStatusCode().is2xxSuccessful());
+
+		restTemplate.delete(url+String.format("/api/interns/removeintern/%s",internId));
+		assertEquals(initalInternSize-1,internController.findAll().size());
+		assertEquals(initialAssignmentSize-1,assignmentController.findAll().size());
+		restTemplate.delete(url+String.format("/api/tasks/remove/%s",taskId));
+		assertEquals(initialTaskSize-1,taskController.findAll().size());
+	}
+
+	@Test
+	public void changeAssignmentStatus()
+	{
+		String uid = (String)Helper.getRandVal(String.class);
+		long internId = internController.createIntern(uid,getCurrentIntern()).getId();
+		long taskId = taskController.createTask(getCurrentTask()).getId();
+		ResponseEntity<Intern> assignmentResponse = restTemplate.postForEntity(
+				url+String.format("/api/interns/%s/assign_task?taskIds=%s",internId,
+						taskId),
+				null,
+				Intern.class
+		);
+
+		assertTrue(assignmentResponse.getStatusCode().is2xxSuccessful());
+
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.add("uid",uid);
+		httpHeaders.add("assignmentId",Long.toString(Objects.hash(internId,taskId)));
+		HttpEntity<AssignmentStatus> requestEntity = new HttpEntity<>(AssignmentStatus.CLOSED,httpHeaders);
+		Assignment assignmentUpdated = restTemplate.postForObject(
+				url+"/api/assignments/update",requestEntity,Assignment.class);
+		Predicate<Assignment> predicate = assignment -> assignment.getId()==assignmentUpdated.getId();
+		assertEquals(assignmentController.findAll().stream().filter(predicate).findAny().get().getStatus(),AssignmentStatus.CLOSED);
+	}
+
+	@Test
+	public void testGetEndPoints()
+	{
+
+		String uid = (String)Helper.getRandVal(String.class);
+		long internId = internController.createIntern(uid,getCurrentIntern()).getId();
+		long taskId = taskController.createTask(getCurrentTask()).getId();
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.add("uid",uid);
+		HttpEntity<Profile> httpEntity = new HttpEntity<>(null,httpHeaders);
+		ResponseEntity<Profile> profileResponseEntity = restTemplate.exchange(
+				url+"/api/roles/rolelevel",HttpMethod.GET,httpEntity,Profile.class);
+		assertTrue(profileResponseEntity.getStatusCode().is2xxSuccessful());
+		assertTrue(profileResponseEntity.hasBody());
+		assertEquals(profileResponseEntity.getBody().getRole(), RoleType.INTERN);
+
+		ResponseEntity<Intern> internResponseEntity = restTemplate.getForEntity(
+				url+String.format("/api/interns/%s",internId),Intern.class);
+		assertTrue(internResponseEntity.getStatusCode().is2xxSuccessful());
+		assertEquals(internResponseEntity.getBody().getId(),internId);
+
+		ResponseEntity<Task> taskResponseEntity = restTemplate.getForEntity(
+				url+String.format("/api/tasks/%s",taskId),
+				Task.class
+		);
+		assertTrue(taskResponseEntity.getStatusCode().is2xxSuccessful());
+		assertEquals(taskResponseEntity.getBody().getId(),taskId);
 	}
 
 }

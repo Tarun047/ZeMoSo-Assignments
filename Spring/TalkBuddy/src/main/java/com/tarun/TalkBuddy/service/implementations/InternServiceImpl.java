@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -34,6 +35,7 @@ public class InternServiceImpl implements InternService {
     }
 
 
+
     @Transactional
     @Override
     public Optional<Intern> findIntern(Long id) {
@@ -50,6 +52,23 @@ public class InternServiceImpl implements InternService {
     @Override
     public List<Intern> findAll() {
         return internDao.list();
+    }
+
+    @Transactional
+    @Override
+    public Set<Assignment> getAssignments(long id)
+    {
+
+        try {
+
+            return internDao.listAssignments(id);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return new HashSet<>();
+        }
+
     }
 
     @Transactional

@@ -56,21 +56,6 @@ public class AssignmentDaoImpl implements AssignmentDao {
     {
       Session session = (Session)entityManager.getDelegate();
       session.save(entry);
-      Intern intern = entry.getIntern();
-      Task task = entry.getTask();
-      //Add assignments to both task and intern references for persistence
-      Set<Assignment> assignments = intern.getAssignments();
-
-      assignments.add(entry);
-      intern.setAssignments(assignments);
-
-      assignments = task.getAssignments();
-      assignments.add(entry);
-      task.setAssignments(assignments);
-
-      session.saveOrUpdate(intern);
-      session.saveOrUpdate(task);
-
       return entry;
     }
 

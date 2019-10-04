@@ -1,6 +1,7 @@
 package com.tarun.TalkBuddy.daos.implementations;
 
 import com.tarun.TalkBuddy.daos.interfaces.InternDao;
+import com.tarun.TalkBuddy.model.Assignment;
 import com.tarun.TalkBuddy.model.Intern;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Repository
 public class InternDaoImpl implements InternDao {
@@ -58,5 +60,24 @@ public class InternDaoImpl implements InternDao {
                 currentSession.save(entry);
             return entry;
 
+    }
+
+
+    //This is a method only for tests it enables evaluation of lazily initialized set
+    //This must not be called anywhere else in production code
+    @Override
+    public Set<Assignment> listAssignments(long id)throws Exception
+    {
+        Session session = (Session) entityManager.getDelegate();
+        Optional<Intern> intern = Optional.ofNullable(session.find(Intern.class,id));
+        if(intern.isPresent())
+        {
+            //Initializing to a variable to avoid lazy initialization exception and call size to force computation
+            Set<Assignment> assignments = intern.get().getAssignments();
+            assignments.size();
+            return assignments;
+        }
+        else
+            throw new Exception("No Such Intern");
     }
 }

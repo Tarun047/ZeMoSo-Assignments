@@ -33,8 +33,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @RunWith(SpringRunner.class)
 @TestPropertySource("classpath:test.properties")
-@SpringBootTest
-public class JUnitTest
+@SpringBootTest(webEnvironment =  SpringBootTest.WebEnvironment.DEFINED_PORT)
+public class ServiceTests
 {
     static Task[] tasks;
     static Intern[] interns;
@@ -50,24 +50,6 @@ public class JUnitTest
     @Autowired
     private AssignmentService assignmentService;
 
-    String getRandomString(int size)
-    {
-        StringBuilder sb = new StringBuilder(size);
-        for(int i=0;i<size;i++)
-            sb.append((char)('a'+getRandomInt(25)));
-        return sb.toString();
-    }
-
-    int getRandomInt(int bound)
-    {
-        return new Random().nextInt(bound);
-    }
-
-    Date getRandomDate()
-    {
-        return Date.from(Instant.now().plus(Duration.ofDays(1+new Random().nextInt(364))));
-    }
-
     @BeforeClass
     public static void initAll()
     {
@@ -79,15 +61,10 @@ public class JUnitTest
     @Before
     public void init()
     {
-        Intern intern = new Intern();
-        intern.setName(getRandomString(getRandomInt(100)));
-        intern.setRating(getRandomInt(10));
+        Intern intern = (Intern)Helper.populate(new Intern(),Intern.class);
 
-        Task task = new Task();
-        task.setTaskName(getRandomString(getRandomInt(10)));
-        task.setDescription(getRandomString(getRandomInt(100)));
-        task.setDeadline(getRandomDate());
-        task.setCreatedAt(Date.from(Instant.now()));
+        Task task = (Task)Helper.populate(new Task(),Task.class);
+
 
         Assignment assignment = new Assignment();
         assignment.setIntern(intern);
@@ -199,7 +176,7 @@ public class JUnitTest
 
         //Track previous size
         int prevSizeOfAssignments = assignmentService.findAll().size(),
-                internAssignmentsSize =  getCurrentIntern().getAssignments().size();
+                internAssignmentsSize =  internService.getAssignments(getCurrentIntern().getId()).size();
 
         //Remove the current Intern
         internService.removeIntern(getCurrentIntern());
@@ -210,6 +187,41 @@ public class JUnitTest
     @DisplayName("Test for assignment deletion side effects")
     public void testIsolation()
     {
+        internService.addIntern(getCurrentIntern());
+        taskService.addTask(getCurrentTask());
+        assignmentService.addAssignment(getCurrentAssignment());
 
+        Intern secondIntern = (Intern)Helper.populate(new Intern(),Intern.class);
+
+        Assignment secondAssignment = new Assignment();
+        secondAssignment.setIntern(secondIntern);
+
+        //Adding a common task for two interns
+        secondAssignment.setTask(getCurrentTask());
+
+        //Add the secondary entities
+        internService.addIntern(secondIntern);
+        assignmentService.addAssignment(secondAssignment);
+
+        //Track previous size
+        int oldSize = assignmentService.findAll().size();
+
+        //Deletion of assignment 1 must not affect assignment 2
+        assignmentService.removeAssignment(getCurrentAssignment());
+
+        assertEquals(oldSize-1,assignmentService.findAll().size());
+        assertEquals(1,internService.getAssignments(secondIntern.getId()).size());
+
+        //Deletion of intern 1 must not affect intern 2
+        assignmentService.addAssignment(getCurrentAssignment());
+
+        int prevSize = internService.getAssignments(secondIntern.getId()).size(),
+            prevAssignmentSize=assignmentService.findAll().size(),
+            prevInternSize = internService.findAll().size();
+
+        internService.removeIntern(getCurrentIntern().getId());
+        assertEquals(prevInternSize-1,internService.findAll().size());
+        assertEquals(prevSize,internService.getAssignments(secondIntern.getId()).size());
+        assertEquals(prevAssignmentSize-1,assignmentService.findAll().size());
     }
 }
