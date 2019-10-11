@@ -167,6 +167,24 @@ public class TalkBuddyApplicationTests {
 		assertEquals(initialAssignmentSize-1,assignmentController.findAll().size());
 		restTemplate.delete(url+String.format("/api/tasks/remove/%s",taskId));
 		assertEquals(initialTaskSize-1,taskController.findAll().size());
+
+
+
+		long secondInternId = internController.createIntern((String)Helper.getRandVal(String.class),getCurrentIntern()).getId();
+		long secondTaskId = taskController.createTask(getCurrentTask()).getId();
+
+		restTemplate.postForEntity(
+				url+String.format("/api/interns/%s/assign_task?taskIds=%s",secondInternId,
+						secondTaskId),
+				null,
+				Intern.class
+		);
+
+		int assignmentsSize = assignmentController.findAll().size();
+
+		restTemplate.delete(url+String.format("/api/interns/%s/remove_task?taskIds=%s",secondInternId,Objects.hash(secondInternId,secondTaskId)));
+		assertEquals(assignmentsSize-1,assignmentController.findAll().size());
+
 	}
 
 	@Test
@@ -221,6 +239,17 @@ public class TalkBuddyApplicationTests {
 		);
 		assertTrue(taskResponseEntity.getStatusCode().is2xxSuccessful());
 		assertEquals(taskResponseEntity.getBody().getId(),taskId);
+
+
+		HttpHeaders headers = new HttpHeaders();
+		httpHeaders.add("uid",(String)Helper.getRandVal(String.class));
+		HttpEntity<Profile> profileResponse = new HttpEntity<>(null,headers);
+		ResponseEntity<Profile> unrecognizedProfile = restTemplate.exchange(
+				url+"/api/roles/rolelevel",HttpMethod.GET,httpEntity,Profile.class);
+
+		assertTrue(unrecognizedProfile.getStatusCode().is2xxSuccessful());
+		assertTrue(unrecognizedProfile.hasBody());
+		assertEquals(RoleType.UNRECOGNIZED_USER,unrecognizedProfile.getBody().getRole());
 	}
 
 }

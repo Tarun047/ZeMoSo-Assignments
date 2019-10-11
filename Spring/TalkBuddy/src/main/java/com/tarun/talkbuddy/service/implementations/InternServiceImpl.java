@@ -5,6 +5,8 @@ import com.tarun.TalkBuddy.daos.interfaces.InternDao;
 import com.tarun.TalkBuddy.model.Assignment;
 import com.tarun.TalkBuddy.model.Intern;
 import com.tarun.TalkBuddy.service.interfaces.InternService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,9 @@ public class InternServiceImpl implements InternService {
 
     @Autowired
     AssignmentDao assignmentDao;
+
+    Logger logger = LoggerFactory.getLogger(InternServiceImpl.class);
+
 
     @Transactional
     @Override
@@ -65,7 +70,7 @@ public class InternServiceImpl implements InternService {
         }
         catch (Exception e)
         {
-            e.printStackTrace();
+            logger.error(e.getMessage());
             return new HashSet<>();
         }
 

@@ -22,11 +22,6 @@ import org.springframework.util.SerializationUtils;
 
 import javax.validation.ConstraintViolationException;
 import java.io.Serializable;
-import java.time.Duration;
-import java.time.Instant;
-import java.util.Date;
-import java.util.Optional;
-import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -36,10 +31,10 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(webEnvironment =  SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class ServiceTests
 {
-    static Task[] tasks;
-    static Intern[] interns;
-    static Assignment[] assignments;
-    static AtomicInteger currentIndex = new AtomicInteger(0);
+    private static Task[] tasks;
+    private static Intern[] interns;
+    private static Assignment[] assignments;
+    private static AtomicInteger currentIndex = new AtomicInteger(0);
 
     @Autowired
     private InternService internService;

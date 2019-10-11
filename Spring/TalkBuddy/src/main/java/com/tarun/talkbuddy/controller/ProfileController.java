@@ -15,7 +15,7 @@ public class ProfileController extends MainController
 {
 
     @GetMapping("/rolelevel")
-    Profile getRole(@RequestHeader("uid") String uid)throws Exception
+    public Profile getRole(@RequestHeader("uid") String uid)throws Exception
     {
         Optional<Profile> role = profileRepository.findByUid(uid);
         if(role.isPresent())
