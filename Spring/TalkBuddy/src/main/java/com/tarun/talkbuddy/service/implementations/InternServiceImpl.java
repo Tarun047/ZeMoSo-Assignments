@@ -1,10 +1,10 @@
-package com.tarun.TalkBuddy.service.implementations;
+package com.tarun.talkbuddy.service.implementations;
 
-import com.tarun.TalkBuddy.daos.interfaces.AssignmentDao;
-import com.tarun.TalkBuddy.daos.interfaces.InternDao;
-import com.tarun.TalkBuddy.model.Assignment;
-import com.tarun.TalkBuddy.model.Intern;
-import com.tarun.TalkBuddy.service.interfaces.InternService;
+import com.tarun.talkbuddy.daos.interfaces.AssignmentDao;
+import com.tarun.talkbuddy.daos.interfaces.InternDao;
+import com.tarun.talkbuddy.model.Assignment;
+import com.tarun.talkbuddy.model.Intern;
+import com.tarun.talkbuddy.service.interfaces.InternService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

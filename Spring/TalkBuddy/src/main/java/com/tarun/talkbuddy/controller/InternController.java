@@ -1,20 +1,16 @@
-package com.tarun.TalkBuddy.controller;
+package com.tarun.talkbuddy.controller;
 
-import com.tarun.TalkBuddy.model.Assignment;
-import com.tarun.TalkBuddy.model.Intern;
-import com.tarun.TalkBuddy.model.Profile;
-import com.tarun.TalkBuddy.model.Task;
-import com.tarun.TalkBuddy.model.enums.RoleType;
+import com.tarun.talkbuddy.model.Assignment;
+import com.tarun.talkbuddy.model.Intern;
+import com.tarun.talkbuddy.model.Profile;
+import com.tarun.talkbuddy.model.enums.RoleType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.expression.ExpressionException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/interns")

@@ -1,12 +1,9 @@
-package com.tarun.TalkBuddy.controller;
+package com.tarun.talkbuddy.controller;
 
-import com.tarun.TalkBuddy.model.Profile;
-import com.tarun.TalkBuddy.model.enums.RoleType;
-import com.tarun.TalkBuddy.repository.ProfileRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.tarun.talkbuddy.model.Profile;
+import com.tarun.talkbuddy.model.enums.RoleType;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController

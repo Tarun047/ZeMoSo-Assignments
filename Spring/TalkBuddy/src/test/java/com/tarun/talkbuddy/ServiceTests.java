@@ -1,12 +1,12 @@
-package com.tarun.TalkBuddy;
+package com.tarun.talkbuddy;
 
 
-import com.tarun.TalkBuddy.model.Assignment;
-import com.tarun.TalkBuddy.model.Intern;
-import com.tarun.TalkBuddy.model.Task;
-import com.tarun.TalkBuddy.service.interfaces.AssignmentService;
-import com.tarun.TalkBuddy.service.interfaces.InternService;
-import com.tarun.TalkBuddy.service.interfaces.TaskService;
+import com.tarun.talkbuddy.model.Assignment;
+import com.tarun.talkbuddy.model.Intern;
+import com.tarun.talkbuddy.model.Task;
+import com.tarun.talkbuddy.service.interfaces.AssignmentService;
+import com.tarun.talkbuddy.service.interfaces.InternService;
+import com.tarun.talkbuddy.service.interfaces.TaskService;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;

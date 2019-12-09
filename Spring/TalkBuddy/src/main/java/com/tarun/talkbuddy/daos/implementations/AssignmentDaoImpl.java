@@ -1,18 +1,14 @@
-package com.tarun.TalkBuddy.daos.implementations;
+package com.tarun.talkbuddy.daos.implementations;
 
-import com.tarun.TalkBuddy.daos.interfaces.AssignmentDao;
-import com.tarun.TalkBuddy.model.Assignment;
-import com.tarun.TalkBuddy.model.Intern;
-import com.tarun.TalkBuddy.model.Task;
+import com.tarun.talkbuddy.daos.interfaces.AssignmentDao;
+import com.tarun.talkbuddy.model.Assignment;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.expression.spel.ast.Assign;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Repository
 public class AssignmentDaoImpl implements AssignmentDao {

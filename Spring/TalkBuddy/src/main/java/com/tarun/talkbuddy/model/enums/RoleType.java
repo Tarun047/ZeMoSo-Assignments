@@ -1,4 +1,4 @@
-package com.tarun.TalkBuddy.model.enums;
+package com.tarun.talkbuddy.model.enums;
 
 public enum RoleType {
     ADMIN,

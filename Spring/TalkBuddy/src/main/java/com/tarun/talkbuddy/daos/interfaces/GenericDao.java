@@ -1,4 +1,4 @@
-package com.tarun.TalkBuddy.daos.interfaces;
+package com.tarun.talkbuddy.daos.interfaces;
 
 
 import java.io.Serializable;

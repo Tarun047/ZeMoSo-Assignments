@@ -1,11 +1,11 @@
-package com.tarun.TalkBuddy;
+package com.tarun.talkbuddy;
 
-import com.tarun.TalkBuddy.model.Assignment;
-import com.tarun.TalkBuddy.model.Intern;
-import com.tarun.TalkBuddy.model.Task;
-import com.tarun.TalkBuddy.repository.AssignmentRepository;
-import com.tarun.TalkBuddy.repository.InternRepository;
-import com.tarun.TalkBuddy.repository.TaskRepository;
+import com.tarun.talkbuddy.model.Assignment;
+import com.tarun.talkbuddy.model.Intern;
+import com.tarun.talkbuddy.model.Task;
+import com.tarun.talkbuddy.repository.AssignmentRepository;
+import com.tarun.talkbuddy.repository.InternRepository;
+import com.tarun.talkbuddy.repository.TaskRepository;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.junit.Test;
@@ -18,10 +18,7 @@ import org.springframework.expression.ExpressionException;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NamedQuery;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest

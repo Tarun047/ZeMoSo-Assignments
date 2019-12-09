@@ -1,10 +1,7 @@
-package com.tarun.TalkBuddy;
-
-import org.springframework.http.ResponseEntity;
+package com.tarun.talkbuddy;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
-import java.lang.reflect.Type;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.*;

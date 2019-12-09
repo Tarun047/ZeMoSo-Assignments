@@ -1,7 +1,7 @@
-package com.tarun.TalkBuddy.service.interfaces;
+package com.tarun.talkbuddy.service.interfaces;
 
-import com.tarun.TalkBuddy.model.Assignment;
-import com.tarun.TalkBuddy.model.enums.AssignmentStatus;
+import com.tarun.talkbuddy.model.Assignment;
+import com.tarun.talkbuddy.model.enums.AssignmentStatus;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,8 +1,8 @@
-package com.tarun.TalkBuddy.daos.implementations;
+package com.tarun.talkbuddy.daos.implementations;
 
-import com.tarun.TalkBuddy.daos.interfaces.InternDao;
-import com.tarun.TalkBuddy.model.Assignment;
-import com.tarun.TalkBuddy.model.Intern;
+import com.tarun.talkbuddy.daos.interfaces.InternDao;
+import com.tarun.talkbuddy.model.Assignment;
+import com.tarun.talkbuddy.model.Intern;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

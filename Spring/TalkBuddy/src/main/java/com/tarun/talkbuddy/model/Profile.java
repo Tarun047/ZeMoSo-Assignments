@@ -1,6 +1,6 @@
-package com.tarun.TalkBuddy.model;
+package com.tarun.talkbuddy.model;
 
-import com.tarun.TalkBuddy.model.enums.RoleType;
+import com.tarun.talkbuddy.model.enums.RoleType;
 
 
 import javax.persistence.*;

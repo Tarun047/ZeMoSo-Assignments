@@ -1,7 +1,7 @@
-package com.tarun.TalkBuddy.controller;
+package com.tarun.talkbuddy.controller;
 
-import com.tarun.TalkBuddy.model.Assignment;
-import com.tarun.TalkBuddy.model.enums.AssignmentStatus;
+import com.tarun.talkbuddy.model.Assignment;
+import com.tarun.talkbuddy.model.enums.AssignmentStatus;
 import org.springframework.expression.ExpressionException;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,6 +1,6 @@
-package com.tarun.TalkBuddy.service.interfaces;
+package com.tarun.talkbuddy.service.interfaces;
 
-import com.tarun.TalkBuddy.model.Task;
+import com.tarun.talkbuddy.model.Task;
 
 import java.util.List;
 import java.util.Optional;

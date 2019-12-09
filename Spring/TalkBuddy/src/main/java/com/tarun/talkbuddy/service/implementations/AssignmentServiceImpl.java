@@ -1,9 +1,9 @@
-package com.tarun.TalkBuddy.service.implementations;
+package com.tarun.talkbuddy.service.implementations;
 
-import com.tarun.TalkBuddy.daos.interfaces.AssignmentDao;
-import com.tarun.TalkBuddy.model.Assignment;
-import com.tarun.TalkBuddy.model.enums.AssignmentStatus;
-import com.tarun.TalkBuddy.service.interfaces.AssignmentService;
+import com.tarun.talkbuddy.daos.interfaces.AssignmentDao;
+import com.tarun.talkbuddy.model.Assignment;
+import com.tarun.talkbuddy.model.enums.AssignmentStatus;
+import com.tarun.talkbuddy.service.interfaces.AssignmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

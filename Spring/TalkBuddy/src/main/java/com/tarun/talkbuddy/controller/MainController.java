@@ -1,10 +1,10 @@
-package com.tarun.TalkBuddy.controller;
+package com.tarun.talkbuddy.controller;
 
 
-import com.tarun.TalkBuddy.repository.ProfileRepository;
-import com.tarun.TalkBuddy.service.interfaces.AssignmentService;
-import com.tarun.TalkBuddy.service.interfaces.InternService;
-import com.tarun.TalkBuddy.service.interfaces.TaskService;
+import com.tarun.talkbuddy.repository.ProfileRepository;
+import com.tarun.talkbuddy.service.interfaces.AssignmentService;
+import com.tarun.talkbuddy.service.interfaces.InternService;
+import com.tarun.talkbuddy.service.interfaces.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

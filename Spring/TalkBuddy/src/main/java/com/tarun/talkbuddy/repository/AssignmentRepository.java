@@ -1,8 +1,6 @@
-package com.tarun.TalkBuddy.repository;
+package com.tarun.talkbuddy.repository;
 
-import com.tarun.TalkBuddy.model.Assignment;
-import com.tarun.TalkBuddy.model.Intern;
-import com.tarun.TalkBuddy.model.Task;
+import com.tarun.talkbuddy.model.Assignment;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AssignmentRepository extends JpaRepository<Assignment,Long> {

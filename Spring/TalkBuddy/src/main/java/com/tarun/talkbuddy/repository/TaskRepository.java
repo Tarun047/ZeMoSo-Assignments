@@ -1,6 +1,6 @@
-package com.tarun.TalkBuddy.repository;
+package com.tarun.talkbuddy.repository;
 
-import com.tarun.TalkBuddy.model.Task;
+import com.tarun.talkbuddy.model.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,4 +1,4 @@
-package com.tarun.TalkBuddy.model;
+package com.tarun.talkbuddy.model;
 
 import org.hibernate.annotations.NaturalId;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;

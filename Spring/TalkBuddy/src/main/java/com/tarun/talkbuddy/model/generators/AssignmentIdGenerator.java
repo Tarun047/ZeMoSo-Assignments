@@ -1,6 +1,6 @@
-package com.tarun.TalkBuddy.model.generators;
+package com.tarun.talkbuddy.model.generators;
 
-import com.tarun.TalkBuddy.model.Assignment;
+import com.tarun.talkbuddy.model.Assignment;
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.id.IdentifierGenerator;

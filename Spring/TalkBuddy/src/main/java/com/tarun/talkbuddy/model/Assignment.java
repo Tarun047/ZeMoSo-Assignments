@@ -1,13 +1,11 @@
-package com.tarun.TalkBuddy.model;
+package com.tarun.talkbuddy.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.tarun.TalkBuddy.model.enums.AssignmentStatus;
-import org.hibernate.annotations.Cascade;
+import com.tarun.talkbuddy.model.enums.AssignmentStatus;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import org.hibernate.annotations.CascadeType;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
@@ -19,7 +17,7 @@ public class Assignment implements Serializable,Cloneable
 {
 
     @Id
-    @GenericGenerator(name="assignment_generator",strategy = "com.tarun.TalkBuddy.model.generators.AssignmentIdGenerator")
+    @GenericGenerator(name="assignment_generator",strategy = "com.tarun.talkbuddy.model.generators.AssignmentIdGenerator")
     @GeneratedValue(generator = "assignment_generator")
     private long id;
 

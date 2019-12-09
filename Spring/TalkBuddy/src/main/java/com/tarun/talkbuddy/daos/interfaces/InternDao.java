@@ -1,7 +1,7 @@
-package com.tarun.TalkBuddy.daos.interfaces;
+package com.tarun.talkbuddy.daos.interfaces;
 
-import com.tarun.TalkBuddy.model.Assignment;
-import com.tarun.TalkBuddy.model.Intern;
+import com.tarun.talkbuddy.model.Assignment;
+import com.tarun.talkbuddy.model.Intern;
 
 import java.util.Set;
 

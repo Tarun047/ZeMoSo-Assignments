@@ -1,6 +1,6 @@
-package com.tarun.TalkBuddy.repository;
+package com.tarun.talkbuddy.repository;
 
-import com.tarun.TalkBuddy.model.Profile;
+import com.tarun.talkbuddy.model.Profile;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

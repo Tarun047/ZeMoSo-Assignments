@@ -1,6 +1,6 @@
-package com.tarun.TalkBuddy.daos.interfaces;
+package com.tarun.talkbuddy.daos.interfaces;
 
-import com.tarun.TalkBuddy.model.Task;
+import com.tarun.talkbuddy.model.Task;
 
 public interface TaskDao extends GenericDao<Task,Long>
 {

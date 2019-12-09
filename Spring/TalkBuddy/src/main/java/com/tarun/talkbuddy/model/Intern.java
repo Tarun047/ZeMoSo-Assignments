@@ -1,4 +1,4 @@
-package com.tarun.TalkBuddy.model;
+package com.tarun.talkbuddy.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.NaturalId;

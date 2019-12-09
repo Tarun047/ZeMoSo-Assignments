@@ -1,12 +1,9 @@
-package com.tarun.TalkBuddy.controller;
+package com.tarun.talkbuddy.controller;
 
-import com.tarun.TalkBuddy.model.Task;
-import com.tarun.TalkBuddy.repository.TaskRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.tarun.talkbuddy.model.Task;
 import org.springframework.expression.ExpressionException;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
