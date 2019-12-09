@@ -4,7 +4,6 @@ import SearchIcon from '@material-ui/icons/Search'
 import {makeStyles,fade} from '@material-ui/core/styles'
 import Task from './Models/Task'
 import {useSelector,useDispatch } from "react-redux";
-import Store from "./Store";
 import { auth  } from './Login/firebase.js'
 
 const useStyles = makeStyles(theme=>({
@@ -75,27 +74,29 @@ export default function InternApp(props)
     const filters = useSelector(state=>state.assignment.filters)
     const dispatch = useDispatch()
 
+    //Don't remove this length field as it would overwrite assignment data on Re-Render.
     useEffect(()=>
       {
-      dispatch({type:'UPDATE_DATA',payload:props.intern.assignments})
-     },props.intern
+          dispatch({type:'UPDATE_DATA',payload:props.intern.assignments})
+     },[taskList.length]
     );
 
     
     
 
-    async function updateAssignmentChange(id)
+    async function updateAssignmentChange(id,status)
     {
-      console.log(JSON.stringify(taskList[id]))
-      await fetch('/api/assignments/update', {
+      const response = await fetch('/api/assignments/update', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'assignmentId':taskList[id].id,
           'uid':props.user.uid
         },
-       body: JSON.stringify(taskList[id].status)
+       body: JSON.stringify(status)
       });
+      const assignment = await response.json()
+      console.log(assignment)
     }
 
     let showList = taskList
@@ -105,7 +106,7 @@ export default function InternApp(props)
       <Container>
       <AppBar>
         <Toolbar>
-          <Typography className={classes.title} variant="h6" noWrap>
+          <Typography className={classes.title} variant="h6" noWrap label="Application Label">
             Intern Application
           </Typography>
           <div className={classes.tools}>
@@ -129,7 +130,7 @@ export default function InternApp(props)
         </Toolbar>
       </AppBar>
       <Toolbar></Toolbar>
-      <div className={classes.banner}><Typography>Welcome {props.intern.name} </Typography></div>
+      <div className={classes.banner} data-testid="name-placeholder"><Typography>Welcome {props.intern.name} </Typography></div>
       <Toolbar>
       <FormControl component="fieldset" className={classes.statusfilter} onChange={(event)=>dispatch({type:'CHANGE_VISIBILITY_FILTER',payload:event.target.value})}>
         <FormLabel component="legend">Filter</FormLabel>
@@ -161,10 +162,10 @@ export default function InternApp(props)
           </RadioGroup>
         </FormControl>
       </Toolbar>
-      
-      <Box className = {classes.root}>
+      <Typography>Assignments</Typography>
+      <Box className = {classes.root} data-testid="assignment-container">
         {
-         showList.map(
+         taskList.length!==0?showList.map(
            (assignment,idx)=>
            <Task 
             key={idx}
@@ -175,7 +176,9 @@ export default function InternApp(props)
             status={assignment.status} 
             onChange={(key,value)=>{dispatch({type:'UPDATE_ASSIGNMENT_STATUS', payload:{id:key,status:value}})}}
             onAssignmentChange={updateAssignmentChange} />
-         )
+         ):<Typography>
+           Nothing Assigned Yet ;)
+         </Typography>
         }
       </Box>
       </Container>

@@ -1,7 +1,7 @@
 
 import React,{Component} from 'react';
 import Select from 'react-select';
-import {Button} from'../Layout/BaseLayout.js'
+import {Button} from'../Layout/LegacyBaseLayout'
 
 
 const largeColumn = {width:'40%',};
@@ -36,6 +36,7 @@ class Intern extends React.Component
     constructor(props)
     {
         super(props);
+        console.log(props)
         this.state = {
             id:props.id,
             name:props.name,

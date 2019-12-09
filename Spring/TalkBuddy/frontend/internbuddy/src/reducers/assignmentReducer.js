@@ -42,6 +42,7 @@ export default (state = initialState, action) =>
                      task:state.taskList[action.payload.id].task
                     }
                     ,...state.taskList.slice(action.payload.id+1)]
+                console.log(updatedList[action.payload.id])
                 return{
                     ...state,
                     taskList: updatedList

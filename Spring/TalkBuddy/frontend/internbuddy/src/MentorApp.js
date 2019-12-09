@@ -1,141 +1,194 @@
-import React,{Component} from 'react';
-import MyForm from './Forms/BasicForms.js'
-import Intern from './Models/Intern.js'
-import {Table,Button} from'./Layout/BaseLayout.js'
-import { auth  } from './Login/firebase.js'
-import logo from './logo.svg';
-
-
-
-const largeColumn = {width:'40%',};
-const midColumn = {width:'30%',};
-const smallColumn = {width:'10%'};
-
-//TODO: Add intern specific page
-
-
-class MentorApp extends Component
-{
-    state={
-        user:null,
-        isLoading: true,
-        interns:[],
-        addUI:false,
-        addTaskUI:false,
-
-    };
-
-    async componentDidMount()
+import React,{useEffect} from 'react'
+import {useSelector,useDispatch } from "react-redux";
+import {makeStyles,fade} from '@material-ui/core/styles'
+import {Dialog,List,DialogTitle,TextField,DialogContent,DialogContentText,DialogActions,Box,Typography, Container,Toolbar,AppBar,InputBase,Button,FormControlLabel,FormLabel,RadioGroup,Radio,FormControl, CardContent } from '@material-ui/core'
+import {auth} from './Login/firebase'
+import SearchIcon from '@material-ui/icons/Search'
+import NewIntern from './Models/NewIntern';
+import {MuiPickersUtilsProvider,KeyboardDatePicker} from '@material-ui/pickers'
+import DateFnsUtils from '@date-io/date-fns';
+const useStyles = makeStyles(theme=>({
+    pos: {
+      minWidth:500,
+    },
+    root:
     {
-        const response = await fetch('/api/interns/')
-        const body = await response.json()
-        this.setState({interns:body,isLoading:false,addUI:false});
-
-    }
-
-
-    constructor(props)
+        display:'flex',
+        flexWrap:'wrap',
+        flexDirection:'row',
+        alignItems:'center',
+    },
+    placeholder: {
+        height: 40,
+      },
+    search: 
     {
-        super(props);
-        this.state.user=props.user
-        this.onDismiss = this.onDismiss.bind(this);
-        this.addIntern = this.addIntern.bind(this);
-        this.refreshUI = this.refreshUI.bind(this);
-        this.onDelete = this.onDelete.bind(this);
-        this.addTask = this.addTask.bind(this);
-        this.timer = setInterval(this.refreshUI,300000)
-        this.logout = () => { auth.signOut()}
-
-
-    }
-
-
-    onDismiss(id)
+        position: 'relative',
+        borderRadius: theme.shape.borderRadius,
+        backgroundColor: fade(theme.palette.common.white, 0.15),
+        '&:hover': {
+          backgroundColor: fade(theme.palette.common.white, 0.25),
+          },
+        marginRight: theme.spacing(2),
+        marginLeft: 0,
+        width: '100%',
+        [theme.breakpoints.up('sm')]: {
+          marginLeft: theme.spacing(3),
+          width: 'auto',
+        },
+      },
+      searchIcon: {
+        width: theme.spacing(7),
+        height: '100%',
+        position: 'absolute',
+        pointerEvents: 'none',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
+      inputRoot: {
+        color: 'inherit',
+      },
+      tools:
       {
-        const isNotId = item => item.id !== id;
-        const updatedInterns = this.state.interns.filter(isNotId);
-        this.setState({
-                interns:updatedInterns
-            }
-        );
+        flexGrow:1,
+        display:'flex'
+      },
+      inputInput: {
+        padding: theme.spacing(1, 1, 1, 7),
+        transition: theme.transitions.create('width'),
+        width: '100%',
+        [theme.breakpoints.up('md')]: {
+          width: 200,
+        }
+      },
+      banner: {
+        textAlign:"center"
+        },
+      statusfilter:
+      {
+        margin:theme.spacing(3),
       }
+  }));
+export default function MentorApp(props)
+{
 
-    async refreshUI(event,update)
-    {
-       if(event)
-        event.preventDefault();
-       const response = await fetch('/api/interns/')
-       const body = await response.json()
-       this.setState({interns:body,isLoading:false,addUI:false,addTaskUI:false});
+    const classes = useStyles();
+    const dispatch = useDispatch();
+    //Declaration Area
+    const interns = useSelector((state)=>state.mentor.interns);
+    const currentScreen = useSelector((state)=>state.mentor.currentScreen);
+    const user = useSelector((state)=>state.mentor.user);
+    const isLoading = useSelector((state)=>state.mentor.isLoading);
 
-    }
-
-    addIntern()
-    {
-       this.setState({addUI:true})
-    }
-
-    addTask()
-    {
-        this.setState({addTaskUI:true})
-    }
-
-    onDelete(id)
-    {
-        fetch('/api/interns/removeintern/'+id,{method:'DELETE'}).then(this.onDismiss(id));
-    }
-
-    render()
-    {
-        const {interns,isLoading,addUI,addTaskUI,isLoggedIn}=this.state;
-        console.log(this.state.user);
-        if(addUI)
-        {
-            return (
-                <MyForm callBack={this.refreshUI} submiturl="/api/interns/createintern" fields={{"name":"text","rating":"text"}}/>
-                )
+    const [inputRefs,setInputRefs] = React.useState({name:React.useRef(''),description:React.useRef(''),deadline:new Date()})
+    //Initial Call to hit api and load data
+    useEffect(()=>{
+        async function fetchData(){
+            const response = await fetch('/api/interns/')
+            const interns = await response.json()
+            console.log(interns)
+            dispatch({type:'UPDATE_INTERN_DATA',payload:interns})
+            dispatch({type:'CHANGE_LOADING_STATUS'})
         }
+        fetchData();
+    },[]);
 
-        if(addTaskUI)
-        {
-            return <MyForm callBack={this.refreshUI} submiturl="/api/tasks/add_task" fields={{"taskName":"text","description":"text","deadline":"date"}} />
-        }
-
-        return (
-
-                 <div className="page">
-                 <div align="right">
-                 <div> {this.state.user.email} </div>
-                 <Button className="button-inline" onClick={this.logout}>Logout</Button>
-                 </div>
-                 <div className="table-header">
-                 <span style={largeColumn}>
-                 <Button className="button-inline" onClick={this.addIntern}>Add Interns</Button>
-                 </span>
-                 <span>
-                 <Button className="button-inline" onClick={this.addTask}> Add a Task </Button>
-                 </span>
-                 </div>
-                    <h2>Interns List</h2>
-                    <div className="table">
-                        <div className="table-header">
-                            <span style={largeColumn}> Name </span>
-                            <span style={largeColumn}> Rating </span>
-                            <span style={largeColumn}> Tasks </span>
-                        </div>
-                        {
-                        <Table list={interns} onDelete={this.onDelete} callBack={this.refreshUI} tag={Intern} />
-                        }
-                    </div>
-                 </div>
-
-            );
-
+    const addNewTask = async () =>{
+      await fetch('/api/tasks/add_task', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({taskName:inputRefs.name.current.value,description:inputRefs.description.current.value,deadline:inputRefs.deadline})
+      })
     }
+    return(
+        <Container>
+        <AppBar>
+        <Toolbar>
+          <Typography className={classes.title} variant="h6" noWrap label="Application Label">
+            Mentor Application
+          </Typography>
+          <div className={classes.tools}>
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder="Search…"
+                classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+                }}
+                onChange={(event)=>dispatch({type:'CHANGE_SEARCH',payload:event.target.value})}
+                inputProps={{ 'aria-label': 'search' }}
 
+              />
+            </div>
+          </div>
+          <Button color="inherit" onClick={()=>dispatch({type:'SWITCH_SCREEN',payload:'ADD_TASK'})}>Add Task</Button>
+          <Button color="inherit" onClick={()=>auth.signOut()}>Logout</Button>
+        </Toolbar>
+      </AppBar>
+      <Toolbar></Toolbar>
+      <Box data-testid="intern-container" width={1}>
+        <Typography variant="h3">
+          Interns List
+        </Typography>
+          <List>
+              {
+                  interns.map(intern=>
+                  <NewIntern key={intern.id} intern={intern} />
+              )}
+          </List>
+      </Box>
+      <Dialog open={currentScreen==='ADD_TASK'} aria-labelledby="form-dialog-title" onClose={()=>dispatch({type:'SWITCH_SCREEN',payload:'INTERNS_LIST'})}>
+        <DialogTitle id="form-dialog-title">Add a new Task</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+           To add a new Task, enter the task information below
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="taskName"
+            label="Name"
+            inputRef={inputRefs.name}
+            fullWidth
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            multiline
+            id="taskDescription"
+            label="Description"
+            inputRef={inputRefs.description}
+            fullWidth
+          />
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <KeyboardDatePicker
+          disableToolbar
+          variant="inline"
+          format="MM/dd/yyyy"
+          margin="normal"
+          id="date-picker-inline"
+          label="Date picker inline"
+          value={inputRefs.deadline}
+          onChange={(newDate)=>setInputRefs({...inputRefs,deadline:newDate})}
+          KeyboardButtonProps={{
+            'aria-label': 'change date',
+          }}
+        />
+        </MuiPickersUtilsProvider>
+        </DialogContent>
+        <DialogActions>
+          <Button color="primary" onClick={()=>{addNewTask();dispatch({type:'SWITCH_SCREEN',payload:'INTERNS_LIST'})}}>
+            Confirm
+          </Button>
+        </DialogActions>
+      </Dialog>
+      </Container>
+    )
 }
-
-
-
-
-export default MentorApp;
