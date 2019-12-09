@@ -1,15 +1,15 @@
-package com.tarun.TalkBuddy;
+package com.tarun.talkbuddy;
 
-import com.tarun.TalkBuddy.controller.AssignmentController;
-import com.tarun.TalkBuddy.controller.InternController;
-import com.tarun.TalkBuddy.controller.ProfileController;
-import com.tarun.TalkBuddy.controller.TaskController;
-import com.tarun.TalkBuddy.model.Assignment;
-import com.tarun.TalkBuddy.model.Intern;
-import com.tarun.TalkBuddy.model.Profile;
-import com.tarun.TalkBuddy.model.Task;
-import com.tarun.TalkBuddy.model.enums.AssignmentStatus;
-import com.tarun.TalkBuddy.model.enums.RoleType;
+import com.tarun.talkbuddy.controller.AssignmentController;
+import com.tarun.talkbuddy.controller.InternController;
+import com.tarun.talkbuddy.controller.ProfileController;
+import com.tarun.talkbuddy.controller.TaskController;
+import com.tarun.talkbuddy.model.Assignment;
+import com.tarun.talkbuddy.model.Intern;
+import com.tarun.talkbuddy.model.Profile;
+import com.tarun.talkbuddy.model.Task;
+import com.tarun.talkbuddy.model.enums.AssignmentStatus;
+import com.tarun.talkbuddy.model.enums.RoleType;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -21,9 +21,6 @@ import org.springframework.http.*;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
