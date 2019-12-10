@@ -9,7 +9,7 @@ import java.util.*;
 public class Helper
 {
 
-    static Object getRandVal(Class<?> fieldType) {
+    public static Object getRandVal(Class<?> fieldType) {
         Random random = new Random();
         if (fieldType.equals(String.class)) {
             return UUID.randomUUID().toString();
@@ -35,7 +35,7 @@ public class Helper
         else
             return null;
     }
-    static Object populate(Object obj, Class<? extends Serializable> cls)
+    public static Object populate(Object obj, Class<? extends Serializable> cls)
     {
         Field[] objectFields= cls.getDeclaredFields();
 
