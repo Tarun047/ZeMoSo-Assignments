@@ -71,7 +71,12 @@ public class AssignmentDao {
             }).when(session).remove(any());
 
 
-            Mockito.when(session.get(eq(Assignment.class),anyLong())
+            Mockito.when(session.get(eq(Assignment.class),anyLong())).thenAnswer(
+                    invocation -> {
+                        long id = invocation.getArgument(1);
+                        return localStorage.get(id);
+                    }
+            );
 
             for (int i = 0; i < 10; i++) {
                 Assignment assignment = new Assignment();
@@ -108,9 +113,14 @@ public class AssignmentDao {
 
 
     @Test
-    public void testUpdate() {
+    public void testRemove() {
         int randomIndex = (new Random()).nextInt(testAssignments.size());
-
+        //Remove valid assignment
+        Assert.assertTrue(assignmentDao.remove(testAssignments.get(randomIndex)));
+        testAssignments.remove(randomIndex);
+        Assert.assertEquals(testAssignments.size(),assignmentDao.list().size());
+        //Remove false assignment
+        Assert.assertFalse(assignmentDao.remove(new Assignment()));
+        Assert.assertFalse(assignmentDao.remove((long)10));
     }
-
 }
