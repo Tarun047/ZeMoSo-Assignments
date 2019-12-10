@@ -14,10 +14,19 @@ buildscript {
 	}
 }
 
+plugins {
+	id "org.sonarqube" version "2.7"
+}
+
+apply plugin: 'org.sonarqube'
 apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'com.moowork.node'
+apply plugin: 'jacoco'
+
+
+
 group = 'com.tarun'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
@@ -73,4 +82,18 @@ node {
 
 	// Set the work directory for NPM
 	npmWorkDir = file("${project.buildDir}/npm")
+}
+
+
+jacoco {
+	toolVersion = "0.8.4"
+	reportsDir = file("$buildDir/reports/jacoco")
+}
+
+jacocoTestReport {
+	reports {
+		xml.enabled false
+		csv.enabled false
+		html.destination file("${buildDir}/jacocoHtml")
+	}
 }
