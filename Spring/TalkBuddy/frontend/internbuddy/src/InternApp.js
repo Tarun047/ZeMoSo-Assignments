@@ -4,7 +4,7 @@ import SearchIcon from '@material-ui/icons/Search'
 import {makeStyles,fade} from '@material-ui/core/styles'
 import Task from './Models/Task'
 import {useSelector,useDispatch } from "react-redux";
-import { auth  } from './Login/firebase.js'
+import { auth  } from './Auth/firebase.js'
 
 const useStyles = makeStyles(theme=>({
     pos: {

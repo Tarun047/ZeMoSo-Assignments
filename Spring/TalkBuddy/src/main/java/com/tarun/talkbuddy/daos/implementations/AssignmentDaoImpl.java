@@ -69,4 +69,8 @@ public class AssignmentDaoImpl implements AssignmentDao {
         }
         return assignment;
     }
+
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 }
