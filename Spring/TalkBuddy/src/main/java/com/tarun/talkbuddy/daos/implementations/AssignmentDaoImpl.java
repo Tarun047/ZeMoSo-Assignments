@@ -12,6 +12,8 @@ import java.util.Optional;
 
 @Repository
 public class AssignmentDaoImpl implements AssignmentDao {
+
+
     @Autowired
     EntityManager entityManager;
 
@@ -68,5 +70,9 @@ public class AssignmentDaoImpl implements AssignmentDao {
             throw new Exception("No such Assignment");
         }
         return assignment;
+    }
+
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 }
