@@ -13,7 +13,7 @@ import java.util.Objects;
 @Entity
 @Table(name="assignments")
 @EntityListeners(AuditingEntityListener.class)
-public class Assignment implements Serializable,Cloneable
+public class Assignment implements Serializable,Cloneable,Model
 {
 
     @Id

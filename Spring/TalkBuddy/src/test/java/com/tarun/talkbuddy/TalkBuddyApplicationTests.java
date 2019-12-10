@@ -4,6 +4,7 @@ import com.tarun.talkbuddy.controller.AssignmentController;
 import com.tarun.talkbuddy.controller.InternController;
 import com.tarun.talkbuddy.controller.ProfileController;
 import com.tarun.talkbuddy.controller.TaskController;
+import com.tarun.talkbuddy.helpers.Helper;
 import com.tarun.talkbuddy.model.Assignment;
 import com.tarun.talkbuddy.model.Intern;
 import com.tarun.talkbuddy.model.Profile;
@@ -69,7 +70,7 @@ public class TalkBuddyApplicationTests {
 	@Before
 	public void init()
 	{
-		Intern intern = (Intern)Helper.populate(new Intern(),Intern.class);
+		Intern intern = (Intern) Helper.populate(new Intern(),Intern.class);
 
 		Task task = (Task)Helper.populate(new Task(),Task.class);
 

@@ -1,6 +1,7 @@
 package com.tarun.talkbuddy;
 
 
+import com.tarun.talkbuddy.helpers.Helper;
 import com.tarun.talkbuddy.model.Assignment;
 import com.tarun.talkbuddy.model.Intern;
 import com.tarun.talkbuddy.model.Task;
@@ -56,7 +57,7 @@ public class ServiceTests
     @Before
     public void init()
     {
-        Intern intern = (Intern)Helper.populate(new Intern(),Intern.class);
+        Intern intern = (Intern) Helper.populate(new Intern(),Intern.class);
 
         Task task = (Task)Helper.populate(new Task(),Task.class);
 

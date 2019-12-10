@@ -54,4 +54,8 @@ public class TaskDaoImpl implements TaskDao {
             currentSession.save(entry);
         return entry;
     }
+
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 }

@@ -1,4 +1,5 @@
-package com.tarun.talkbuddy;
+package com.tarun.talkbuddy.helpers;
+
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
@@ -35,6 +36,8 @@ public class Helper
         else
             return null;
     }
+
+
     public static Object populate(Object obj, Class<? extends Serializable> cls)
     {
         Field[] objectFields= cls.getDeclaredFields();

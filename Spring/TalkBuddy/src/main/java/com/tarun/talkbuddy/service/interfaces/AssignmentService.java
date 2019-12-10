@@ -11,7 +11,7 @@ public interface AssignmentService {
     boolean removeAssignment(Assignment assignment);
     boolean removeAssignment(long id);
     Optional<Assignment> findAssignment(Long id);
-    Assignment updateAssignment(Assignment assignment);
+    Assignment updateAssignment(Assignment assignment) throws Exception;
     void updateStatus(long id,AssignmentStatus status) throws Exception;
     List<Assignment> findAll();
 }

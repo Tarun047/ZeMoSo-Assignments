@@ -11,7 +11,7 @@ import java.util.Set;
 @Table(name="mentors")
 @EntityListeners({AuditingEntityListener.class})
 
-public class Mentor
+public class Mentor implements Model
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

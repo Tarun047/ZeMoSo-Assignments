@@ -19,7 +19,7 @@ import java.util.Set;
 @Table(name = "tasks")
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"createdAt", "assignments"}, allowGetters = true)
-public class Task implements Serializable,Cloneable {
+public class Task implements Serializable,Cloneable,Model {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;

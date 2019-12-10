@@ -37,8 +37,9 @@ public class AssignmentServiceImpl implements AssignmentService {
 
     @Transactional
     @Override
-    public Assignment updateAssignment(Assignment assignment) {
-        return assignmentDao.save(assignment);
+    public Assignment updateAssignment(Assignment assignment)throws Exception
+    {
+        return assignmentDao.update(assignment);
     }
 
     @Transactional
@@ -60,5 +61,9 @@ public class AssignmentServiceImpl implements AssignmentService {
     @Override
     public boolean removeAssignment(long id) {
         return assignmentDao.remove(id);
+    }
+
+    public void setAssignmentDao(AssignmentDao assignmentDao) {
+        this.assignmentDao = assignmentDao;
     }
 }

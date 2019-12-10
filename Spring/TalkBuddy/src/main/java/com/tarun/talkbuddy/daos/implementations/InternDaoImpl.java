@@ -15,6 +15,7 @@ import java.util.Set;
 @Repository
 public class InternDaoImpl implements InternDao {
 
+
     @Autowired
     EntityManager entityManager;
 
@@ -80,4 +81,9 @@ public class InternDaoImpl implements InternDao {
         else
             throw new Exception("No Such Intern");
     }
+
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+
 }

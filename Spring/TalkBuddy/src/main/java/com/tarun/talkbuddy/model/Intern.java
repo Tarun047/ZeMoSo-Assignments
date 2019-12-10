@@ -15,7 +15,7 @@ import java.util.Set;
 @Table(name = "interns")
 @EntityListeners({AuditingEntityListener.class})
 @NamedQuery(name = "getAssignmentsForIntern", query = "select assignments from Intern where name=:x")
-public class Intern implements Serializable, Cloneable {
+public class Intern implements Serializable, Cloneable,Model {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

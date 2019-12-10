@@ -1,6 +1,6 @@
 package com.tarun.talkbuddy.daos;
 
-import com.tarun.talkbuddy.Helper;
+import com.tarun.talkbuddy.helpers.Helper;
 import com.tarun.talkbuddy.daos.implementations.AssignmentDaoImpl;
 import com.tarun.talkbuddy.model.Assignment;
 import org.hibernate.Session;
@@ -19,7 +19,6 @@ import java.util.*;
 
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.doAnswer;
-import static org.mockito.Mockito.doNothing;
 
 
 @RunWith(MockitoJUnitRunner.class)
