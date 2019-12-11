@@ -2,8 +2,9 @@ import React,{Component} from 'react';
 import MentorApp from './MentorApp'
 import AdminApp from './AdminApp'
 import InternApp from './InternApp'
-import  { firebase,auth,startFirebaseUI  } from './Login/firebase.js'
-import { Snackbar,Typography,Box,Paper,Link, ThemeProvider,createMuiTheme } from '@material-ui/core';
+import  { firebase,auth,startFirebaseUI  } from './Auth/firebase.js'
+import { Snackbar,Typography,Box,Paper,Link } from '@material-ui/core';
+import { createMuiTheme, makeStyles } from '@material-ui/core/styles';
 import createPalette from '@material-ui/core/styles/createPalette';
 import createTypography from '@material-ui/core/styles/createTypography'
 import BasicForm from './BasicFormMaker'
@@ -11,6 +12,7 @@ import {Provider} from 'react-redux'
 import Store from './Store'
 import SignUp from './Forms/SignUp'
 import SignIn from './Forms/SignIn'
+import { ThemeProvider } from '@material-ui/styles';
 import './App.css'
 function Copyright() {
     return (
@@ -38,6 +40,7 @@ class Main extends React.Component
         role:null,
         open:false,
         screen:"LOADING",
+        errorStatus:localStorage.getItem("ExternalError"),
         };
     classes={
             root:
@@ -54,6 +57,7 @@ class Main extends React.Component
     constructor(props)
     {
         super(props);
+        console.log(this.state)
         auth.onAuthStateChanged((user)=>this.setRole(user));
     }
 
@@ -65,7 +69,9 @@ class Main extends React.Component
         const profile = await user_role.json()
         console.log(profile.role)
         if(profile.role=='UNRECOGNIZED_USER'){
-          alert("Please Sign Up, We don't recognize you yet!")
+          this.setState({screen:"SIGN_UP"})
+          localStorage.setItem("ExternalError","Please Sign up we don't recognize you yet")
+          auth.signOut()
         }
         else if(profile.role=='INTERN')
              this.setState({role:profile.intern})
@@ -110,6 +116,15 @@ class Main extends React.Component
                         <Box mt={5}>
                             <Copyright />
                         </Box>
+                        <Snackbar
+                        anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'left',
+                         }}
+                        open={this.state.errorStatus!==null}
+                        autoHideDuration={1}
+                        message={this.state.errorStatus}
+                        />
                     </Box>);
             }
             else if(this.state.screen==='SIGN_IN')

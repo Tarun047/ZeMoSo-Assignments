@@ -2,7 +2,7 @@ import React,{useEffect} from 'react'
 import {useSelector,useDispatch } from "react-redux";
 import {makeStyles,fade} from '@material-ui/core/styles'
 import {Dialog,List,DialogTitle,TextField,DialogContent,DialogContentText,DialogActions,Box,Typography, Container,Toolbar,AppBar,InputBase,Button,FormControlLabel,FormLabel,RadioGroup,Radio,FormControl, CardContent } from '@material-ui/core'
-import {auth} from './Login/firebase'
+import {auth} from './Auth/firebase'
 import SearchIcon from '@material-ui/icons/Search'
 import NewIntern from './Models/NewIntern';
 import {MuiPickersUtilsProvider,KeyboardDatePicker} from '@material-ui/pickers'

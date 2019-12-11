@@ -57,4 +57,8 @@ public class TaskServiceImpl implements TaskService {
 
         return taskDao.remove(id);
     }
+
+    public void setTaskDao(TaskDao taskDao) {
+        this.taskDao = taskDao;
+    }
 }

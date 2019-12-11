@@ -4,6 +4,7 @@ import com.tarun.talkbuddy.daos.interfaces.AssignmentDao;
 import com.tarun.talkbuddy.helpers.GenericDaoMocker;
 import com.tarun.talkbuddy.helpers.Helper;
 import com.tarun.talkbuddy.model.Assignment;
+import com.tarun.talkbuddy.model.enums.AssignmentStatus;
 import com.tarun.talkbuddy.service.implementations.AssignmentServiceImpl;
 import org.junit.Assert;
 import org.junit.Before;
@@ -15,7 +16,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.core.annotation.Order;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +24,7 @@ import java.util.Random;
 import static org.mockito.ArgumentMatchers.any;
 
 @RunWith(MockitoJUnitRunner.class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AssignementService {
 
     static AssignmentServiceImpl assignmentService;
@@ -65,6 +66,7 @@ public class AssignementService {
     private  void specificSetup()
     {
         try {
+
             Mockito.when(assignmentDao.update(any())).thenAnswer(
                     invocation -> {
                         Assignment updatedAssignment = invocation.getArgument(0);
@@ -73,8 +75,10 @@ public class AssignementService {
                         return updatedAssignment;
                     }
             );
-        } catch (Exception e) {
-            e.printStackTrace();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();;
         }
     }
 
@@ -90,27 +94,45 @@ public class AssignementService {
     @Test
     public void removeAssignmentTest()
     {
+        //Valid Removal
         int prevSize = assignmentService.findAll().size();
         for(int i=0;i<5;i++)
-            assignmentService.removeAssignment(testAssignmentList.get(i).getId());
+            Assert.assertTrue(assignmentService.removeAssignment(testAssignmentList.get(i).getId()));
         Assert.assertEquals(prevSize-5,assignmentService.findAll().size());
+        //Invalid Removal
+        for(int i=0;i<5;i++)
+            Assert.assertFalse(assignmentService.removeAssignment(testAssignmentList.get(i)));
     }
 
     @Test
-    public void updateAssignment()
+    public void updateAssignment()throws Exception
     {
         Assignment randomAssignment = testAssignmentList.get((new Random()).nextInt(testAssignmentList.size()));
         assignmentService.addAssignment(randomAssignment);
         randomAssignment.setRating(55);
-        try {
-            assignmentService.updateAssignment(randomAssignment);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
+        assignmentService.updateAssignment(randomAssignment);
         Assert.assertEquals(55,assignmentService.findAssignment(randomAssignment.getId()).get().getRating());
     }
 
-    
+    @Test
+    public void findAssignment()
+    {
+        Assignment randomAssignment = testAssignmentList.get(9);
+        Assert.assertEquals(randomAssignment,assignmentService.addAssignment(randomAssignment));
+        Assert.assertTrue(assignmentService.findAssignment(randomAssignment.getId()).isPresent());
+        assignmentService.removeAssignment(randomAssignment.getId());
+        Assert.assertFalse(assignmentService.findAssignment(randomAssignment.getId()).isPresent());
+    }
+
+
+    @Test
+    public void updateAssignmentStatus()throws Exception
+    {
+        Assignment randomAssignment = testAssignmentList.get((new Random()).nextInt(testAssignmentList.size()));
+        assignmentService.addAssignment(randomAssignment);
+        AssignmentStatus newStatus = (AssignmentStatus)Helper.getRandVal(AssignmentStatus.class);
+        assignmentService.updateStatus(randomAssignment.getId(),newStatus);
+        Assert.assertEquals(newStatus,assignmentService.findAssignment(randomAssignment.getId()).get().getStatus());
+    }
+
 }

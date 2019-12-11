@@ -83,4 +83,8 @@ public class InternServiceImpl implements InternService {
 
         return internDao.remove(id);
     }
+
+    public void setInternDao(InternDao internDao) {
+        this.internDao = internDao;
+    }
 }

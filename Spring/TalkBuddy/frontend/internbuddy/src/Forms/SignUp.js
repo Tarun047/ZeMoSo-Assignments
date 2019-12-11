@@ -2,12 +2,13 @@ import React from 'react';
 import {createMuiTheme,Box,Grid,Link,TextField,CssBaseline,Avatar,Button,Snackbar} from '@material-ui/core'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles, ThemeProvider, } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container';
 import createPalette from '@material-ui/core/styles/createPalette';
 import createTypography from '@material-ui/core/styles/createTypography'
-import  { firebase,auth,startFirebaseUI  } from '../Login/firebase'
+import  { firebase,auth,startFirebaseUI  } from '../Auth/firebase'
 import ErrorMessage from '../ErrorMessages/ErrorMessage';
+import { ThemeProvider } from '@material-ui/styles';
 
 
 
@@ -191,5 +192,6 @@ export default function SignUp() {
         />
       </div>
     </Container>
-    </ThemeProvider>)
+    </ThemeProvider>
+    )
 }

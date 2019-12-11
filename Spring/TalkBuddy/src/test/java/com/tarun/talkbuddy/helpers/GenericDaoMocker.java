@@ -2,6 +2,7 @@ package com.tarun.talkbuddy.helpers;
 
 import com.tarun.talkbuddy.daos.interfaces.GenericDao;
 import com.tarun.talkbuddy.model.Model;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.io.Serializable;
@@ -29,7 +30,7 @@ public class GenericDaoMocker<T extends Model>
                   return param;
               }
       );
-      Mockito.when(obj.remove(any())).thenAnswer(
+      Mockito.when(obj.remove(anyLong())).thenAnswer(
         invocation -> {
             long id = invocation.getArgument(0);
             if(localStorage.containsKey(id))

@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import { auth  } from './Login/firebase.js'
+import { auth  } from './Auth/firebase.js'
 import {Container,AppBar,Button,Toolbar,Typography} from '@material-ui/core'
 
 

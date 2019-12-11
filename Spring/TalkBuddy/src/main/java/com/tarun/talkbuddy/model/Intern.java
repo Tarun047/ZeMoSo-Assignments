@@ -19,8 +19,7 @@ public class Intern implements Serializable, Cloneable,Model {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    @NaturalId
+    
     @NotNull
     private String name;
 
